@@ -1,0 +1,128 @@
+/** 
+ *  This CSS provides all the style settings for
+ *  our JavaFX controls.
+ *
+ *  @author Weichao Zhao
+    
+ */ 
+
+//deal with the display of the vertical buttion
+.site_edit_vbox {
+    -fx-background-radius: 5.0;
+   -fx-background-color: rgb(255,255,190);
+/*   -fx-background-color: lightgoldenrodyellow;*/
+    -fx-border-color: rgb(200, 200, 200);
+    //these lines change the spacing between the button
+    -fx-padding: 30px 30px 30px 30px;
+    -fx-spacing: 60px;
+    -fx-background-insets: 0,1,2;
+    
+   
+}
+
+//deal with the color of the selected slide 
+.slide_edit_view {
+    -fx-background-radius: 10.0;
+    -fx-background-color: rgb(255,255,100);
+    -fx-border-color: rgb(70, 5, 5);
+    -fx-border-thickness: 10px;
+    -fx-spacing: 60px;
+}
+
+//deal with the HBox of the caption one
+.selected_slide_edit_view {
+    -fx-background-radius: 10.0;
+    -fx-background-color: rgb(250, 190, 190);
+    -fx-border-color: rgb(200, 200, 200);
+    -fx-border-thickness: 10px;
+    -fx-spacing: 60px;
+}
+//deal with the size of the button
+.vertical_toolbar_button {
+    -fx-background-color: rgb(250, 130, 130);
+    -fx-padding: 25px 25px 25px 25px;
+    -fx-spacing: 50px;
+    }
+  
+    //handles the spacing between the horizontal controls
+.horizontal_toolbar_button {
+    -fx-background-radius: 5.0;
+    -fx-alignment: center;
+    
+/*    -fx-background-color: lightgoldenrodyellow;*/
+    -fx-background-color: rgb(255,255,190);
+    -fx-border-color: rgb(200, 200, 200);
+    //these lines change the spacing between the button
+    -fx-padding: 20px 20px 20px 20px;
+    -fx-spacing: 15px;
+    -fx-background-insets: 0,1,2;
+    -fx-hgap: 35px;
+
+  }
+  
+  //set the style and font of the textField like 
+  // caption and title
+  .textField_style{
+      -fx-font-family: 'Helvetica', Arial, sans-serif;
+      -fx-font-style: italic;
+      -fx-background-color: grey;
+      -fx-highlight-text-fill: blue;
+      -fx-font-weight: bold;
+      -fx-font-size: 24;
+      
+      
+  }  
+
+  //deal with the background color of the scene( the application window)
+  .root {
+/*     -fx-background-image: url("/images/slide_show_images/ArchesUtah.jpg");*/
+      // -fx-background-image: url(“/images/slide_show_images/pikachu.png”)；
+        -fx-background-color: yellow;
+        -fx-base: rgb(50,50,50);
+       -fx-control-inner-background: rgb(50,50,50);
+     
+  }
+  
+  //tried to change the language option, but didn't work
+  .language_option_vbox{
+/*       -fx-background-color: rgb(230, 50, 50);
+      -fx-border-color: rgb(200, 200, 200);
+      -fx-padding: 30px 30px 30px 30px;
+      -fx-spacing: 60px;
+      -fx-background-insets: 0,1,2;*/
+/*   -fx-background-radius: 5.0;
+    -fx-background-color: rgb(230, 50, 50);
+    -fx-border-color: rgb(200, 200, 200);*/
+    //these lines change the spacing between the button
+/*    -fx-padding: 30px 30px 30px 30px;
+    -fx-spacing: 60px;
+    -fx-background-insets: 0,1,2;*/
+  -fx-background-color: blue;
+  -fx-padding: 15px;
+  -fx-spacing: 15px;
+    
+
+  } 
+  
+  
+  
+  .OK_BUTTON{
+      
+       -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: red;
+    -fx-font-size: 24px;
+  }
+  
+  //deal with the screen of language selection
+  .Language_selection_screen{
+      -fx-background-color: yellow;
+        -fx-base: rgb(50,50,50);
+       -fx-control-inner-background: rgb(50,50,50);
+      
+  }
+  
+
+  
+

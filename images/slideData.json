@@ -1,0 +1,26 @@
+ 
+{
+    "title":"COOOOLL",
+    "slides":[
+        {
+            "image_file_name":"ArchesUtah.jpg",
+            "image_path":"/Users/weichaozhao/Downloads/SlideshowMaker/images/slide_show_images/",
+            "caption":"hhgg"
+        },
+        {
+            "image_file_name":"CarhengeNebraska.jpg",
+            "image_path":"/Users/weichaozhao/Downloads/SlideshowMaker/images/slide_show_images/",
+            "caption":"12"
+        },
+        {
+            "image_file_name":"BadlandsSouthDakota.jpg",
+            "image_path":"/Users/weichaozhao/Downloads/SlideshowMaker/images/slide_show_images/",
+            "caption":"man"
+        },
+        {
+            "image_file_name":"BadlandsSouthDakota.jpg",
+            "image_path":"/Users/weichaozhao/Downloads/SlideshowMaker/images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        }
+    ]
+}
