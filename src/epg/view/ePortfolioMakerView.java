@@ -12,6 +12,7 @@ import epg.model.PortfolioModel;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_SITE_EDIT_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_PAGE;
+import static eportfoliogenerator.StartupConstants.ICON_EXIT;
 import static eportfoliogenerator.StartupConstants.ICON_REMOVE_PAGE;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -113,6 +114,15 @@ public class ePortfolioMakerView {
               CSS_CLASS_VERTICAL_TOOLBAR_BUTTON,  true);
       removePageButton = this.initChildButton(siteToolbarPane, ICON_REMOVE_PAGE,
               CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, true);
+      selectPageButton = this.initChildButton(siteToolbarPane, ICON_EXIT,
+              CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, true);
+      
+      // AND THIS WILL GO IN THE CENTER
+	pagesEditorPane = new HBox();
+	pagesEditorScrollPane = new ScrollPane(pagesEditorPane);
+//	initTitleControls();
+        workspace.getChildren().add(siteToolbarPane);
+        workspace.getChildren().add(pagesEditorScrollPane);
     }
 
     private void initFileToolbar() {
