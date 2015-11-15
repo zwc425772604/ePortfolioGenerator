@@ -126,7 +126,7 @@ public class ePortfolioMakerView {
     }
 
     private void initFileToolbar() {
-
+      fileController = new FileController(this, fileManager);
     }
 
     private void initEventHandlers() {
