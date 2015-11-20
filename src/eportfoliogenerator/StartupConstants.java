@@ -16,7 +16,7 @@ public class StartupConstants {
     // BUT WE'LL NEED THESE VALUES TO START THE PROCESS
 
     public static String PROPERTY_TYPES_LIST = "property_types.txt";
-    
+    public static String PROPERTIES_SCHEMA_FILE_NAME = "properties_schema.xsd";
     public static String PATH_DATA = "./data/";
     public static String PATH_SLIDE_SHOWS = PATH_DATA + "slide_shows/";
     public static String PATH_IMAGES = "./images/";

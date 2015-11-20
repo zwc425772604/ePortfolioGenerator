@@ -7,6 +7,7 @@ package epg.view;
 
 import epg.controller.FileController;
 import epg.controller.ePortfolioEditController;
+import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
 import epg.model.PortfolioModel;
 import eportfoliogenerator.LanguagePropertyType;
@@ -69,6 +70,8 @@ public class ePortfolioMakerView {
     Button exportPortfolioButton;
     Button exitButton;
     
+    Button page1Button;
+    
     //WORKSPACE
     HBox workspace;
     
@@ -91,6 +94,9 @@ public class ePortfolioMakerView {
     // THIS CONTROLLER WILL ROUTE THE PROPER RESPONSES
     // ASSOCIATED WITH THE FILE TOOLBAR
     private FileController fileController;
+    
+    // THIS CLASS WILL HANDLE ALL ERRORS FOR THIS PROGRAM
+    private ErrorHandler errorHandler;
     
      // THIS CONTROLLER RESPONDS TO SLIDE SHOW EDIT BUTTONS
     private ePortfolioEditController editController;
@@ -125,7 +131,9 @@ public class ePortfolioMakerView {
 	primaryStage = initPrimaryStage;
 	initWindow(windowTitle);
     }
-    
+    public ErrorHandler getErrorHandler() {
+	return errorHandler;
+    }
     
     //UI SETUP HELPER METHODS
     private void initWorkspace(){
@@ -138,20 +146,34 @@ public class ePortfolioMakerView {
       addPageButton = this.initChildButton(siteEditToolbar,ICON_ADD_PAGE, 
             TOOLTIP_ADD_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON,  false);
       removePageButton = this.initChildButton(siteEditToolbar, ICON_REMOVE_PAGE,
-            TOOLTIP_REMOVE_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
-      selectPageButton = this.initChildButton(siteEditToolbar, ICON_EXIT,
+            TOOLTIP_REMOVE_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);//supposed to be true
+      selectPageButton = this.initChildButton(siteEditToolbar, ICON_EXIT,   //false just for testing
             TOOLTIP_SELECT_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
       
-      // AND THIS WILL GO IN THE CENTER
-//	pagesEditorPane = new HBox();
-//	pagesEditorScrollPane = new ScrollPane(pagesEditorPane);
-       
-//	initTitleControls();
-      
+      //buttons for selecting page
+      page1Button = this.initPageButton(siteEditToolbar, "ABOUT ME",
+              CSS_CLASS_VERTICAL_TOOLBAR_BUTTON , false);
+
+        // AND THIS WILL GO IN THE CENTER
         sitesEditorPane = new VBox();
+        
         sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
         workspace.getChildren().add(siteEditToolbar);
         workspace.getChildren().add(sitesEditorScrollPane);
+    }
+    
+    private Button initPageButton(Pane toolbar,
+            String pageName,
+            String cssClass,
+            boolean disable){
+        Button button = new Button();
+	button.getStyleClass().add(cssClass);
+        button.setText(pageName);
+	button.setDisable(disable);
+	
+	toolbar.getChildren().add(button);
+	return button;
+        
     }
 
     private void initFileToolbar() {
@@ -227,7 +249,7 @@ public class ePortfolioMakerView {
         // SETUP THE UI, NOTE WE'LL ADD THE WORKSPACE LATER
 	epgPane = new BorderPane();
 	epgPane.setTop(fileToolbarPane);
-//        epgPane.setLeft(siteEditToolbar);//tested
+        epgPane.setLeft(siteEditToolbar);  //testedddd
 	primaryScene = new Scene(epgPane);
         
         // NOW TIE THE SCENE TO THE WINDOW, SELECT THE STYLESHEET
