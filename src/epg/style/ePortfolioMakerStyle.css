@@ -13,11 +13,27 @@
 /*   -fx-background-color: lightgoldenrodyellow;*/
     -fx-border-color: rgb(200, 200, 200);
     //these lines change the spacing between the button
-    -fx-padding: 30px 30px 30px 30px;
-    -fx-spacing: 60px;
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-spacing: 20px;
     -fx-background-insets: 0,1,2;
     
+    
    
+}
+.textField_style{
+      -fx-font-family: 'Helvetica', Arial, sans-serif;
+      -fx-font-style: italic;
+      -fx-background-color: grey;
+      -fx-highlight-text-fill: blue;
+      -fx-font-weight: bold;
+      -fx-font-size: 24;
+      
+      
+  }  
+
+
+.page_editor_workspace_vbox{
+    -fx-background-color:                                                                                                                                                                                                               111  
 }
 
 //deal with the color of the selected slide 
@@ -40,23 +56,23 @@
 //deal with the size of the button
 .vertical_toolbar_button {
     -fx-background-color: rgb(250, 130, 130);
-    -fx-padding: 25px 25px 25px 25px;
-    -fx-spacing: 50px;
+    -fx-padding: 15px 15px 15px 15px;
+    -fx-spacing: 30px;
     }
   
     //handles the spacing between the horizontal controls
 .horizontal_toolbar_button {
     -fx-background-radius: 5.0;
-    -fx-alignment: center;
+/*    -fx-alignment: center;*/
     
 /*    -fx-background-color: lightgoldenrodyellow;*/
     -fx-background-color: rgb(255,255,190);
     -fx-border-color: rgb(200, 200, 200);
     //these lines change the spacing between the button
     -fx-padding: 20px 20px 20px 20px;
-    -fx-spacing: 15px;
+    -fx-spacing: 10px;
     -fx-background-insets: 0,1,2;
-    -fx-hgap: 35px;
+    -fx-hgap: 50px;
 
   }
   

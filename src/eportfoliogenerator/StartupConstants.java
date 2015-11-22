@@ -35,7 +35,12 @@ public class StartupConstants {
     public static String ICON_ADD_PAGE = "Add.png";
     public static String ICON_REMOVE_PAGE = "Remove.png";
     
-
+// UI LABELS
+    public static String    LABEL_PAGE_TITLE = "page_title";
+    public static String    LABEL_LANGUAGE_SELECTION_PROMPT = "Select a Language:";
+    public static String    OK_BUTTON_TEXT = "OK";
+    public static String    CSS_CLASS_LANGUAGE_OPTION_VBOX = "language_option_vbox";
+    
     // UI SETTINGS
     
     public static int	    DEFAULT_THUMBNAIL_WIDTH = 200;
@@ -45,5 +50,7 @@ public class StartupConstants {
     public static String    CSS_CLASS_VERTICAL_TOOLBAR_BUTTON = "vertical_toolbar_button";
     public static String    CSS_CLASS_SITE_EDIT_VBOX = "site_edit_vbox";
     public static String    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON = "horizontal_toolbar_button";
+    public static String    CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX = "page_editor_workspace_vbox";
+    public static String    CSS_CLASS_TEXTFIELD_STYLE = "textField_style";
 }
 
