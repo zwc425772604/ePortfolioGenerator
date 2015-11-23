@@ -112,8 +112,8 @@ public class ePortfolioMakerView {
     VBox sitesEditorPane;
     
     //THIS WILL GO IN THE RIGHT OF THE SCREEN
-    VBox pageEditorWorkspace;
-    ScrollPane pagesEditorScrollPane;
+    VBox pageEditorToolbar;
+    ScrollPane pagesEditorToolbarScrollPane;
     Button selectBannerImageButton; //pop up dialog
     
     //FOR ENTERING TEXT 
@@ -209,15 +209,15 @@ public class ePortfolioMakerView {
     }
     
     public void initPageEditorWorkspaceButton(){
-        pageEditorWorkspace = new VBox();
-        pageEditorWorkspace.getStyleClass().add(CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX);
+        pageEditorToolbar = new VBox();
+        pageEditorToolbar.getStyleClass().add(CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX);
 //      
 	
-        pagesEditorScrollPane = new ScrollPane(pageEditorWorkspace);
+        pagesEditorToolbarScrollPane = new ScrollPane(pageEditorToolbar);
         
-        pageTitleVBox = this.initPageTextfieldControl(pageEditorWorkspace,"Title:","ENTER THE TITLE");
-        studentNameVBox = this.initPageTextfieldControl(pageEditorWorkspace,"Student Name:", "ENTER STUDENT NAME");
-        footerVBox = this.initPageTextfieldControl(pageEditorWorkspace, "Footer:", "ENTER THE FOOTER");
+        pageTitleVBox = this.initPageTextfieldControl(pageEditorToolbar,"Title:","ENTER THE TITLE");
+        studentNameVBox = this.initPageTextfieldControl(pageEditorToolbar,"Student Name:", "ENTER STUDENT NAME");
+        footerVBox = this.initPageTextfieldControl(pageEditorToolbar, "Footer:", "ENTER THE FOOTER");
 //	initPageTitleControl(pageEditorWorkspace);
 //    Button addTextComponentButton; // dialog
 //    Button addImageComponentButton;//dialog
@@ -231,13 +231,13 @@ public class ePortfolioMakerView {
 //    Button addTextHyperlinkButton;//dialog
         
         //PAGE EDITOR CONTROLL
-      editTextHyperlinkButton = this.initChildButton(pageEditorWorkspace, ICON_EDIT_THE_HYPERLINK,
+      editTextHyperlinkButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_THE_HYPERLINK,
              TOOLTIP_EDIT_THE_HYPERLINK, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-     addTextComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_TEXT_COMPONENT,
+     addTextComponentButton = this.initChildButton(pageEditorToolbar, ICON_ADD_TEXT_COMPONENT,
              TOOLTIP_ADD_TEXT_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-     removeComponentButton = this.initChildButton(pageEditorWorkspace, ICON_REMOVE_COMPONENT ,
+     removeComponentButton = this.initChildButton(pageEditorToolbar, ICON_REMOVE_COMPONENT ,
              TOOLTIP_REMOVE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-     addImageComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_IMAGE_COMPONENT,
+     addImageComponentButton = this.initChildButton(pageEditorToolbar, ICON_ADD_IMAGE_COMPONENT,
              TOOLTIP_ADD_IMAGE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
         
 
@@ -397,7 +397,7 @@ public class ePortfolioMakerView {
     
     
        public void addToolbarToPageEditWorkspace(Pane pane){
-           pageEditorWorkspace.getChildren().add(pane);
+           pageEditorToolbar.getChildren().add(pane);
        }
 
     private void initWindow(String windowTitle) {
@@ -419,7 +419,7 @@ public class ePortfolioMakerView {
 	epgPane.setTop(fileToolbarPane);
         epgPane.setBottom(workspaceModeToolbar);
         epgPane.setLeft(siteEditToolbar);  //testedddd
-        epgPane.setRight(pageEditorWorkspace);
+        epgPane.setRight(pageEditorToolbar);
 	primaryScene = new Scene(epgPane);
         
         // NOW TIE THE SCENE TO THE WINDOW, SELECT THE STYLESHEET

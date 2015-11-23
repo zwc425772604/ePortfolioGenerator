@@ -31,9 +31,6 @@ public class paragraphDialog extends Stage {
     Button cancelButton;
     
     Label fontLabel;
-    
-    
-    
     TextField contentsTextField;
     
     TextField fontTextField;

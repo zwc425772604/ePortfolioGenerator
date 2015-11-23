@@ -45,7 +45,7 @@ public class addTextComponentDialog extends Stage{
 	textCompChoices.add("paragraph");
 	textCompChoices.add("header");
         textCompChoices.add("list");
-	textCompComboBox = new ComboBox(textCompChoices);
+        textCompComboBox = new ComboBox(textCompChoices);
 	textCompComboBox.getSelectionModel().select("paragraph");
         textCompComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
         
