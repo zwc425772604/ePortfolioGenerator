@@ -24,6 +24,7 @@ public class StartupConstants {
     
     public static String PATH_CSS = "/epg/style/";
     public static String STYLE_SHEET_UI = PATH_CSS + "ePortfolioMakerStyle.css";
+    public static String DIALOG_STYLE_SHEET = PATH_CSS + "DialogStyle.css";
    
     // HERE ARE THE LANGUAGE INDEPENDENT GUI ICONS
     
@@ -39,7 +40,7 @@ public class StartupConstants {
     public static String    LABEL_PAGE_TITLE = "page_title";
     public static String    LABEL_LANGUAGE_SELECTION_PROMPT = "Select a Language:";
     public static String    OK_BUTTON_TEXT = "OK";
-    public static String    CSS_CLASS_LANGUAGE_OPTION_VBOX = "language_option_vbox";
+    public static String    CSS_CLASS_TEXT_COMPONENT_OPTION_VBOX = "text_component_option_vbox";
     
     // UI SETTINGS
     
@@ -52,5 +53,15 @@ public class StartupConstants {
     public static String    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON = "horizontal_toolbar_button";
     public static String    CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX = "page_editor_workspace_vbox";
     public static String    CSS_CLASS_TEXTFIELD_STYLE = "textField_style";
+    public static String    CSS_CLASS_PAGE_LABEL = "page_label";
+    
+    public static String    CSS_CLASS_TEXT_COMPONENT_COMBOBOX = "text_component_combobox";
+    
+    
+    //CSS STYLE SHEET FOR DIALOG    
+    public static String    CSS_CLASS_OK_BUTTON = "OK_BUTTON";
+    public static String    CSS_CLASS_CANCEL_BUTTON = "CANCEL_BUTTON";
+    public static String    CSS_CLASS_LANGUAGE_SELECTION_SCREEN = "language_selection_screen";
+    public static String    CSS_CLASS_LANG_COMBOBOX = "language_ComboBox";
 }
 

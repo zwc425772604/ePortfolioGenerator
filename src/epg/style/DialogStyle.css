@@ -6,42 +6,18 @@
     
  */ 
 
-//deal with the display of the vertical buttion
-.site_edit_vbox {
-    -fx-background-radius: 5.0;
-   -fx-background-color: rgb(255,255,190);
-/*   -fx-background-color: lightgoldenrodyellow;*/
-    -fx-border-color: rgb(200, 200, 200);
-    //these lines change the spacing between the button
-    -fx-padding: 10px 10px 10px 10px;
-    -fx-spacing: 20px;
-    -fx-background-insets: 0,1,2;
-    
-    
-   
-}
 
-.page_editor_workspace_vbox{
-    -fx-background-color:                                                                                                                                                                                                               111  
-}
+ .text_component_combobox{
+/*        -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;*/
+    -fx-padding: 15 15 15 15;
+    -fx-text-fill: black;
+    -fx-font-size: 16px; 
+  }
 
-//deal with the color of the selected slide 
-.slide_edit_view {
-    -fx-background-radius: 10.0;
-    -fx-background-color: rgb(255,255,100);
-    -fx-border-color: rgb(70, 5, 5);
-    -fx-border-thickness: 10px;
-    -fx-spacing: 60px;
-}
 
-//deal with the HBox of the caption one
-.selected_slide_edit_view {
-    -fx-background-radius: 10.0;
-    -fx-background-color: rgb(250, 190, 190);
-    -fx-border-color: rgb(200, 200, 200);
-    -fx-border-thickness: 10px;
-    -fx-spacing: 60px;
-}
+
+
 //deal with the size of the button
 .vertical_toolbar_button {
     -fx-background-color: rgb(250, 130, 130);
@@ -93,7 +69,7 @@
   }
   
   //tried to change the language option, but didn't work
-  .language_option_vbox{
+  .text_component_option_vbox{
 /*       -fx-background-color: rgb(230, 50, 50);
       -fx-border-color: rgb(200, 200, 200);
       -fx-padding: 30px 30px 30px 30px;
@@ -117,6 +93,14 @@
   
   .OK_BUTTON{
       
+       -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: red;
+    -fx-font-size: 24px;
+  }
+  
+  .CANCEL_BUTTON{
        -fx-background-insets: 0,1,2;
     -fx-background-radius: 3,2,1;
     -fx-padding: 3 30 3 30;

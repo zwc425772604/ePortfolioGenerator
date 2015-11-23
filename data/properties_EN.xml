@@ -23,13 +23,18 @@
         <property name="TOOLTIP_PREVIOUS_SLIDE"	    value="Previous Slide"></property>
         <property name="TOOLTIP_NEXT_SLIDE"	    value="Next Slide"></property>
         <property name="TOOLTIP_SELECT_PAGE"    value="Select This Page"></property>
+        <property name="TOOLTIP_EDIT_THE_HYPERLINK"  value="Edit The Hyperlink"></property>
+        <property name="TOOLTIP_ADD_TEXT_COMPONENT"  value="Add Text Component"></property>
+        <property name="TOOLTIP_REMOVE_COMPONENT"    value="Remove Component"></property>
         <!-- DEFAULT VALUES -->
         <property name="DEFAULT_IMAGE_CAPTION"	    value="ENTER CAPTION"></property>
         <property name="DEFAULT_PAGE_TITLE"   value="ENTER TITLE"></property>
-        <property NAME="DEFAULT_STUDENT_NAME" VALUE="ENTER STUDENT NAME"></property>
+        <property name="DEFAULT_STUDENT_NAME" value="ENTER STUDENT NAME"></property>
         
         <!-- UI LABELS -->
-        <property name="LABEL_CAPTION"		    value="Caption:"></property>
+        <property name="LABEL_STUDENT_NAME"		    value="Student Name:"></property>
+        <property name="LABEL_PAGE_TITLE"      value="Page Title:"></property>
+        <property name="LABEL_FOOTER"          value="Footer:"></property>
         
         <!-- GUI LABELS -->
         <property name="COURSE_HEADING_LABEL"           value="Course Site Details"></property>

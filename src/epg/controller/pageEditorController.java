@@ -5,10 +5,26 @@
  */
 package epg.controller;
 
+import epg.dialog.addTextComponentDialog;
+import epg.view.ePortfolioMakerView;
+
 /**
  *
  * @author weichaozhao
  */
+
+
 public class pageEditorController {
+    private ePortfolioMakerView ui;
+    
+    public pageEditorController(ePortfolioMakerView initUI){
+        ui = initUI;
+    }
+
+    public void processAddTextComponent() {
+        addTextComponentDialog textDialog = new addTextComponentDialog();
+	textDialog.showAndWait();
+    }
+    
     
 }

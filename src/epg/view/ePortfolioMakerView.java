@@ -7,12 +7,13 @@ package epg.view;
 
 import epg.controller.FileController;
 import epg.controller.ePortfolioEditController;
+import epg.controller.pageEditorController;
 import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
 import epg.model.PortfolioModel;
 import eportfoliogenerator.LanguagePropertyType;
-import static eportfoliogenerator.LanguagePropertyType.LABEL_PAGE_TITLE;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_PAGE;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_TEXT_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXIT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_LOAD_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_NEW_PORTFOLIO;
@@ -21,9 +22,11 @@ import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SAVE_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SAVE_AS_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXPORT_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_THE_HYPERLINK;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_REMOVE_COMPONENT;
 
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_LABEL;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_SITE_EDIT_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
@@ -34,6 +37,7 @@ import static eportfoliogenerator.StartupConstants.ICON_NEW_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_REMOVE_PAGE;
 import static eportfoliogenerator.StartupConstants.ICON_SAVE_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_EXPORT_PORTFOLIO;
+import static eportfoliogenerator.StartupConstants.LABEL_PAGE_TITLE;
 import static eportfoliogenerator.StartupConstants.PATH_ICONS;
 import static eportfoliogenerator.StartupConstants.STYLE_SHEET_UI;
 import javafx.geometry.Rectangle2D;
@@ -94,18 +98,13 @@ public class ePortfolioMakerView {
     
     //THIS WILL GO IN THE RIGHT OF THE SCREEN
     VBox pageEditorWorkspace;
+    ScrollPane pagesEditorScrollPane;
     Button selectBannerImageButton; //pop up dialog
     
-    //FOR ENTERING TEXT
-    FlowPane pageTitlePane;
-    Label pageTitleLabel;
-    TextField pageTitleTextfield;
-    FlowPane studentNamePane;
-    Label studentNameLabel;
-    TextField studentNameTextfield;
-    FlowPane footerPane;
-    Label footerLabel;
-    TextField footerTextfield;
+    //FOR ENTERING TEXT 
+    VBox pageTitleVBox;
+    VBox studentNameVBox;
+    VBox footerVBox;
     
     Button addTextComponentButton; // dialog
     Button addImageComponentButton;//dialog
@@ -136,6 +135,7 @@ public class ePortfolioMakerView {
     
      // THIS CONTROLLER RESPONDS TO SLIDE SHOW EDIT BUTTONS
     private ePortfolioEditController editController;
+    private pageEditorController pageController;
 
     public ePortfolioMakerView(ePortfolioFileManager initFileManager) {
         fileManager = initFileManager;
@@ -159,11 +159,16 @@ public class ePortfolioMakerView {
 	// TO THE WINDOW YET
 	initWorkspace();
 
-	// NOW SETUP THE EVENT HANDLERS
+	
+        
+         //INIT THE RIGHT WORKSPACE CONTROLS
+        initPageEditorWorkspaceButton();
+        
+        // NOW SETUP THE EVENT HANDLERS
 	initEventHandlers();
         
         //INIT THE RIGHT WORKSPACE CONTROLS
-        initPageEditorWorkspaceButton();
+        
 
 	// AND FINALLY START UP THE WINDOW (WITHOUT THE WORKSPACE)
 	// KEEP THE WINDOW FOR LATER
@@ -177,6 +182,14 @@ public class ePortfolioMakerView {
     public void initPageEditorWorkspaceButton(){
         pageEditorWorkspace = new VBox();
         pageEditorWorkspace.getStyleClass().add(CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX);
+//      
+	
+        pagesEditorScrollPane = new ScrollPane(pageEditorWorkspace);
+        
+        pageTitleVBox = this.initPageTextfieldControl(pageEditorWorkspace,"Title:","ENTER THE TITLE");
+        studentNameVBox = this.initPageTextfieldControl(pageEditorWorkspace,"Student Name:", "ENTER STUDENT NAME");
+        footerVBox = this.initPageTextfieldControl(pageEditorWorkspace, "Footer:", "ENTER THE FOOTER");
+//	initPageTitleControl(pageEditorWorkspace);
 //    Button addTextComponentButton; // dialog
 //    Button addImageComponentButton;//dialog
 //    Button addSlideshowComponenetButton;//dialog
@@ -187,12 +200,25 @@ public class ePortfolioMakerView {
 //    Button editSlideshowComponentButton;//dialog
 //    Button editVideoComponentButton;//dialog
 //    Button addTextHyperlinkButton;//dialog
-     editTextHyperlinkButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
+        
+        //PAGE EDITOR CONTROLL
+      editTextHyperlinkButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
              TOOLTIP_EDIT_THE_HYPERLINK, ICON_EXIT, false);
      addTextComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
-             TOOLTIP_EXIT, ICON_EXIT, false);
+             TOOLTIP_ADD_TEXT_COMPONENT, ICON_EXIT, false);
+     removeComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE ,
+             TOOLTIP_REMOVE_COMPONENT, ICON_EXIT, false);
+     
+        
+
       
     }
+//    private VBox initPageTextfieldControl(Pane testPane){
+//        
+//        return vbox;
+//        
+//    
+//    }
     
     //UI SETUP HELPER METHODS
     private void initWorkspace(){
@@ -211,9 +237,13 @@ public class ePortfolioMakerView {
       page1Button = this.initPageButton(siteEditToolbar, "ABOUT ME",
               CSS_CLASS_VERTICAL_TOOLBAR_BUTTON , false);
 
+     
+      
+      
+      
+      
         // AND THIS WILL GO IN THE CENTER
         sitesEditorPane = new VBox();
-        
         sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
 //        workspace.getChildren().add(siteEditToolbar);
 //        workspace.getChildren().add(sitesEditorScrollPane);
@@ -231,26 +261,6 @@ public class ePortfolioMakerView {
 	toolbar.getChildren().add(button);
 	return button;
         
-    }
-    
-    private void initPageTitleControl(){
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-	String labelPrompt = props.getProperty(LABEL_PAGE_TITLE);
-	pageTitlePane = new FlowPane();
-	pageTitleLabel = new Label(labelPrompt);
-	pageTitleTextfield = new TextField();
-        pageTitleTextfield.setFont(Font.font("Serif",20));
-        
-	pageTitleTextfield.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-	pageTitlePane.getChildren().add(pageTitleLabel);
-	pageTitlePane.getChildren().add(pageTitleTextfield);
-	
-	String titlePrompt = props.getProperty(LanguagePropertyType.LABEL_PAGE_TITLE);
-	pageTitleTextfield.setText(titlePrompt);
-	
-	pageTitleTextfield.textProperty().addListener(e -> {
-	    portfolio.setTitle(pageTitleTextfield.getText());
-	});
     }
 
     private void initFileToolbar() {
@@ -275,7 +285,7 @@ public class ePortfolioMakerView {
     
 
     private void initEventHandlers() {
-        fileController = new FileController(this, fileManager);
+       fileController = new FileController(this, fileManager);
         newPortfolioButton.setOnAction(e -> {
          fileController.handleNewPortfolioRequest();
         });
@@ -300,12 +310,62 @@ public class ePortfolioMakerView {
         addPageButton.setOnAction(e -> {
 	    editController.processAddPageRequest();
 	});
+        
 	removePageButton.setOnAction(e -> {
 	    editController.processRemovePageRequest();
+            
 	});
         
+        pageController = new pageEditorController(this);
+        addTextComponentButton.setOnAction(e -> {
+            pageController.processAddTextComponent();
+        });
+        
+     
 	
     }
+    
+       public VBox initPageTextfieldControl(Pane pane, String nameLabel, String namePrompt){
+           
+            pageTitleVBox = new VBox();
+        Label lbl = new Label(nameLabel);
+        lbl.getStyleClass().add(CSS_CLASS_PAGE_LABEL);
+        TextField tf = new TextField();
+        tf.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+        pageTitleVBox.getChildren().add(lbl);
+        pageTitleVBox.getChildren().add(tf);
+        String titlePrompt = namePrompt;
+        tf.setText(titlePrompt);
+        tf.textProperty().addListener(e -> {
+	    portfolio.setTitle(tf.getText());
+	});
+        pane.getChildren().add(pageTitleVBox);
+        return pageTitleVBox;
+       }
+//        PropertiesManager props = PropertiesManager.getPropertiesManager();
+//	String labelPrompt = props.getProperty(LABEL_PAGE_TITLE);
+//	pageTitlePane = new FlowPane();
+//	pageTitleLabel = new Label(labelPrompt);
+//	pageTitleTextfield = new TextField();
+//        pageTitleTextfield.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+//	pageTitlePane.getChildren().add(pageTitleLabel);
+//	pageTitlePane.getChildren().add(pageTitleTextfield);
+//	
+//	String titlePrompt = props.getProperty(LanguagePropertyType.LABEL_PAGE_TITLE);
+//	pageTitleTextfield.setText(titlePrompt);
+//	
+//	pageTitleTextfield.textProperty().addListener(e -> {
+//	    portfolio.setTitle(pageTitleTextfield.getText());
+//	});
+//        pageEditorWorkspace.getChildren().add(pageTitlePane);
+       
+       
+//        addToolbarToPageEditWorkspace(pageTitlePane);
+    
+    
+       public void addToolbarToPageEditWorkspace(Pane pane){
+           pageEditorWorkspace.getChildren().add(pane);
+       }
 
     private void initWindow(String windowTitle) {
         //SET THE WINDOW TITLE
@@ -353,6 +413,8 @@ public class ePortfolioMakerView {
 	toolbar.getChildren().add(button);
 	return button;
     }
+    
+   
 }
     
 
