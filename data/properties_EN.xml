@@ -27,7 +27,8 @@
         <property name="TOOLTIP_ADD_TEXT_COMPONENT"  value="Add Text Component"></property>
         <property name="TOOLTIP_REMOVE_COMPONENT"    value="Remove Component"></property>
         <property name="TOOLTIP_ADD_IMAGE_COMPONENT" value="Add Image Component"></property>
-        
+        <property name="TOOLTIP_SELECT_EDITOR_WORKSPACE" value="Select Page Editor Workspace"></property>
+        <property name="TOOLTIP_SELECT_VIEWER_WORKSPACE" value="Select Site Viewer Workspace"></property>
         
         <!-- DEFAULT VALUES -->
         <property name="DEFAULT_IMAGE_CAPTION"	    value="ENTER CAPTION"></property>

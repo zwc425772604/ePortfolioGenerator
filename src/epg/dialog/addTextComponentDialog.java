@@ -83,6 +83,28 @@ public class addTextComponentDialog extends Stage{
 //        vBox.getStyleClass().add(CSS_CLASS_LANGUAGE_OPTION_VBOX);
 	okButton.setOnAction(e -> {
 	    selectedTypeComponent = textCompComboBox.getSelectionModel().getSelectedItem().toString();
+            if (selectedTypeComponent.equals("paragraph")){
+                paragraphDialog dialog = new paragraphDialog();
+//                this.hide();
+//                dialog.showAndWait();
+                dialog.show();
+                this.hide();
+            }
+            if (selectedTypeComponent.equals("header")){
+               
+                headerDialog dialog = new headerDialog();
+                dialog.show();
+//                 dialog.showAndWait();
+                 this.hide();
+            }
+            if (selectedTypeComponent.equals("list")){
+               listDialog dialog = new listDialog();
+//               this.hide();
+//                dialog.showAndWait();
+               dialog.show();
+               this.hide();
+            }
+            
             //TODO
             //execute the textfield
 	    this.hide();

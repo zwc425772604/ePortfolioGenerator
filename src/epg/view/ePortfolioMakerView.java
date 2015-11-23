@@ -24,6 +24,8 @@ import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SAVE_AS_PORTFOLIO
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXPORT_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_THE_HYPERLINK;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_REMOVE_COMPONENT;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SELECT_EDITOR_WORKSPACE;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SELECT_VIEWER_WORKSPACE;
 
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX;
@@ -32,13 +34,19 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_SITE_EDIT_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_BUTTON;
+import static eportfoliogenerator.StartupConstants.ICON_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_PAGE;
+import static eportfoliogenerator.StartupConstants.ICON_ADD_TEXT_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_EDIT_THE_HYPERLINK;
 import static eportfoliogenerator.StartupConstants.ICON_EXIT;
 import static eportfoliogenerator.StartupConstants.ICON_LOAD_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_NEW_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_REMOVE_PAGE;
 import static eportfoliogenerator.StartupConstants.ICON_SAVE_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_EXPORT_PORTFOLIO;
+import static eportfoliogenerator.StartupConstants.ICON_REMOVE_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_SELECT_EDITOR_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_SELECT_VIEWER_COMPONENT;
 import static eportfoliogenerator.StartupConstants.LABEL_PAGE_TITLE;
 import static eportfoliogenerator.StartupConstants.PATH_ICONS;
 import static eportfoliogenerator.StartupConstants.STYLE_SHEET_UI;
@@ -87,6 +95,11 @@ public class ePortfolioMakerView {
     
     //WORKSPACE
     HBox workspace;
+    
+    //WORKSPACE MODE TOOLBAR
+    FlowPane workspaceModeToolbar;
+    Button selectPageEditorWorkspaceButton;
+    Button selectSiteViewerWorkspaceButton;
     
     //THIS WILL GO IN THE LEFT SIDE OF THE SCREEN
     VBox siteEditToolbar;
@@ -166,6 +179,9 @@ public class ePortfolioMakerView {
          //INIT THE RIGHT WORKSPACE CONTROLS
         initPageEditorWorkspaceButton();
         
+        //INIT THE WORKSPACE MODE TOOLBAR CONTROLS
+        initWorkspaceModeToolbar();
+        
         // NOW SETUP THE EVENT HANDLERS
 	initEventHandlers();
         
@@ -177,6 +193,17 @@ public class ePortfolioMakerView {
 	primaryStage = initPrimaryStage;
 	initWindow(windowTitle);
     }
+    
+    public void initWorkspaceModeToolbar(){
+        workspaceModeToolbar = new FlowPane();
+        
+        selectPageEditorWorkspaceButton = this.initChildButton(workspaceModeToolbar,ICON_SELECT_EDITOR_COMPONENT,
+                TOOLTIP_SELECT_EDITOR_WORKSPACE,  CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+        selectSiteViewerWorkspaceButton = this.initChildButton(workspaceModeToolbar, ICON_SELECT_VIEWER_COMPONENT,
+                TOOLTIP_SELECT_VIEWER_WORKSPACE, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+    }
+    
+    
     public ErrorHandler getErrorHandler() {
 	return errorHandler;
     }
@@ -204,13 +231,13 @@ public class ePortfolioMakerView {
 //    Button addTextHyperlinkButton;//dialog
         
         //PAGE EDITOR CONTROLL
-      editTextHyperlinkButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
+      editTextHyperlinkButton = this.initChildButton(pageEditorWorkspace, ICON_EDIT_THE_HYPERLINK,
              TOOLTIP_EDIT_THE_HYPERLINK, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-     addTextComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
+     addTextComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_TEXT_COMPONENT,
              TOOLTIP_ADD_TEXT_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-     removeComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE ,
+     removeComponentButton = this.initChildButton(pageEditorWorkspace, ICON_REMOVE_COMPONENT ,
              TOOLTIP_REMOVE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-     addImageComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
+     addImageComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_IMAGE_COMPONENT,
              TOOLTIP_ADD_IMAGE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
         
 
@@ -230,6 +257,7 @@ public class ePortfolioMakerView {
     
     // THIS WILL GO IN THE LEFT SIDE OF THE SCREEN
       siteEditToolbar = new VBox();
+      siteEditToolbar.setPrefWidth(148);
       siteEditToolbar.getStyleClass().add(CSS_CLASS_SITE_EDIT_VBOX);
       addPageButton = this.initChildButton(siteEditToolbar,ICON_ADD_PAGE, 
             TOOLTIP_ADD_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON,  false);
@@ -389,6 +417,7 @@ public class ePortfolioMakerView {
         // SETUP THE UI, NOTE WE'LL ADD THE WORKSPACE LATER
 	epgPane = new BorderPane();
 	epgPane.setTop(fileToolbarPane);
+        epgPane.setBottom(workspaceModeToolbar);
         epgPane.setLeft(siteEditToolbar);  //testedddd
         epgPane.setRight(pageEditorWorkspace);
 	primaryScene = new Scene(epgPane);

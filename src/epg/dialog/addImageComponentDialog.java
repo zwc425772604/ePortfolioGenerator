@@ -50,6 +50,7 @@ public class addImageComponentDialog extends Stage {
     TextField imgHeightTextField;
     TextField imgWidthTextField;
     
+    Label imgFloatLabel;
     ComboBox imgFloatComboBox;
     
    
@@ -102,6 +103,7 @@ public class addImageComponentDialog extends Stage {
         imgHeightTextField.setMaxWidth(250);
         
         // INIT THE TEXT COMPONENT CHOICE
+        imgFloatLabel = new Label("Image Float Layout");
 	ObservableList<String> imgFloatChoices = FXCollections.observableArrayList();
 	imgFloatChoices.add("LEFT");
 	imgFloatChoices.add("RIGHT");
@@ -123,6 +125,7 @@ public class addImageComponentDialog extends Stage {
         vBox.getChildren().add(captionTextField);
         vBox.getChildren().add(imgWidthLabel);
         vBox.getChildren().add(imgWidthTextField);
+        vBox.getChildren().add(imgFloatLabel);
         vBox.getChildren().add(imgFloatComboBox);
         vBox.getChildren().add(okButton);
         vBox.getChildren().add(cancelButton);
