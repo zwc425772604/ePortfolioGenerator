@@ -21,6 +21,7 @@ public class StartupConstants {
     public static String PATH_SLIDE_SHOWS = PATH_DATA + "slide_shows/";
     public static String PATH_IMAGES = "./images/";
     public static String PATH_ICONS = PATH_IMAGES + "icons/";
+     public static String PATH_SLIDE_SHOW_IMAGES = PATH_IMAGES + "slide_show_images/";
     
     public static String PATH_CSS = "/epg/style/";
     public static String STYLE_SHEET_UI = PATH_CSS + "ePortfolioMakerStyle.css";
@@ -57,6 +58,8 @@ public class StartupConstants {
     
     public static String    CSS_CLASS_TEXT_COMPONENT_COMBOBOX = "text_component_combobox";
     
+    //CSS FOR PAGE EDITOR WORKSPACE
+    public static String    CSS_CLASS_PAGE_EDITOR_BUTTON = "page_editor_button";
     
     //CSS STYLE SHEET FOR DIALOG    
     public static String    CSS_CLASS_OK_BUTTON = "OK_BUTTON";

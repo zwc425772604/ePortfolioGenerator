@@ -12,6 +12,7 @@ import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
 import epg.model.PortfolioModel;
 import eportfoliogenerator.LanguagePropertyType;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_PAGE;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_TEXT_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXIT;
@@ -30,6 +31,7 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_LABEL;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_SITE_EDIT_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_BUTTON;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_PAGE;
 import static eportfoliogenerator.StartupConstants.ICON_EXIT;
 import static eportfoliogenerator.StartupConstants.ICON_LOAD_PORTFOLIO;
@@ -203,12 +205,13 @@ public class ePortfolioMakerView {
         
         //PAGE EDITOR CONTROLL
       editTextHyperlinkButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
-             TOOLTIP_EDIT_THE_HYPERLINK, ICON_EXIT, false);
+             TOOLTIP_EDIT_THE_HYPERLINK, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      addTextComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
-             TOOLTIP_ADD_TEXT_COMPONENT, ICON_EXIT, false);
+             TOOLTIP_ADD_TEXT_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      removeComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE ,
-             TOOLTIP_REMOVE_COMPONENT, ICON_EXIT, false);
-     
+             TOOLTIP_REMOVE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     addImageComponentButton = this.initChildButton(pageEditorWorkspace, ICON_ADD_PAGE,
+             TOOLTIP_ADD_IMAGE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
         
 
       
@@ -320,7 +323,9 @@ public class ePortfolioMakerView {
         addTextComponentButton.setOnAction(e -> {
             pageController.processAddTextComponent();
         });
-        
+        addImageComponentButton.setOnAction(e ->{
+            pageController.processAddImageComponent();
+        });
      
 	
     }

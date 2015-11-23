@@ -22,8 +22,9 @@
 }
 
 .page_editor_workspace_vbox{
-    -fx-background-color:                                                                                                                                                                                                               111  
+/*    -fx-background-color: green; */
 }
+
 
 //deal with the color of the selected slide 
 .slide_edit_view {

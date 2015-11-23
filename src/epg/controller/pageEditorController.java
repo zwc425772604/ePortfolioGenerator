@@ -5,6 +5,7 @@
  */
 package epg.controller;
 
+import epg.dialog.addImageComponentDialog;
 import epg.dialog.addTextComponentDialog;
 import epg.view.ePortfolioMakerView;
 
@@ -24,6 +25,11 @@ public class pageEditorController {
     public void processAddTextComponent() {
         addTextComponentDialog textDialog = new addTextComponentDialog();
 	textDialog.showAndWait();
+    }
+
+    public void processAddImageComponent() {
+        addImageComponentDialog imageDialog = new addImageComponentDialog();
+	imageDialog.showAndWait();
     }
     
     
