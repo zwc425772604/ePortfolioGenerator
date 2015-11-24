@@ -89,7 +89,7 @@ public class paragraphDialog extends Stage {
         
         okButton.setOnAction(e -> {
             
-            selectedFont = ((Integer) fontSizeComboBox.getSelectionModel().getSelectedItem()).intValue();
+//            selectedFont = ((Integer) fontSizeComboBox.getSelectionModel().getSelectedItem()).intValue();
             //TODO 
             
             this.hide();

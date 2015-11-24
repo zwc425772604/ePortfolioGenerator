@@ -6,9 +6,11 @@
 package epg.dialog;
 
 import epg.controller.ImageSelectionController;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_OPTION_VBOX;
 import static eportfoliogenerator.StartupConstants.DIALOG_STYLE_SHEET;
 import java.io.File;
 import java.net.URL;
@@ -121,6 +123,7 @@ public class addImageComponentDialog extends Stage {
         vBox = new VBox();
         
         vBox = new VBox();
+        vBox.getStyleClass().add(CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX);
         vBox.getChildren().add(imgLabel);
         vBox.getChildren().add(imageSelectionView);
         vBox.getChildren().add(captionLabel);
@@ -145,7 +148,11 @@ public class addImageComponentDialog extends Stage {
 	    this.hide();
 	});
         
-        Scene scene = new Scene(vBox, 600,600);
+        cancelButton.setOnAction(e ->{
+            this.hide();
+        });
+        
+        Scene scene = new Scene(vBox, 650,650);
         scene.getStylesheets().add(DIALOG_STYLE_SHEET);
 	setScene(scene);
     }

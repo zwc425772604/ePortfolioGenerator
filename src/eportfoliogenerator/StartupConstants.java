@@ -47,13 +47,17 @@ public class StartupConstants {
     public static String ICON_ADD_TEXT_HYPERLINK = "link71.png";
     public static String ICON_EDIT_VIDEO_COMPONENT = "videocamera1.png";
     public static String ICON_EDIT_SLIDE_SHOW_COMPONENT = "triangle7.png";
-    public static String ICON_SELECT_BANNER_IMAGE = "picture37.png";
+    public static String ICON_SELECT_BANNER_IMAGE = "photography111.png";
+    public static String ICON_EDIT_TEXT_COMPONENT = "configure.png";
+    public static String ICON_EDIT_IMAGE_COMPONENT = "picture37.png";
+    public static String ICON_ADD_SLIDESHOW_COMPONENT = "photo213.png";
     
 // UI LABELS
     public static String    LABEL_PAGE_TITLE = "page_title";
     public static String    LABEL_LANGUAGE_SELECTION_PROMPT = "Select a Language:";
     public static String    OK_BUTTON_TEXT = "OK";
     public static String    CSS_CLASS_TEXT_COMPONENT_OPTION_VBOX = "text_component_option_vbox";
+    public static String    CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX = "image_component_option_vbox";
     
     // UI SETTINGS
     

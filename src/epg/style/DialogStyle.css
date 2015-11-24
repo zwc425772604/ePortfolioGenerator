@@ -14,8 +14,20 @@
     -fx-text-fill: black;
     -fx-font-size: 16px; 
   }
+  
+  .image_component_combobox{
+/*        -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;*/
+    -fx-padding: 10 10 10 10;
+    -fx-text-fill: black;
+    -fx-font-size: 16px; 
+  }
 
 
+.page_editor_workspace_vbox{
+/*    -fx-background-color: green; */
+  -fx-background-color:  darkolivegreen;
+}
 
 
 //deal with the size of the button
@@ -68,26 +80,23 @@
      
   }
   
-  //tried to change the language option, but didn't work
+  //vbox for the text component dialog
   .text_component_option_vbox{
-/*       -fx-background-color: rgb(230, 50, 50);
-      -fx-border-color: rgb(200, 200, 200);
-      -fx-padding: 30px 30px 30px 30px;
-      -fx-spacing: 60px;
-      -fx-background-insets: 0,1,2;*/
-/*   -fx-background-radius: 5.0;
-    -fx-background-color: rgb(230, 50, 50);
-    -fx-border-color: rgb(200, 200, 200);*/
-    //these lines change the spacing between the button
-/*    -fx-padding: 30px 30px 30px 30px;
-    -fx-spacing: 60px;
-    -fx-background-insets: 0,1,2;*/
+
+ -fx-alignment: center;
   -fx-background-color: blue;
   -fx-padding: 15px;
   -fx-spacing: 15px;
     
 
   } 
+  //vbox fo the image component dialog
+  .image_component_option_vbox{
+      -fx-alignment: center;
+      -fx-background-color: blue;
+  -fx-padding: 7px;
+  -fx-spacing: 7px;
+  }
   
   
   

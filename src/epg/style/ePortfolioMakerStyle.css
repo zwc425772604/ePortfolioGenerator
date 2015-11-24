@@ -22,16 +22,18 @@
 }
 
 .page_editor_button{
-        -fx-background-insets: 0,1,2;
+    -fx-alignment: center;
+    -fx-background-insets: 0,1,2;
     -fx-background-radius: 1,1,1;
     -fx-padding: 5px;
     -fx-text-fill: red;
     -fx-font-size: 12px;
 }
 
-.page_editor_workspace_vbox{
-/*    -fx-background-color: green; */
-}
+/*.page_editor_workspace_vbox{
+    -fx-background-color: green; 
+  -fx-background-color:  darkolivegreen;
+}*/
 
 
 //deal with the color of the selected slide 

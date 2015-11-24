@@ -14,10 +14,13 @@ import epg.model.PortfolioModel;
 import eportfoliogenerator.LanguagePropertyType;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_PAGE;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_SLIDESHOW_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_TEXT_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_TEXT_HYPERLINK;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_VIDEO_COMPONENT;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_IMAGE_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_SLIDE_SHOW_COMPONENT;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_TEXT_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXIT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_LOAD_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_NEW_PORTFOLIO;
@@ -42,10 +45,13 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_PAGE;
+import static eportfoliogenerator.StartupConstants.ICON_ADD_SLIDESHOW_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_TEXT_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_TEXT_HYPERLINK;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_VIDEO_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_EDIT_IMAGE_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_EDIT_SLIDE_SHOW_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_EDIT_TEXT_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_EDIT_THE_HYPERLINK;
 import static eportfoliogenerator.StartupConstants.ICON_EDIT_VIDEO_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_EXIT;
@@ -145,7 +151,7 @@ public class ePortfolioMakerView {
     
     Button addTextComponentButton; // dialog
     Button addImageComponentButton;//dialog
-    Button addSlideshowComponenetButton;//dialog
+    Button addSlideshowComponentButton;//dialog
     Button addVideoComponentButton;//dialog
     Button removeComponentButton;
     Button editTextComponentButton;//dialog
@@ -249,14 +255,13 @@ public class ePortfolioMakerView {
         ArrayList<String> colorChoices = new ArrayList<String>(
         Arrays.asList("Green","Red","Blue","Pink","Purple","Gray"));
         colorTemplate = this.initTemplate(pageEditorToolbar, "Select Color Template:", colorChoices);
-        selectBannerImage = this.initChildButton(pageEditorToolbar, ICON_SELECT_BANNER_IMAGE, 
-                TOOLTIP_SELECT_BANNER_IMAGE,CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+        
         fontComponent = this.initFontTemplate(pageEditorToolbar);
         
 //	initPageTitleControl(pageEditorWorkspace);
 //    Button addTextComponentButton; // dialog
 //    Button addImageComponentButton;//dialog
-//    Button addSlideshowComponenetButton;//dialog
+  //  Button addSlideshowComponenetButton;//dialog
 //    Button addVideoComponentButton;//dialog
 //    Button removeComponentButton;
 //    Button editTextComponentButton;//dialog
@@ -264,25 +269,38 @@ public class ePortfolioMakerView {
 //    Button editSlideshowComponentButton;//dialog
 //    Button editVideoComponentButton;//dialog
 //    Button addTextHyperlinkButton;//dialog
+	
+//    Button editTextComponentButton;//dialog
+//    Button editImageComponentButton;//dialog
+//    Button editSlideshowComponentButton;//dialog
+//    Button editVideoComponentButton;//dialog
+//    Button addTextHyperlinkButton;//dialog
         
         //PAGE EDITOR CONTROLL
-      editTextHyperlinkButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_THE_HYPERLINK,
-             TOOLTIP_EDIT_THE_HYPERLINK, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     selectBannerImage = this.initChildButton(pageEditorToolbar, ICON_SELECT_BANNER_IMAGE, 
+                TOOLTIP_SELECT_BANNER_IMAGE,CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      addTextComponentButton = this.initChildButton(pageEditorToolbar, ICON_ADD_TEXT_COMPONENT,
              TOOLTIP_ADD_TEXT_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-     removeComponentButton = this.initChildButton(pageEditorToolbar, ICON_REMOVE_COMPONENT ,
-             TOOLTIP_REMOVE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     addSlideshowComponentButton = this.initChildButton(pageEditorToolbar,ICON_ADD_SLIDESHOW_COMPONENT, 
+             TOOLTIP_ADD_SLIDESHOW_COMPONENT,CSS_CLASS_PAGE_EDITOR_BUTTON , false);
      addImageComponentButton = this.initChildButton(pageEditorToolbar, ICON_ADD_IMAGE_COMPONENT,
              TOOLTIP_ADD_IMAGE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      addVideoComponentButton = this.initChildButton(pageEditorToolbar, ICON_ADD_VIDEO_COMPONENT,
              TOOLTIP_ADD_VIDEO_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      addTextHyperlinkButton = this.initChildButton(pageEditorToolbar, ICON_ADD_TEXT_HYPERLINK,
              TOOLTIP_ADD_TEXT_HYPERLINK, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     removeComponentButton = this.initChildButton(pageEditorToolbar, ICON_REMOVE_COMPONENT ,
+             TOOLTIP_REMOVE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      editVideoComponentButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_VIDEO_COMPONENT,
              TOOLTIP_EDIT_VIDEO_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      editSlideshowComponentButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_SLIDE_SHOW_COMPONENT,
              TOOLTIP_EDIT_SLIDE_SHOW_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-      
+     editTextComponentButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_TEXT_COMPONENT,
+             TOOLTIP_EDIT_TEXT_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     editImageComponentButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_IMAGE_COMPONENT,
+             TOOLTIP_EDIT_IMAGE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     editTextHyperlinkButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_THE_HYPERLINK,
+             TOOLTIP_EDIT_THE_HYPERLINK, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
     }
     private VBox initFontTemplate(Pane pane){
          VBox vb = new VBox();
