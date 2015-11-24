@@ -14,6 +14,7 @@
         <property name="TOOLTIP_NEW_PORTFOLIO"	    value="Create a New Portfolio"></property>
         <property name="TOOLTIP_LOAD_PORTFOLIO"    value="Load an Existing Portfolio"></property>
         <property name="TOOLTIP_SAVE_PORTFOLIO"    value="Save this Portfolio"></property>
+        <property name="TOOLTIP_SAVE_AS_PORTFOLIO" value="Save This Portfolio As"></property>
         <property name="TOOLTIP_EXPORT_PORTFOLIO"    value="Export This Portfolio"></property>
         <property name="TOOLTIP_EXIT"		    value="Exit the Application"></property>
         <property name="TOOLTIP_ADD_PAGE"	    value="Add Page"></property>
@@ -29,6 +30,14 @@
         <property name="TOOLTIP_ADD_IMAGE_COMPONENT" value="Add Image Component"></property>
         <property name="TOOLTIP_SELECT_EDITOR_WORKSPACE" value="Select Page Editor Workspace"></property>
         <property name="TOOLTIP_SELECT_VIEWER_WORKSPACE" value="Select Site Viewer Workspace"></property>
+        <property name="TOOLTIP_ADD_VIDEO_COMPONENT" value="Add Video Component"></property>
+        <property name="TOOLTIP_ADD_TEXT_HYPERLINK"  value="Add Text Hyperlink"></property>
+        <property name="TOOLTIP_EDIT_VIDEO_COMPONENT" value="Edit The Video Component"></property>
+        <property name="TOOLTIP_EDIT_SLIDE_SHOW_COMPONENT" value="Edit The Slide Show Component"></property>
+        <property name="TOOLTIP_EDIT_IMAGE_COMPONENT" value="Edit The Image Component"></property>
+        <property name="TOOLTIP_EDIT_TEXT_COMPONENT"  value="Edit The Text Component"></property>
+        <property name="TOOLTIP_ADD_SLIDE_SHOW_COMPONENT" value="Add Slideshow Component"></property>
+        
         
         <!-- DEFAULT VALUES -->
         <property name="DEFAULT_IMAGE_CAPTION"	    value="ENTER CAPTION"></property>

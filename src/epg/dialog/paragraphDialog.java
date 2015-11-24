@@ -30,11 +30,12 @@ public class paragraphDialog extends Stage {
     Button okButton;
     Button cancelButton;
     
-    Label fontLabel;
+    Label fontSizeLabel;
     TextField contentsTextField;
+    Label fontFamilyLabel;
     
-    TextField fontTextField;
-    ComboBox  fontComboBox;
+    ComboBox  fontFamilyComboBox;
+    ComboBox  fontSizeComboBox;
     Integer selectedFont;
     
     public paragraphDialog(){
@@ -43,15 +44,31 @@ public class paragraphDialog extends Stage {
         contentsTextField = new TextField("Entering The Contents");
         contentsTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         
-        fontLabel = new Label("Select a font for the paragraph:");
-        fontLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-        ObservableList<Integer> fontChoices = FXCollections.observableArrayList();
+        fontFamilyLabel = new Label("Select a font family for the paragraph");
+        fontFamilyLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+        ObservableList<String> fontFamilyChoices = FXCollections.observableArrayList();
+        fontFamilyChoices.add("Sigmar One");
+        fontFamilyChoices.add("Covered+By+Your+Grace");
+        fontFamilyChoices.add("Shadows Into Light");
+        fontFamilyChoices.add("Dancing Script");
+        
+        fontFamilyLabel = new Label("Select a font family from the following:");
+        fontFamilyLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+        fontFamilyComboBox = new ComboBox(fontFamilyChoices);
+	fontFamilyComboBox.getSelectionModel().select("Sigmar One");
+        fontFamilyComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
+        
+        
+        fontSizeLabel = new Label("Select a font size from the following");
+        fontSizeLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+        ObservableList<Integer> fontSizeChoices = FXCollections.observableArrayList();
         for (int i = 8; i<40; i+= 2){
-            fontChoices.add(i);
+            fontSizeChoices.add(i);
         }
-        fontComboBox = new ComboBox(fontChoices);
-	fontComboBox.getSelectionModel().select("8");
-        fontComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
+        
+        fontSizeComboBox = new ComboBox(fontSizeChoices);
+	fontSizeComboBox.getSelectionModel().select("8");
+        fontSizeComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
         
         okButton = new Button("OK");
         okButton.getStyleClass().add(CSS_CLASS_OK_BUTTON);
@@ -63,13 +80,16 @@ public class paragraphDialog extends Stage {
         vBox = new VBox();
         vBox.getChildren().add(contentsLabel);
         vBox.getChildren().add(contentsTextField);
-        vBox.getChildren().add(fontComboBox);
+        vBox.getChildren().add(fontFamilyLabel);
+        vBox.getChildren().add(fontFamilyComboBox);
+        vBox.getChildren().add(fontSizeLabel);
+        vBox.getChildren().add(fontSizeComboBox);
         vBox.getChildren().add(okButton);
         vBox.getChildren().add(cancelButton);
         
         okButton.setOnAction(e -> {
             
-            selectedFont = ((Integer) fontComboBox.getSelectionModel().getSelectedItem()).intValue();
+            selectedFont = ((Integer) fontSizeComboBox.getSelectionModel().getSelectedItem()).intValue();
             //TODO 
             
             this.hide();

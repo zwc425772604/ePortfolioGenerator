@@ -9,13 +9,18 @@ import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
 import epg.view.ePortfolioMakerView;
 import static eportfoliogenerator.LanguagePropertyType.TITLE_WINDOW;
+import static eportfoliogenerator.StartupConstants.ICON_WINDOW_LOGO;
 import static eportfoliogenerator.StartupConstants.PATH_DATA;
+import static eportfoliogenerator.StartupConstants.PATH_IMAGES;
 import static eportfoliogenerator.StartupConstants.PROPERTIES_SCHEMA_FILE_NAME;
+import java.io.File;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import properties_manager.PropertiesManager;
@@ -40,6 +45,21 @@ public class EPortfolioGenerator extends Application {
 //            String appTitle = "ePortfolio";
 //         ui.startUI(primaryStage, appTitle);
         String languageCode = "EN";
+        
+        String imagePath = PATH_IMAGES + ICON_WINDOW_LOGO;
+	File file = new File(imagePath);
+	
+	// GET AND SET THE IMAGE
+        try{
+	URL fileURL = file.toURI().toURL();
+	Image windowIcon = new Image(fileURL.toExternalForm());
+	primaryStage.getIcons().add(windowIcon);
+        }
+        catch (Exception e) {
+	    ErrorHandler eH = new ErrorHandler(null);
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	
+        }
          boolean success = loadProperties(languageCode);
         if (success) {
             PropertiesManager props = PropertiesManager.getPropertiesManager();

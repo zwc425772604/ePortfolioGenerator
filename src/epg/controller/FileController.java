@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  * This class serves as the controller for all file toolbar operations,
  * driving the loading and saving of slide shows, among other things.
  * 
- * @author McKilla Gorilla & _____________
+ * @author Weichao Zhao
  */
 public class FileController {
 

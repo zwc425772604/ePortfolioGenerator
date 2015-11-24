@@ -93,7 +93,7 @@ public class listDialog extends Stage {
     }
     
     
-    public ObservableList getInputList(){
+    public ObservableList<String> getInputList(){
         return inputList;
     }
     

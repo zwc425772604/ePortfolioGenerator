@@ -49,20 +49,9 @@ public class addTextComponentDialog extends Stage{
 	textCompComboBox.getSelectionModel().select("paragraph");
         textCompComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
         
-        //FOR ENTERING CONTENTS OF THE COMPONENT
-        contentLabel = new Label("Content:");
-        contentLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-        contentsTextField = new TextField();
-        contentsTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         
-        //FONTS OF THE COMPONENTS
-        fontLabel = new Label("Fonts:");
-        fontLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-        fontTextField = new TextField();
-        fontTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         
         //CONTROLS
-
         okButton = new Button("OK");
         okButton.getStyleClass().add(CSS_CLASS_OK_BUTTON);
         okButton.setPrefSize(250, 30);
@@ -74,10 +63,6 @@ public class addTextComponentDialog extends Stage{
         vBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_OPTION_VBOX);
 	vBox.getChildren().add(typeOfComponentLabel);
 	vBox.getChildren().add(textCompComboBox);
-        vBox.getChildren().add(contentLabel);
-        vBox.getChildren().add(contentsTextField);
-        vBox.getChildren().add(fontLabel);
-        vBox.getChildren().add(fontTextField);
 	vBox.getChildren().add(okButton);
         vBox.getChildren().add(cancelButton);
 //        vBox.getStyleClass().add(CSS_CLASS_LANGUAGE_OPTION_VBOX);

@@ -15,6 +15,9 @@ import eportfoliogenerator.LanguagePropertyType;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_PAGE;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_TEXT_COMPONENT;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_TEXT_HYPERLINK;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_VIDEO_COMPONENT;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_SLIDE_SHOW_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXIT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_LOAD_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_NEW_PORTFOLIO;
@@ -23,6 +26,7 @@ import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SAVE_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SAVE_AS_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXPORT_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_THE_HYPERLINK;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_VIDEO_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_REMOVE_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SELECT_EDITOR_WORKSPACE;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SELECT_VIEWER_WORKSPACE;
@@ -37,7 +41,11 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_BUTTON;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_PAGE;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_TEXT_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_ADD_TEXT_HYPERLINK;
+import static eportfoliogenerator.StartupConstants.ICON_ADD_VIDEO_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_EDIT_SLIDE_SHOW_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_EDIT_THE_HYPERLINK;
+import static eportfoliogenerator.StartupConstants.ICON_EDIT_VIDEO_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_EXIT;
 import static eportfoliogenerator.StartupConstants.ICON_LOAD_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_NEW_PORTFOLIO;
@@ -45,6 +53,7 @@ import static eportfoliogenerator.StartupConstants.ICON_REMOVE_PAGE;
 import static eportfoliogenerator.StartupConstants.ICON_SAVE_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_EXPORT_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_REMOVE_COMPONENT;
+import static eportfoliogenerator.StartupConstants.ICON_SAVE_AS_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_SELECT_EDITOR_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_SELECT_VIEWER_COMPONENT;
 import static eportfoliogenerator.StartupConstants.LABEL_PAGE_TITLE;
@@ -213,7 +222,9 @@ public class ePortfolioMakerView {
         pageEditorToolbar.getStyleClass().add(CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX);
 //      
 	
-        pagesEditorToolbarScrollPane = new ScrollPane(pageEditorToolbar);
+//        pagesEditorToolbarScrollPane = new ScrollPane(pageEditorToolbar);
+        pagesEditorToolbarScrollPane = new ScrollPane();
+        pagesEditorToolbarScrollPane.setContent(pageEditorToolbar);
         
         pageTitleVBox = this.initPageTextfieldControl(pageEditorToolbar,"Title:","ENTER THE TITLE");
         studentNameVBox = this.initPageTextfieldControl(pageEditorToolbar,"Student Name:", "ENTER STUDENT NAME");
@@ -239,8 +250,14 @@ public class ePortfolioMakerView {
              TOOLTIP_REMOVE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
      addImageComponentButton = this.initChildButton(pageEditorToolbar, ICON_ADD_IMAGE_COMPONENT,
              TOOLTIP_ADD_IMAGE_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
-        
-
+     addVideoComponentButton = this.initChildButton(pageEditorToolbar, ICON_ADD_VIDEO_COMPONENT,
+             TOOLTIP_ADD_VIDEO_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     addTextHyperlinkButton = this.initChildButton(pageEditorToolbar, ICON_ADD_TEXT_HYPERLINK,
+             TOOLTIP_ADD_TEXT_HYPERLINK, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     editVideoComponentButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_VIDEO_COMPONENT,
+             TOOLTIP_EDIT_VIDEO_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+     editSlideshowComponentButton = this.initChildButton(pageEditorToolbar, ICON_EDIT_SLIDE_SHOW_COMPONENT,
+             TOOLTIP_EDIT_SLIDE_SHOW_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
       
     }
 //    private VBox initPageTextfieldControl(Pane testPane){
@@ -305,11 +322,11 @@ public class ePortfolioMakerView {
 	loadPortfolioButton = initChildButton(fileToolbarPane, ICON_LOAD_PORTFOLIO,	
                 TOOLTIP_LOAD_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
 	savePortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_PORTFOLIO,	
-                TOOLTIP_SAVE_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
-        savePortfolioAsButton = initChildButton(fileToolbarPane, ICON_SAVE_PORTFOLIO,	
-                TOOLTIP_SAVE_AS_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
+                TOOLTIP_SAVE_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        savePortfolioAsButton = initChildButton(fileToolbarPane, ICON_SAVE_AS_PORTFOLIO,	
+                TOOLTIP_SAVE_AS_PORTFOLIO, CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
 	exportPortfolioButton = initChildButton(fileToolbarPane, ICON_EXPORT_PORTFOLIO,
-                TOOLTIP_EXPORT_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
+                TOOLTIP_EXPORT_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
 	exitButton = initChildButton(fileToolbarPane, ICON_EXIT,
                 TOOLTIP_EXIT, CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
     }
@@ -353,6 +370,9 @@ public class ePortfolioMakerView {
         });
         addImageComponentButton.setOnAction(e ->{
             pageController.processAddImageComponent();
+        });
+        addVideoComponentButton.setOnAction(e ->{
+            pageController.processAddVideoComponent();
         });
      
 	
@@ -419,7 +439,8 @@ public class ePortfolioMakerView {
 	epgPane.setTop(fileToolbarPane);
         epgPane.setBottom(workspaceModeToolbar);
         epgPane.setLeft(siteEditToolbar);  //testedddd
-        epgPane.setRight(pageEditorToolbar);
+        //epgPane.setRight(pageEditorToolbar);
+        epgPane.setRight(pagesEditorToolbarScrollPane);
 	primaryScene = new Scene(epgPane);
         
         // NOW TIE THE SCENE TO THE WINDOW, SELECT THE STYLESHEET

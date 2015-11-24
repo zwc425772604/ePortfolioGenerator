@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 /**
@@ -104,6 +105,7 @@ public class addImageComponentDialog extends Stage {
         
         // INIT THE TEXT COMPONENT CHOICE
         imgFloatLabel = new Label("Image Float Layout");
+        imgFloatLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
 	ObservableList<String> imgFloatChoices = FXCollections.observableArrayList();
 	imgFloatChoices.add("LEFT");
 	imgFloatChoices.add("RIGHT");
@@ -125,6 +127,8 @@ public class addImageComponentDialog extends Stage {
         vBox.getChildren().add(captionTextField);
         vBox.getChildren().add(imgWidthLabel);
         vBox.getChildren().add(imgWidthTextField);
+        vBox.getChildren().add(imgHeightLabel);
+        vBox.getChildren().add(imgHeightTextField);
         vBox.getChildren().add(imgFloatLabel);
         vBox.getChildren().add(imgFloatComboBox);
         vBox.getChildren().add(okButton);

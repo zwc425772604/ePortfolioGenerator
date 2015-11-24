@@ -14,7 +14,7 @@ public class StartupConstants {
     public static String WINDOW_ICON = "happy5.png";
     // WE'LL LOAD ALL THE UI AND LANGUAGE PROPERTIES FROM FILES,
     // BUT WE'LL NEED THESE VALUES TO START THE PROCESS
-
+    public static String ICON_WINDOW_LOGO = "documents1.png";
     public static String PROPERTY_TYPES_LIST = "property_types.txt";
     public static String PROPERTIES_SCHEMA_FILE_NAME = "properties_schema.xsd";
     public static String PATH_DATA = "./data/";
@@ -32,6 +32,7 @@ public class StartupConstants {
     public static String ICON_NEW_PORTFOLIO = "New.png";
     public static String ICON_LOAD_PORTFOLIO = "Load.png";
     public static String ICON_SAVE_PORTFOLIO = "Save.png";
+    public static String ICON_SAVE_AS_PORTFOLIO = "SaveOrig.png";
     public static String ICON_EXPORT_PORTFOLIO = "View.png";
     public static String ICON_EXIT = "Exit.png";
     public static String ICON_ADD_PAGE = "Add.png";
@@ -42,6 +43,10 @@ public class StartupConstants {
     public static String ICON_ADD_IMAGE_COMPONENT = "picture69.png";
     public static String ICON_SELECT_EDITOR_COMPONENT = "sheet3.png";
     public static String ICON_SELECT_VIEWER_COMPONENT = "view24.png";
+    public static String ICON_ADD_VIDEO_COMPONENT = "play43.png";
+    public static String ICON_ADD_TEXT_HYPERLINK = "link71.png";
+    public static String ICON_EDIT_VIDEO_COMPONENT = "videocamera1.png";
+    public static String ICON_EDIT_SLIDE_SHOW_COMPONENT = "triangle7.png";
     
 // UI LABELS
     public static String    LABEL_PAGE_TITLE = "page_title";
