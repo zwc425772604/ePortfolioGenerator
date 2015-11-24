@@ -28,6 +28,7 @@ import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EXPORT_PORTFOLIO;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_THE_HYPERLINK;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_EDIT_VIDEO_COMPONENT;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_REMOVE_COMPONENT;
+import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SELECT_BANNER_IMAGE;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SELECT_EDITOR_WORKSPACE;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_SELECT_VIEWER_WORKSPACE;
 
@@ -38,6 +39,7 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_SITE_EDIT_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_BUTTON;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_PAGE;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_TEXT_COMPONENT;
@@ -54,14 +56,20 @@ import static eportfoliogenerator.StartupConstants.ICON_SAVE_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_EXPORT_PORTFOLIO;
 import static eportfoliogenerator.StartupConstants.ICON_REMOVE_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_SAVE_AS_PORTFOLIO;
+import static eportfoliogenerator.StartupConstants.ICON_SELECT_BANNER_IMAGE;
 import static eportfoliogenerator.StartupConstants.ICON_SELECT_EDITOR_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_SELECT_VIEWER_COMPONENT;
 import static eportfoliogenerator.StartupConstants.LABEL_PAGE_TITLE;
 import static eportfoliogenerator.StartupConstants.PATH_ICONS;
 import static eportfoliogenerator.StartupConstants.STYLE_SHEET_UI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -130,6 +138,11 @@ public class ePortfolioMakerView {
     VBox studentNameVBox;
     VBox footerVBox;
     
+    //FOR TEMPLATE
+    VBox layoutTemplate;
+    VBox colorTemplate;
+    VBox fontComponent;
+    
     Button addTextComponentButton; // dialog
     Button addImageComponentButton;//dialog
     Button addSlideshowComponenetButton;//dialog
@@ -141,7 +154,7 @@ public class ePortfolioMakerView {
     Button editVideoComponentButton;//dialog
     Button addTextHyperlinkButton;//dialog
     Button editTextHyperlinkButton;
-    
+    Button selectBannerImage;
     
     
     // THIS IS THE E-PORTFOLIO WE'RE WORKING WITH
@@ -229,6 +242,17 @@ public class ePortfolioMakerView {
         pageTitleVBox = this.initPageTextfieldControl(pageEditorToolbar,"Title:","ENTER THE TITLE");
         studentNameVBox = this.initPageTextfieldControl(pageEditorToolbar,"Student Name:", "ENTER STUDENT NAME");
         footerVBox = this.initPageTextfieldControl(pageEditorToolbar, "Footer:", "ENTER THE FOOTER");
+        ArrayList<String> layoutChoices = new ArrayList();
+        layoutChoices.add("topLeftNavBar");layoutChoices.add("dropdownNavBar");layoutChoices.add("center");
+        layoutChoices.add("circularNavBar"); layoutChoices.add("dotNavBar");
+        layoutTemplate = this.initTemplate(pageEditorToolbar, "Select Layout Template:", layoutChoices);
+        ArrayList<String> colorChoices = new ArrayList<String>(
+        Arrays.asList("Green","Red","Blue","Pink","Purple","Gray"));
+        colorTemplate = this.initTemplate(pageEditorToolbar, "Select Color Template:", colorChoices);
+        selectBannerImage = this.initChildButton(pageEditorToolbar, ICON_SELECT_BANNER_IMAGE, 
+                TOOLTIP_SELECT_BANNER_IMAGE,CSS_CLASS_PAGE_EDITOR_BUTTON, false);
+        fontComponent = this.initFontTemplate(pageEditorToolbar);
+        
 //	initPageTitleControl(pageEditorWorkspace);
 //    Button addTextComponentButton; // dialog
 //    Button addImageComponentButton;//dialog
@@ -260,13 +284,93 @@ public class ePortfolioMakerView {
              TOOLTIP_EDIT_SLIDE_SHOW_COMPONENT, CSS_CLASS_PAGE_EDITOR_BUTTON, false);
       
     }
-//    private VBox initPageTextfieldControl(Pane testPane){
-//        
-//        return vbox;
-//        
-//    
-//    }
+    private VBox initFontTemplate(Pane pane){
+         VBox vb = new VBox();
+      Label fontFamilyLabel = new Label("Google Font Family");
+      fontFamilyLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+     ArrayList<String> fontFamilyChoices = new ArrayList<String>(
+        Arrays.asList("Sigmar One","Covered+By+Your+Grace","Shadows Into Light",
+                "Dancing Script","Purple","Indie Flower","Poiret One","Indie Flower",
+                "Titillium Web","Lobster","Dosis","Raleway"));
+      
+     ObservableList<String> famChoices = FXCollections.observableArrayList();
+	for(String st : fontFamilyChoices){
+            famChoices.add(st);
+        }
+       ComboBox familyComboBox = new ComboBox(famChoices);
+       familyComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
+       
+       //font style
+       Label styleLabel = new Label("Font Style");
+       styleLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+       ArrayList<String> fontStyleChoices = new ArrayList<String>(
+        Arrays.asList("normal","italic","oblique","initial","inherit"));
+       ObservableList<String> styleChoices = FXCollections.observableArrayList();
+	for(String st : fontStyleChoices){
+            styleChoices.add(st);
+        }
+        ComboBox styleComboBox = new ComboBox(styleChoices);
+        styleComboBox.getSelectionModel().select("normal");
+        styleComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
+        
+        Label fontSizeLabel = new Label("Font Size:");
+        fontSizeLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+        ObservableList<Integer> fontSizeChoices = FXCollections.observableArrayList();
+        for (int i = 8; i<40; i+= 2){
+            fontSizeChoices.add(i);
+        }
+        
+        ComboBox fontSizeComboBox = new ComboBox(fontSizeChoices);
+	fontSizeComboBox.getSelectionModel().select("8");
+        fontSizeComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
+        
+       
+       vb.getChildren().add(fontFamilyLabel);
+       vb.getChildren().add(familyComboBox);
+       vb.getChildren().add(styleLabel);
+       vb.getChildren().add(styleComboBox);
+       vb.getChildren().add(fontSizeLabel);
+       vb.getChildren().add(fontSizeComboBox);
+       
+       familyComboBox.getSelectionModel().select(0);
+       Button okButton = new Button("OK");
+       okButton.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+       okButton.setOnAction(e -> {
+           
+       });
+       vb.getChildren().add(okButton);
+       familyComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
+       pane.getChildren().add(vb);
+       
+       return vb;
+        
+    }
     
+   private VBox initTemplate(Pane pane, String str, ArrayList<String> input){
+       VBox vb = new VBox();
+      Label template = new Label(str);
+      template.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+     
+      ObservableList<String> choices = FXCollections.observableArrayList();
+	for(String st : input){
+            choices.add(st);
+        }
+       ComboBox choicesComboBox = new ComboBox(choices);
+       vb.getChildren().add(template);
+       vb.getChildren().add(choicesComboBox);
+       
+       choicesComboBox.getSelectionModel().select(0);
+       Button okButton = new Button("OK");
+       okButton.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+       okButton.setOnAction(e -> {
+           
+       });
+       vb.getChildren().add(okButton);
+       choicesComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
+       pane.getChildren().add(vb);
+       
+       return vb;
+   }
     //UI SETUP HELPER METHODS
     private void initWorkspace(){
     // FIRST THE WORKSPACE ITSELF, WHICH WILL CONTAIN TWO REGIONS
@@ -374,6 +478,10 @@ public class ePortfolioMakerView {
         addVideoComponentButton.setOnAction(e ->{
             pageController.processAddVideoComponent();
         });
+        selectSiteViewerWorkspaceButton.setOnAction(e -> {
+            pageController.processSiteViewer();
+        });
+        
      
 	
     }

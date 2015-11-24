@@ -1,0 +1,48 @@
+#BannerImage{
+	width : 480px;
+	height: 125px;
+	margin:auto;
+	/*background-color: gray;
+    */
+	
+}
+banner{
+    position: relative;
+}
+
+
+#name{
+	
+    vertical-align: bottom;
+    margin-top: 100px;
+    margin-left: 400px;
+}
+
+#navbar{
+	margin-left: 30px;
+	
+	height: 30px;
+}
+
+#navbar a{
+	margin-left: 30px;
+}
+
+#Header{
+    text-align: center;
+}
+
+#Paragraphs{
+    text-align: center;
+}
+
+#InlinedHyperlinks{
+    position: relative;
+    text-align: center;
+}
+
+
+
+
+
+

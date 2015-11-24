@@ -1,0 +1,69 @@
+#BannerImage{
+	width : 480px;
+	height: 155px;
+/*	margin:auto;*/
+	position:absolute;
+        top: 5%;
+        left: 30%;
+	
+}
+#banner{
+/*    position: absolute;
+    top:26%;
+    left: 30%;*/
+}
+
+#header{
+    position: relative;
+}
+
+#name{
+	text-align: center;
+
+    position: relative;
+    
+    
+}
+
+#navbar{
+	margin-top: 30px;
+	margin-left: 30px;
+	height: 230px;
+        width: 110px;
+        
+}
+
+#navbar a{
+	margin-left: 20px;
+        display: block;
+        padding: 9px;
+	}
+        
+        #Lists{
+/*    text-align: center;*/
+   position:  relative;
+   left: 32%;
+}
+
+  
+ul.a{
+    list-style-type: square;
+}
+#Slideshows{
+    text-align: center;
+}
+
+#Header{
+    text-align: center;
+}
+
+#Images{
+    text-align: center;
+}
+
+
+
+
+
+
+

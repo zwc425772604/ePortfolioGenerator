@@ -1,0 +1,73 @@
+#BannerImage{
+/*       position: relative;
+       top: 35px;*/
+	width : 480px;
+	height: 125px;
+        position: absolute;
+        top:6%;
+        left: 30%;
+/*	margin:auto;*/
+	/*background-color: gray;
+    */
+	
+}
+#header{
+    margin-top: 30px;
+}
+
+#Paragraphs{
+
+  position : relative;
+/*  left: 30%;*/
+  text-align: center;
+      
+}
+
+#name{
+    position: absolute;
+/*    top: 180px;
+    left:270px;*/
+    top: 30%;
+    left:30%;
+
+    
+}
+
+#navbar{
+       margin-top: 30px;
+	margin-left: 30px;
+	height: 230px;
+        width: 110px;
+        
+
+}
+
+#navbar a{
+	margin-left: 20px;
+        display: block;
+        padding: 9px;
+
+}
+
+#Videos{
+
+/*    margin-left: 300px;*/
+ position: relative;
+ text-align: center;
+     
+  }
+  #Header h1{
+      position: relative;
+    text-align: center;
+}
+#Images{
+    text-align: center;
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+#BannerImage{
+	
+	
+}
+  #banner{
+    
+    background-color: black;
+   
+}
+#header_container{
+    background-color:#ccccff
+}
+#name{
+	
+    color: #646573;
+   
+}
+#header{
+    background-color:#ccffcc
+}
+
+#navbar{
+	
+	background-color: black;
+	
+}
+
+#navbar a{
+	
+	color: white;
+
+}
+#navbar a:hover{
+	background-color: blueviolet;
+}
+
+
+
+
+

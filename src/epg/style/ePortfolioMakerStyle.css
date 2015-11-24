@@ -141,6 +141,18 @@
       
   }
   
+  .page_editor_workspace_vbox{
+      -fx-background-radius: 5.0;
+   -fx-background-color: rgb(255,255,190);
+/*   -fx-background-color: lightgoldenrodyellow;*/
+    -fx-border-color: rgb(200, 200, 200);
+    //these lines change the spacing between the button
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-spacing: 20px;
+    -fx-background-insets: 0,1,2;
+    
+  }
+  
 
   
 

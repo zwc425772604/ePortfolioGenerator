@@ -1,0 +1,45 @@
+#BannerImage{
+	
+	
+    	
+}
+#header_container{
+    background-color: yellow;
+}
+
+#name{
+	
+	color: green;
+   
+}
+
+#navbar{
+	
+    background-color:  #d1fff4;
+	
+}
+
+#navbar a{
+	
+    color:  #9999ff;
+
+}
+#navbar a:hover{
+	background-color: white;
+}
+#header{
+    background-color:  #f9e9dd;
+}
+
+#header_container{
+    background-color:  #0d7991;
+}
+
+#banner{
+    background-color:  aquamarine;
+}
+
+
+
+
+

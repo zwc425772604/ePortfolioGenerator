@@ -1,0 +1,59 @@
+{
+   "name":"WeichaoZhao",
+   "pagesCon":[
+   {
+   "name" : "WeichaoZhao",
+    "bannerImagePath" : "ePortfolioBannerImage.png",
+    "h1" : "Welcome to CSE 219",
+    "imagePath" : "SBUDarkRedShieldLogo.png",
+    "p1" : "Welcome to my page. This is where I display my work."
+    
+    
+},
+   {
+   "bannerImagePath" : "ePortfolioBannerImage.png",
+    "videoType" : "video/mp4",
+    "videoPath" : "movie.mp4",
+    "p1" : "Hi, I am a student at Stony Brook University. I like animals.",
+    "h1" : "Introduction"
+    
+
+
+   },
+   {
+   "bannerImagePath" : "ePortfolioBannerImage.png",
+    "List" : ["CSE 219", "AMS 301", "MUS 119","GEO 102"],
+    "h1" : "Courses taking in this semester "
+    
+
+
+   },
+    {
+   	"bannerImagePath" : "ePortfolioBannerImage.png",
+     "h1" : "Awards received in high school",
+     "List" : ["Math Honor Roll", "AP Scholars","3rd place in Math Contest"],
+     "imagePath" : "mathAward.jpg",
+     "imageHeight" : "300",
+     "imageWidth" : "350"
+
+   },
+   {
+    "bannerImagePath" : "ePortfolioBannerImage.png",
+    "h1" : "CSE 219 ",
+    "p1" : "CSE is fun",
+    "firstIndex" : 0,
+    "lastIndex" : 2,
+    "Hyperlink" : " yes ",
+    "url" : "https://www3.cs.stonybrook.edu/~cse219"
+
+
+   }
+
+
+   ]
+
+
+
+
+
+}

@@ -1,0 +1,24 @@
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web|Dosis|Lobster);
+
+#navbar a{
+ font-family: 'Titillium Web', sans-serif;
+	
+}
+
+#name{
+    font-family: 'Lobster',cursive;
+    
+}
+#Lists{
+    font-family: 'Titillium', sans-serif;
+}
+
+#Paragraphs{
+    font-family: 'Titillium Web', sans-serif;
+}
+#Header{
+    font-family: 'Dosis', sans-serif;
+}
+
+
+

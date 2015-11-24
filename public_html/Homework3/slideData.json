@@ -1,0 +1,21 @@
+
+{
+    "title":"Homework3",
+    "slides":[
+        {
+            "image_file_name":"ArchesUtah.jpg",
+            "image_path":"/Users/weichaozhao/Downloads/SlideshowMaker/images/slide_show_images/",
+            "caption":"Utah"
+        },
+        {
+            "image_file_name":"GrosMorneNewfoundland.jpg",
+            "image_path":"/Users/weichaozhao/Downloads/SlideshowMaker/images/slide_show_images/",
+            "caption":"Gros"
+        },
+        {
+            "image_file_name":"ToadstoolNebraska.jpg",
+            "image_path":"/Users/weichaozhao/Downloads/SlideshowMaker/images/slide_show_images/",
+            "caption":"Toad"
+        }
+    ]
+}

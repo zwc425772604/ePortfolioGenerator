@@ -1,0 +1,88 @@
+#BannerImage{
+
+	position: absolute;
+        left: 0px;
+        width: 480px;
+        padding-left: 10px;
+        padding-right: 10px;
+        top: 5px;
+        left: 30%;
+        }
+#Slideshows{
+    text-align: center;
+}
+
+#Lists{
+/*    text-align: center;*/
+   position:  relative;
+   left: 32%;
+}
+
+  
+ul.a{
+    list-style-type: square;
+}
+
+
+#Videos{
+    width: 400px;
+    height: 200px;
+    margin: auto;
+    margin-left: 400px;
+    margin-top: 30px;
+}
+
+
+
+#name{
+    
+/*   vertical-align: bottom;*/
+    position: relative;
+    
+    margin-top: 220px;
+/*    margin-left: 30px;*/
+/*    left: 24%;*/
+/*    margin-left: 350px;*/
+    text-align: center;
+}
+
+#banner{
+    width: 1200px;
+    margin-left: 30px;
+}
+
+#navbar{
+
+  position: absolute;
+    left: 0px;
+    width : 500px;
+    height: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+/*    left: 24%;
+   top: 31%;*/
+    top: 180px;
+/*    left:320px;*/
+    left: 30%;
+    
+
+}
+#Header{
+    text-align: center;
+}
+
+#navbar a{
+	margin-left: 20px;
+/*	display: block;*/
+
+}
+#Images{
+    text-align: center;
+}
+
+
+
+
+
+
+

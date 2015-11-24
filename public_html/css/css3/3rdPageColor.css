@@ -1,0 +1,55 @@
+#BannerImage{
+	
+	/*background-color: gray;
+    */
+	
+}
+
+#name{
+	
+    color: #cc00cc;
+   
+}
+
+#banner{
+    
+/*    background-color: #e9ffff;*/
+  background-color:  background;
+   
+}
+
+#header_container{
+    background-color:  #e9ffff;
+}
+
+
+#navbar{
+	
+    background-color:  #f28a3b;
+	
+}
+
+#navbar a{
+	
+    color: #c9256b;
+
+}
+#navbar a:hover{
+	background-color: greenyellow;
+}
+
+ul.a{
+/*    color:aqua;*/
+    color: #646573;
+    
+}
+
+#header{
+    background-color:  threedshadow;
+}
+
+
+
+
+
+

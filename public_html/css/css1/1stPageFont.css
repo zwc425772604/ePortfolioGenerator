@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light|Sigmar+One|Covered+By+Your+Grace|Pacifico|Dancing+Script|Amatic+SC);
+
+
+#navbar a{
+ font-family: 'Sigmar One', cursive;
+	
+}
+
+#Paragraphs{
+    font-family: 'Sigmar One',cursive;
+}
+
+#name{
+    font-family: 'Covered+By+Your+Grace',cursive;
+    
+}
+
+#Header h1{
+    font-family: 'Shadows Into Light', cursive;
+    
+}
+
+#Lists{
+    font-family: 'Dancing Script', cursive;
+}

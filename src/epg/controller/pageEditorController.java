@@ -9,6 +9,7 @@ import epg.dialog.addImageComponentDialog;
 import epg.dialog.addTextComponentDialog;
 import epg.dialog.addVideoComponentDialog;
 import epg.view.ePortfolioMakerView;
+import epg.view.siteViewerWorkspace;
 
 /**
  *
@@ -36,6 +37,11 @@ public class pageEditorController {
     public void processAddVideoComponent() {
         addVideoComponentDialog videoDialog = new addVideoComponentDialog();
         videoDialog.showAndWait();
+    }
+
+    public void processSiteViewer() {
+       siteViewerWorkspace siteViewer = new siteViewerWorkspace();
+//       
     }
     
     

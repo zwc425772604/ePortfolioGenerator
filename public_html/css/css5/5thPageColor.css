@@ -1,0 +1,40 @@
+#BannerImage{
+	
+	/*background-color: gray;
+    */
+	
+}
+#header_container{
+    background-color:   #00cccc;
+}
+
+
+#name{
+	
+	color: green;
+   
+}
+#banner{
+    background-color:  #ffd1fb;
+}
+
+#navbar{
+	
+	background-color:  appworkspace;
+	
+}
+
+#navbar a{
+	
+    color: #660066;
+
+}
+#navbar a:hover{
+	background-color: red;
+}
+
+
+
+
+
+

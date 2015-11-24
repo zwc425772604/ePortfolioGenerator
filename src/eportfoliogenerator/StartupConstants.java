@@ -47,6 +47,7 @@ public class StartupConstants {
     public static String ICON_ADD_TEXT_HYPERLINK = "link71.png";
     public static String ICON_EDIT_VIDEO_COMPONENT = "videocamera1.png";
     public static String ICON_EDIT_SLIDE_SHOW_COMPONENT = "triangle7.png";
+    public static String ICON_SELECT_BANNER_IMAGE = "picture37.png";
     
 // UI LABELS
     public static String    LABEL_PAGE_TITLE = "page_title";

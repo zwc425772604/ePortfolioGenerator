@@ -1,0 +1,21 @@
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light|Ubuntu|Merriweather|Bitter);
+
+#navbar a{
+  font-family: 'Shadows Into Light', cursive;
+	
+}
+
+#Lists{
+    font-family: 'Merriweather', serif;
+}
+
+#Paragraphs{
+    font-family: 'Bitter', serif;
+}
+#Header{
+    font-family: 'Ubuntu', sans-serif;
+}
+#name{
+    font-family: 'Shadows Into Light', cursive;
+    
+}

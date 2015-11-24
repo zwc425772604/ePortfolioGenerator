@@ -37,7 +37,7 @@
         <property name="TOOLTIP_EDIT_IMAGE_COMPONENT" value="Edit The Image Component"></property>
         <property name="TOOLTIP_EDIT_TEXT_COMPONENT"  value="Edit The Text Component"></property>
         <property name="TOOLTIP_ADD_SLIDE_SHOW_COMPONENT" value="Add Slideshow Component"></property>
-        
+        <property name="TOOLTIP_SELECT_BANNER_IMAGE"   value="Select Banner Image"></property>
         
         <!-- DEFAULT VALUES -->
         <property name="DEFAULT_IMAGE_CAPTION"	    value="ENTER CAPTION"></property>

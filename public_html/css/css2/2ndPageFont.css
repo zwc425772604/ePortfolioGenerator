@@ -1,0 +1,20 @@
+@import url(https://fonts.googleapis.com/css?family=Poiret+One|Indie+Flower);
+
+
+
+#navbar a{
+ font-family: 'Indie Flower', cursive;
+ font-size: 16px;	
+}
+
+#name{
+    font-family: 'Indie Flower', cursive;
+}
+
+#Header{
+    font-family: 'Poiret One', cursive;
+}
+
+#Paragraphs{
+    font-family: 'Indie Flower', cursive;
+}

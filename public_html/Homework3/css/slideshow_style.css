@@ -1,0 +1,42 @@
+
+h1{
+    color: red;
+    /*    text-align: left-side;*/
+    text-align: left;
+    margin-left: 100px;
+    font-size: 50px;
+}
+
+div.pic{
+    
+    vertical-align: top;
+    /*    display: inline-block;*/
+    text-align: center;
+    width: 120px;
+    margin-left: 210px;
+    
+}
+
+/*set the image size*/
+img {
+    
+    width: 450px;
+    height: 450px;
+    background-color:grey;
+}
+
+
+.caption{
+    position: absolute;
+    display: block;
+    color: green;
+    font-size: 40px;
+    
+    margin-left: 150px;
+}
+
+div.button{
+    vertical-align: bottom;
+    margin-top: 55px;
+    margin-left:370px;
+}

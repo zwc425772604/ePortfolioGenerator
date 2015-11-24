@@ -1,0 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald|Lora|Raleway|PT+Sans);
+
+#navbar a{
+    font-family: 'Lora', serif;
+
+	
+}
+#name{
+    font-family: 'Raleway', sans-serif;
+}
+
+#Lists{
+    font-family: 'PT Sans', sans-serif;
+}
+#Header h1{
+    font-family: 'Oswald', sans-serif;
+}
+
+#Paragraphs{
+    font-family: 'Lora', serif;
+        
+}
