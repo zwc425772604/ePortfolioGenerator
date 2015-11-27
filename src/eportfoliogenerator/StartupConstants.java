@@ -71,6 +71,8 @@ public class StartupConstants {
     public static String    CSS_CLASS_PAGE_EDITOR_WORKSPACE_VBOX = "page_editor_workspace_vbox";
     public static String    CSS_CLASS_TEXTFIELD_STYLE = "textField_style";
     public static String    CSS_CLASS_PAGE_LABEL = "page_label";
+    public static String    CSS_CLASS_PAGE_EDIT_VIEW = "page_edit_view";
+    public static String    CSS_CLASS_SELECTED_PAGE_EDIT_VIEW = "selected_page_edit_view";
     
     public static String    CSS_CLASS_TEXT_COMPONENT_COMBOBOX = "text_component_combobox";
     

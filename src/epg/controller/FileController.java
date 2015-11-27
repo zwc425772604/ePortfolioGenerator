@@ -6,8 +6,11 @@
 package epg.controller;
 
 
+import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
+import epg.model.PortfolioModel;
 import epg.view.ePortfolioMakerView;
+import eportfoliogenerator.LanguagePropertyType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -80,8 +83,46 @@ public class FileController {
     }
     
     public void handleExitRequest(){
-        
+//         try {
+//            // WE MAY HAVE TO SAVE CURRENT WORK
+//            boolean continueToExit = true;
+//            if (!saved) {
+//                // THE USER CAN OPT OUT HERE
+//                continueToExit = promptToSave();
+//            }
+//
+//            // IF THE USER REALLY WANTS TO EXIT THE APP
+//            if (continueToExit) {
+//                // EXIT THE APPLICATION
+//                System.exit(0);
+//            }
+//        } catch (IOException ioe) {
+//            ErrorHandler eH = ui.getErrorHandler();
+//            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+//        }
     }
+    
+    //still working
+//    private boolean promptToSave() throws IOException {
+//        // PROMPT THE USER TO SAVE UNSAVED WORK
+//        boolean saveWork = true; 
+//
+//        // IF THE USER SAID YES, THEN SAVE BEFORE MOVING ON
+//        if (saveWork) {
+//            PortfolioModel portfolio = ui.getPortfolio();
+//            portfolioIO.savePortfolio(portfolio);
+//            saved = true;
+//        } // IF THE USER SAID CANCEL, THEN WE'LL TELL WHOEVER
+//        // CALLED THIS THAT THE USER IS NOT INTERESTED ANYMORE
+//        else if (!true) {
+//            return false;
+//        }
+//
+//        // IF THE USER SAID NO, WE JUST GO ON WITHOUT SAVING
+//        // BUT FOR BOTH YES AND NO WE DO WHATEVER THE USER
+//        // HAD IN MIND IN THE FIRST PLACE
+//        return true;
+//    }
     
     public void handleSwitchWorkspaceRequest(){
         

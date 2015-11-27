@@ -45,6 +45,24 @@
     -fx-spacing: 60px;
 }
 
+.page_edit_view{
+     -fx-background-radius: 10.0;
+    -fx-background-color: rgb(255,255,100);
+    -fx-border-color: rgb(70, 5, 5);
+    -fx-border-thickness: 10px;
+    -fx-spacing: 60px;
+}
+
+.selected_page_edit_view {
+    -fx-background-radius: 10.0;
+    -fx-background-color: rgb(250, 190, 190);
+    -fx-border-color: rgb(200, 200, 200);
+    -fx-border-thickness: 10px;
+    -fx-spacing: 60px;
+}
+
+
+
 //deal with the HBox of the caption one
 .selected_slide_edit_view {
     -fx-background-radius: 10.0;

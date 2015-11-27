@@ -5,10 +5,39 @@
  */
 package epg.model;
 
+import javafx.scene.control.TextArea;
+
 /**
  *
  * @author weichaozhao
  */
-class Page {
+public class Page {
+    String title;
+    String studentName;
+    Component selectedComponent;
+    
+    public Page(String defaultTitle, String defaultStuName){
+        title = defaultTitle;
+        studentName = defaultStuName;
+    }
+    
+    public String getTitle(){
+        return title;
+    }
+    
+    public String getStudentName(){
+        return studentName;
+}
+    public void setTitle(String initTitle){
+        title = initTitle;
+    }   
+    
+    public void setStudentName(String initName){
+        studentName = initName;
+    }
+    
+    public void addTextComponent(TextArea ta){
+        
+    }
     
 }

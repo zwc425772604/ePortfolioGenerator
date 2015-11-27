@@ -23,6 +23,8 @@ public class pageEditorController {
     public pageEditorController(ePortfolioMakerView initUI){
         ui = initUI;
     }
+    
+    
 
     public void processAddTextComponent() {
         addTextComponentDialog textDialog = new addTextComponentDialog();

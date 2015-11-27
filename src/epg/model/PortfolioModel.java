@@ -6,6 +6,7 @@
 package epg.model;
 
 import epg.view.ePortfolioMakerView;
+import eportfoliogenerator.LanguagePropertyType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import properties_manager.PropertiesManager;
@@ -56,7 +57,15 @@ public class PortfolioModel {
     public void setTitle(String initTitle) { 
 	title = initTitle; 
     }
-
+    
+    public void addPage(Page p) {
+	Page pageToAdd = p;
+	pages.add(pageToAdd);
+        
+	ui.reloadSlideShowPane();
+    }
+    
+    
     // SERVICE METHODS
     public void reset() {
 	pages.clear();
@@ -64,7 +73,7 @@ public class PortfolioModel {
 //	title = props.getProperty(LanguagePropertyType.DEFAULT_SLIDE_SHOW_TITLE);
 	selectedPage = null;
     }
-   
- 
-   
+
+    
+  
 }

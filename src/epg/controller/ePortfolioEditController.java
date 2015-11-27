@@ -5,7 +5,14 @@
  */
 package epg.controller;
 
+import epg.model.Page;
+import epg.model.PortfolioModel;
 import epg.view.ePortfolioMakerView;
+import epg.view.pageEditView;
+import static eportfoliogenerator.LanguagePropertyType.DEFAULT_PAGE_TITLE;
+import static eportfoliogenerator.LanguagePropertyType.DEFAULT_STUDENT_NAME;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
+import properties_manager.PropertiesManager;
 
 /**
  * This controller provides responses for the site edit toolbar,
@@ -27,6 +34,15 @@ public class ePortfolioEditController {
     
     public void processAddPageRequest(){
         
+        PortfolioModel portfolio = ui.getPortfolio();
+	PropertiesManager props = PropertiesManager.getPropertiesManager();
+        Page p = new Page("TITlE","STUDENT NAME");
+	portfolio.addPage(p);
+        ui.initPageButton(ui.getLeftSiteToolbar(),p.getTitle(),CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
+        pageEditView pev = new pageEditView(p);
+        pev.addImage();
+        
+        System.out.println("create a new page");
     }
     
     public void processRemovePageRequest(){

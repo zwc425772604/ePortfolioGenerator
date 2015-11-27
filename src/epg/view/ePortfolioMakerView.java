@@ -10,6 +10,7 @@ import epg.controller.ePortfolioEditController;
 import epg.controller.pageEditorController;
 import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
+import epg.model.Page;
 import epg.model.PortfolioModel;
 import eportfoliogenerator.LanguagePropertyType;
 import static eportfoliogenerator.LanguagePropertyType.TOOLTIP_ADD_IMAGE_COMPONENT;
@@ -42,6 +43,8 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_SITE_EDIT_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDITOR_BUTTON;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDIT_VIEW;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_SELECTED_PAGE_EDIT_VIEW;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_IMAGE_COMPONENT;
 import static eportfoliogenerator.StartupConstants.ICON_ADD_PAGE;
@@ -169,6 +172,9 @@ public class ePortfolioMakerView {
     // THIS IS FOR SAVING AND LOADING SLIDE SHOWS
     ePortfolioFileManager fileManager;
     
+    //THIS IS A LIST OF PAGE BUTTONS
+    ObservableList<Button> pageButton;
+    
     // THIS CONTROLLER WILL ROUTE THE PROPER RESPONSES
     // ASSOCIATED WITH THE FILE TOOLBAR
     private FileController fileController;
@@ -183,7 +189,7 @@ public class ePortfolioMakerView {
     public ePortfolioMakerView(ePortfolioFileManager initFileManager) {
         fileManager = initFileManager;
         portfolio = new PortfolioModel(this);
-        
+        pageButton = FXCollections.observableArrayList();
     }
     
     public PortfolioModel getPortfolio(){
@@ -235,6 +241,12 @@ public class ePortfolioMakerView {
     public ErrorHandler getErrorHandler() {
 	return errorHandler;
     }
+    
+    public VBox getLeftSiteToolbar(){
+        return siteEditToolbar;
+    
+    
+}
     
     public void initPageEditorWorkspaceButton(){
         pageEditorToolbar = new VBox();
@@ -404,32 +416,31 @@ public class ePortfolioMakerView {
             TOOLTIP_REMOVE_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);//supposed to be true
       
     //buttons for selecting page
-      page1Button = this.initPageButton(siteEditToolbar, "ABOUT ME",
-              CSS_CLASS_VERTICAL_TOOLBAR_BUTTON , false);
+//      page1Button = this.initPageButton(siteEditToolbar, "ABOUT ME",
+//              CSS_CLASS_VERTICAL_TOOLBAR_BUTTON , false);
 
      
-      
-      
-      
-      
+   
         // AND THIS WILL GO IN THE CENTER
-        sitesEditorPane = new VBox();
-        sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
-//        workspace.getChildren().add(siteEditToolbar);
+//        sitesEditorPane = new VBox();
+//        sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
+////        workspace.getChildren().add(siteEditToolbar);
 //        workspace.getChildren().add(sitesEditorScrollPane);
     }
     
-    private Button initPageButton(Pane toolbar,
-            String pageName,
+    public void initPageButton(Pane toolbar,
+            String title,
             String cssClass,
             boolean disable){
+        
         Button button = new Button();
 	button.getStyleClass().add(cssClass);
-        button.setText(pageName);
+        button.setText(title);
 	button.setDisable(disable);
-	
+	pageButton.add(button);
 	toolbar.getChildren().add(button);
-	return button;
+        
+//	return button;
         
     }
 
@@ -516,7 +527,11 @@ public class ePortfolioMakerView {
         String titlePrompt = namePrompt;
         tf.setText(titlePrompt);
         tf.textProperty().addListener(e -> {
-	    portfolio.setTitle(tf.getText());
+	    portfolio.getPages().get(0).setTitle(tf.getText());
+//            System.out.println(tf.getText());
+            System.out.println(portfolio.getPages().get(0).getTitle());
+            updatePageTitle();
+                    
 	});
         pane.getChildren().add(pageTitleVBox);
         return pageTitleVBox;
@@ -565,6 +580,11 @@ public class ePortfolioMakerView {
 	epgPane.setTop(fileToolbarPane);
         epgPane.setBottom(workspaceModeToolbar);
         epgPane.setLeft(siteEditToolbar);  //testedddd
+        
+        sitesEditorPane = new VBox();
+        sitesEditorPane.setPrefSize(900, 700);
+        sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
+        epgPane.setCenter(sitesEditorScrollPane);
         //epgPane.setRight(pageEditorToolbar);
         epgPane.setRight(pagesEditorToolbarScrollPane);
 	primaryScene = new Scene(epgPane);
@@ -594,6 +614,38 @@ public class ePortfolioMakerView {
 	toolbar.getChildren().add(button);
 	return button;
     }
+
+    public void updatePageTitle(){
+        for (int i = 0; i<pageButton.size();i++){
+            pageButton.get(i).setText(portfolio.getPages().get(i).getTitle());
+        }
+    }
+    
+   /**
+     * Uses the slide show data to reload all the components for
+     * slide editing.
+     * 
+     * @param slideShowToLoad SLide show being reloaded.
+     */
+    public void reloadSlideShowPane() {
+	sitesEditorPane.getChildren().clear();
+//	reloadTitleControls();
+	for (Page page : portfolio.getPages()) {
+	    pageEditView pageEditor = new pageEditView(page);
+	    if (portfolio.isSelectedPage(page))
+		pageEditor.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
+	    else
+	        pageEditor.getStyleClass().add(CSS_CLASS_SELECTED_PAGE_EDIT_VIEW);
+	    sitesEditorPane.getChildren().add(pageEditor);
+	    pageEditor.setOnMousePressed(e -> {
+		portfolio.setSelectedPage(page);
+		this.reloadSlideShowPane();
+	    });
+	}
+//	updateSlideshowEditToolbarControls();
+    }
+
+   
     
    
 }
