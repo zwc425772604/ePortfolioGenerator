@@ -110,7 +110,7 @@ public class pageEditView extends HBox {
 	    page.setTitle(text);
             
 	});	    
-	addImage();
+//	addImage();
 	
 	
 	
@@ -209,6 +209,11 @@ public class pageEditView extends HBox {
         
         
         
+    }
+    
+    public void getPageInfo(){
+        System.out.println(page.getStudentName());
+        System.out.println(page.getTitle());
     }
     
    

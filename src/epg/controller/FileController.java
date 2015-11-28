@@ -63,7 +63,20 @@ public class FileController {
     }
     
     public void handleNewPortfolioRequest(){
-        
+        boolean continueToMakeNew = true;
+        if (continueToMakeNew) {
+            // RESET THE DATA, WHICH SHOULD TRIGGER A RESET OF THE UI
+            PortfolioModel portfolio = ui.getPortfolio();
+            portfolio.reset();
+            saved = false;
+            
+            // REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
+            // THE APPROPRIATE CONTROLS
+            ui.updateToolbarControls(saved);
+            
+            // MAKE SURE THE TITLE CONTROLS ARE ENABLED
+            
+        }
     }
     
     public void handleLoadPortfolioRequest(){

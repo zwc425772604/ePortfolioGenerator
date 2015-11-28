@@ -411,7 +411,7 @@ public class ePortfolioMakerView {
       siteEditToolbar.setPrefWidth(148);
       siteEditToolbar.getStyleClass().add(CSS_CLASS_SITE_EDIT_VBOX);
       addPageButton = this.initChildButton(siteEditToolbar,ICON_ADD_PAGE, 
-            TOOLTIP_ADD_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON,  false);
+            TOOLTIP_ADD_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON,  true);
       removePageButton = this.initChildButton(siteEditToolbar, ICON_REMOVE_PAGE,
             TOOLTIP_REMOVE_PAGE,  CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);//supposed to be true
       
@@ -439,6 +439,13 @@ public class ePortfolioMakerView {
 	button.setDisable(disable);
 	pageButton.add(button);
 	toolbar.getChildren().add(button);
+        button.setOnAction(e ->{
+            for (int i = 0; i<portfolio.getPages().size();i++){
+                if (title.equals(portfolio.getPages().get(i).getTitle()))
+                     portfolio.setSelectedPage(portfolio.getPages().get(i));
+            }
+            
+        });
         
 //	return button;
         
@@ -455,11 +462,11 @@ public class ePortfolioMakerView {
 	loadPortfolioButton = initChildButton(fileToolbarPane, ICON_LOAD_PORTFOLIO,	
                 TOOLTIP_LOAD_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
 	savePortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_PORTFOLIO,	
-                TOOLTIP_SAVE_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+                TOOLTIP_SAVE_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
         savePortfolioAsButton = initChildButton(fileToolbarPane, ICON_SAVE_AS_PORTFOLIO,	
-                TOOLTIP_SAVE_AS_PORTFOLIO, CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+                TOOLTIP_SAVE_AS_PORTFOLIO, CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
 	exportPortfolioButton = initChildButton(fileToolbarPane, ICON_EXPORT_PORTFOLIO,
-                TOOLTIP_EXPORT_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+                TOOLTIP_EXPORT_PORTFOLIO,    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
 	exitButton = initChildButton(fileToolbarPane, ICON_EXIT,
                 TOOLTIP_EXIT, CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
     }
@@ -510,6 +517,9 @@ public class ePortfolioMakerView {
         selectSiteViewerWorkspaceButton.setOnAction(e -> {
             pageController.processSiteViewer();
         });
+        selectPageEditorWorkspaceButton.setOnAction(e ->{
+            pageController.processPageEditor();
+        });
         
      
 	
@@ -527,9 +537,10 @@ public class ePortfolioMakerView {
         String titlePrompt = namePrompt;
         tf.setText(titlePrompt);
         tf.textProperty().addListener(e -> {
-	    portfolio.getPages().get(0).setTitle(tf.getText());
+//	    portfolio.getPages().get(0).setTitle(tf.getText());
 //            System.out.println(tf.getText());
-            System.out.println(portfolio.getPages().get(0).getTitle());
+//            System.out.println(portfolio.getPages().get(0).getTitle());
+            portfolio.getSelectedPage().setTitle(tf.getText());
             updatePageTitle();
                     
 	});
@@ -578,15 +589,15 @@ public class ePortfolioMakerView {
         // SETUP THE UI, NOTE WE'LL ADD THE WORKSPACE LATER
 	epgPane = new BorderPane();
 	epgPane.setTop(fileToolbarPane);
-        epgPane.setBottom(workspaceModeToolbar);
-        epgPane.setLeft(siteEditToolbar);  //testedddd
-        
-        sitesEditorPane = new VBox();
-        sitesEditorPane.setPrefSize(900, 700);
-        sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
-        epgPane.setCenter(sitesEditorScrollPane);
-        //epgPane.setRight(pageEditorToolbar);
-        epgPane.setRight(pagesEditorToolbarScrollPane);
+//        epgPane.setBottom(workspaceModeToolbar);
+//        epgPane.setLeft(siteEditToolbar);  //testedddd
+//        
+//        sitesEditorPane = new VBox();
+//        sitesEditorPane.setPrefSize(900, 700);
+//        sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
+//        epgPane.setCenter(sitesEditorScrollPane);
+//        //epgPane.setRight(pageEditorToolbar);
+//        epgPane.setRight(pagesEditorToolbarScrollPane);
 	primaryScene = new Scene(epgPane);
         
         // NOW TIE THE SCENE TO THE WINDOW, SELECT THE STYLESHEET
@@ -614,7 +625,18 @@ public class ePortfolioMakerView {
 	toolbar.getChildren().add(button);
 	return button;
     }
-
+    public void removePageButton(String pagetitle){
+         for (int i = 0; i<pageButton.size();i++){
+            if (pagetitle.equals(pageButton.get(i).getText())){
+                Button b = pageButton.get(i);
+                pageButton.remove(b);
+                siteEditToolbar.getChildren().remove(b);
+            }
+        }
+         System.out.println(pageButton.size());
+        
+    }
+    
     public void updatePageTitle(){
         for (int i = 0; i<pageButton.size();i++){
             pageButton.get(i).setText(portfolio.getPages().get(i).getTitle());
@@ -644,6 +666,63 @@ public class ePortfolioMakerView {
 	}
 //	updateSlideshowEditToolbarControls();
     }
+    
+    /**
+     * Updates the enabled/disabled status of all toolbar
+     * buttons.
+     * 
+     * @param saved 
+     */
+    public void updateToolbarControls(boolean saved) {
+	// FIRST MAKE SURE THE WORKSPACE IS THERE
+        
+	epgPane.setBottom(workspaceModeToolbar);
+        epgPane.setLeft(siteEditToolbar);  //testedddd
+        
+        sitesEditorPane = new VBox();
+        sitesEditorPane.setPrefSize(900, 700);
+        sitesEditorScrollPane = new ScrollPane(sitesEditorPane);
+        epgPane.setCenter(sitesEditorScrollPane);
+        //epgPane.setRight(pageEditorToolbar);
+       // epgPane.setRight(pagesEditorToolbarScrollPane);
+	
+	// NEXT ENABLE/DISABLE BUTTONS AS NEEDED IN THE FILE TOOLBAR
+	savePortfolioButton.setDisable(saved);
+	exportPortfolioButton.setDisable(false);
+	
+	updateSlideshowEditToolbarControls();
+    }
+    
+    //update the page editor controll
+    public void updatePageEditorControls(){
+        epgPane.setRight(pagesEditorToolbarScrollPane);
+    }
+    
+    public void updateSlideshowEditToolbarControls() {
+	// AND THE SLIDESHOW EDIT TOOLBAR
+	addPageButton.setDisable(false);
+	boolean pageSelected = portfolio.isPageSelected();
+//	removePageButton.setDisable(!pageSelected);
+        removePageButton.setDisable(false);
+		
+    }
+    
+    //If click the site viewer button, the page editor
+    //workspace is hidden
+    public void setToolbarInvisible(){
+        pagesEditorToolbarScrollPane.setVisible(false);
+        siteEditToolbar.setVisible(false);
+        sitesEditorScrollPane.setVisible(false);
+    }
+    
+    
+    //enable the page editor workspace
+    public void setToolbarVisible(){
+        pagesEditorToolbarScrollPane.setVisible(true);
+        siteEditToolbar.setVisible(true);
+        sitesEditorScrollPane.setVisible(true);
+    }
+   
 
    
     

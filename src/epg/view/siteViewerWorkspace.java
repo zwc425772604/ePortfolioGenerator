@@ -20,10 +20,11 @@ import javafx.stage.Stage;
  * @author weichaozhao
  */
 public class siteViewerWorkspace extends Stage {
-    
-    
-    public siteViewerWorkspace(){
-         Stage primaryStage = new Stage();
+    ePortfolioMakerView ui;
+    public static Stage primaryStage;
+    public siteViewerWorkspace(ePortfolioMakerView initUI){
+        ui = initUI;
+        primaryStage = new Stage();
         primaryStage.setWidth(1000);
         primaryStage.setHeight(1000);
         Scene scene = new Scene(new Group(),950,950);
@@ -49,11 +50,21 @@ public class siteViewerWorkspace extends Stage {
         catch (Exception e){
         
         }
-        
+        ui.setToolbarInvisible();
        scene.setRoot(flowpane);
     
     primaryStage.setScene(scene);
     primaryStage.show();
         
+    }
+    
+//    public Stage getStage(){
+//        return this;
+//    }
+    
+    public static void closeWindow(){
+//       Stage stage = (Stage) this.getScene().getWindow();
+//       stage.close();
+        primaryStage.close();
     }
 }

@@ -6,6 +6,8 @@
 package epg.dialog;
 
 import epg.controller.ImageSelectionController;
+import epg.model.Page;
+import epg.view.pageEditView;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
@@ -56,6 +58,7 @@ public class addImageComponentDialog extends Stage {
     Label imgFloatLabel;
     ComboBox imgFloatComboBox;
     
+    Page selectedPage;
    
     
     public addImageComponentDialog(){
@@ -145,6 +148,12 @@ public class addImageComponentDialog extends Stage {
 //	    selectedTypeComponent = textCompComboBox.getSelectionModel().getSelectedItem().toString();
             //TODO
             //execute the textfield
+            String captionT = captionTextField.getText();
+            int wid = Integer.parseInt(imgWidthTextField.getText());
+            int hei = Integer.parseInt(imgHeightTextField.getText());
+            Image img = imageSelectionView.getImage();
+            pageEditView pev = new pageEditView(selectedPage);
+            pev.addImage();
 	    this.hide();
 	});
         

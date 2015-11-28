@@ -39,6 +39,7 @@ public class ePortfolioEditController {
         Page p = new Page("TITlE","STUDENT NAME");
 	portfolio.addPage(p);
         ui.initPageButton(ui.getLeftSiteToolbar(),p.getTitle(),CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
+        ui.updatePageEditorControls();
         pageEditView pev = new pageEditView(p);
         pev.addImage();
         
@@ -47,6 +48,13 @@ public class ePortfolioEditController {
     
     public void processRemovePageRequest(){
         
+	PortfolioModel portfolio = ui.getPortfolio();
+        ui.removePageButton(portfolio.getSelectedPage().getTitle());
+	portfolio.removeSelectedPage();
+        
+        ui.updatePageTitle();
+	ui.reloadSlideShowPane();
+    
     }
     
     public void processSelectPageRequest(){

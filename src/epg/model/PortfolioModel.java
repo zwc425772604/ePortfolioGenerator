@@ -65,6 +65,14 @@ public class PortfolioModel {
 	ui.reloadSlideShowPane();
     }
     
+    public void removeSelectedPage() {
+	if (isPageSelected()) {
+	    pages.remove(selectedPage);
+	    selectedPage = null;
+	    ui.reloadSlideShowPane();
+	}
+    }
+    
     
     // SERVICE METHODS
     public void reset() {
