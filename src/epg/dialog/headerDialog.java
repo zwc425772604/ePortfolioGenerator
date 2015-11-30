@@ -5,10 +5,15 @@
  */
 package epg.dialog;
 
+import epg.controller.pageWorkspaceController;
+import epg.view.ePortfolioMakerView;
+import epg.view.pageEditView;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_CANCEL_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.DIALOG_STYLE_SHEET;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -31,8 +36,16 @@ public class headerDialog extends Stage {
     TextField contentsTextField;
     Label fontLabel;
     TextField fontTextField;
-    
+    //pageEditView pev;
+    private pageWorkspaceController workController;
+//    public headerDialog(pageWorkspaceController initController){
+//        workController = initController;
+//    }
+//    private pageEditView ui;
+    //private ePortfolioMakerView ui;
     public headerDialog(){
+        //ui= initUI;
+        
         contentsLabel = new Label("Contents:");
         contentsLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         contentsTextField = new TextField("Entering The Contents");
@@ -51,8 +64,14 @@ public class headerDialog extends Stage {
         vBox.getChildren().add(okButton);
         vBox.getChildren().add(cancelButton);
         
-        okButton.setOnAction(e -> {
-            this.hide();
+        okButton.setOnAction((ActionEvent e) -> {
+            //String header = contentsTextField.getText();
+//            workController.addHeaderToPage(contentsTextField.getText());
+            System.out.println(contentsTextField.getText());
+            
+            
+            headerDialog.this.hide();
+            //workController.addHeaderToPage(header);
         });
         
         cancelButton.setOnAction(e -> {
