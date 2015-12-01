@@ -7,6 +7,7 @@ package epg.dialog;
 
 import epg.controller.ImageSelectionController;
 import epg.model.Page;
+import epg.view.ePortfolioMakerView;
 import epg.view.pageEditView;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
@@ -59,9 +60,11 @@ public class addImageComponentDialog extends Stage {
     ComboBox imgFloatComboBox;
     
     Page selectedPage;
+    private ePortfolioMakerView ui;
    
     
-    public addImageComponentDialog(){
+    public addImageComponentDialog(ePortfolioMakerView initUI){
+        ui = initUI;
         imgLabel = new Label("Select An Image:");
         imageSelectionView = new ImageView();
         String imagePath = "./images/slide_show_images/DefaultStartSlide.png";
@@ -152,7 +155,7 @@ public class addImageComponentDialog extends Stage {
             int wid = Integer.parseInt(imgWidthTextField.getText());
             int hei = Integer.parseInt(imgHeightTextField.getText());
             Image img = imageSelectionView.getImage();
-            pageEditView pev = new pageEditView(selectedPage);
+            pageEditView pev = new pageEditView(selectedPage,ui);
             pev.addImage();
 	    this.hide();
 	});

@@ -5,6 +5,8 @@
  */
 package epg.dialog;
 
+import epg.view.ePortfolioMakerView;
+import epg.view.pageEditView;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_CANCEL_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
@@ -13,6 +15,8 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_OPTI
 import static eportfoliogenerator.StartupConstants.DIALOG_STYLE_SHEET;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -36,8 +40,13 @@ public class addTextComponentDialog extends Stage{
     TextField contentsTextField;
     Label fontLabel;
     TextField fontTextField;
+   // private pageEditView ui;
+     public static Stage primaryStage;
     
-    public addTextComponentDialog() {
+     private ePortfolioMakerView ui;
+    public addTextComponentDialog(ePortfolioMakerView initUI) {
+        ui = initUI;
+        primaryStage = new Stage();
         typeOfComponentLabel = new Label("Type Of Text Component:");
         typeOfComponentLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
 	// INIT THE TEXT COMPONENT CHOICE
@@ -66,33 +75,42 @@ public class addTextComponentDialog extends Stage{
 	vBox.getChildren().add(okButton);
         vBox.getChildren().add(cancelButton);
 //        vBox.getStyleClass().add(CSS_CLASS_LANGUAGE_OPTION_VBOX);
-	okButton.setOnAction(e -> {
+	okButton.setOnAction((ActionEvent e) -> {
+            this.hide();
 	    selectedTypeComponent = textCompComboBox.getSelectionModel().getSelectedItem().toString();
             if (selectedTypeComponent.equals("paragraph")){
-                paragraphDialog dialog = new paragraphDialog();
+//                paragraphDialog dialog = new paragraphDialog();
+                paragraphTextDialog dialog = new paragraphTextDialog();
+                dialog.show();
 //                this.hide();
 //                dialog.showAndWait();
-                dialog.show();
-                this.hide();
+//                dialog.show();
+                //this.hide();
+//                closeWindow();
             }
             if (selectedTypeComponent.equals("header")){
-               
-                headerDialog dialog = new headerDialog();
-                dialog.show();
+//                headerDialog dialog = new headerDialog();
+//                dialog.show();
+                //this.hide();
 //                 dialog.showAndWait();
-                 this.hide();
+                
+               
+                
+                headerTextDialog dialog;
+                dialog = new headerTextDialog(ui);
+                
             }
             if (selectedTypeComponent.equals("list")){
                listDialog dialog = new listDialog();
 //               this.hide();
 //                dialog.showAndWait();
                dialog.show();
-               this.hide();
+//               this.hide();
             }
             
             //TODO
             //execute the textfield
-	    this.hide();
+//	    this.hide();
 	});
 	
         cancelButton.setOnAction(e -> {
@@ -107,6 +125,11 @@ public class addTextComponentDialog extends Stage{
     
     public String getSelectedTextComponent() {
 	return selectedTypeComponent;
+    }
+    
+    
+    public static void closeWindow(){
+        primaryStage.close();
     }
 }
 

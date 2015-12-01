@@ -21,7 +21,9 @@ import javafx.stage.Stage;
 public class headerTextDialog extends Stage {
     
     private PortfolioModel portfolio;
-    public headerTextDialog(){
+    private ePortfolioMakerView ui;
+    public headerTextDialog(ePortfolioMakerView initUI){
+        ui = initUI;
         
     TextInputDialog dialog = new TextInputDialog();
     dialog.setTitle("Header");
@@ -31,20 +33,19 @@ public class headerTextDialog extends Stage {
     if (result.isPresent()){
         entered = result.get();
     }
-//    System.out.println(entered);
-    ePortfolioFileManager manager = new ePortfolioFileManager();
-    ePortfolioMakerView ui = new ePortfolioMakerView(manager);
-    //PortfolioModel model = new PortfolioModel(ui);
-    PortfolioModel model = ui.getPortfolio();
-    //Page p = model.getSelectedPage();
-    model.addHeader(entered);
 
-    //p.addHeader(entered);
-    //pageEditView pev = new pageEditView(p);
-    //pev.addHeader();
-  //  pev.updateHeader();
-    int index = 0;
-   // System.out.println(p.getHeader().get(index));
-    index++;
+    PortfolioModel model = ui.getPortfolio();
+    Page p = model.getSelectedPage();
+//    model.addHeader(entered);
+
+    p.addHeader(entered);
+   pageEditView pev = p.getPageEditView();
+//    pageEditView pev = new pageEditView(p,ui);
+   // pev.addHeader();
+    pev.updateHeader();
+    
+   // ui.reloadPortfolioPane();
+    System.out.println(p.getHeader().get(0));
+    
     }
 }
