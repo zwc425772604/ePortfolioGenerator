@@ -22,17 +22,19 @@ import properties_manager.PropertiesManager;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDIT_VIEW;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 
 
 /**
  *
  * @author weichaozhao
  */
-public class pageEditView extends HBox {
+public class pageEditView extends VBox {
     Page page;
     
    
@@ -71,22 +73,27 @@ public class pageEditView extends HBox {
     
     Label imgFloatLabel;
     ComboBox imgFloatComboBox;
+    private ePortfolioMakerView ui;
     
-
+    private int index = 0;
+    
+    ObservableList<VBox> headerComp;
+    ObservableList<VBox> paragraphComp;
     /**
      * THis' constructor initializes the full UI for this component, using
      * the initSlide data for initializing values./
      * 
      * @param initSlide The slide to be edited by this component.
      */
-    public pageEditView(Page initPage) {
+    public pageEditView(Page initPage, ePortfolioMakerView initUI) {
 	// FIRST SELECT THE CSS STYLE CLASS FOR THIS CONTAINER
 	this.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
-	
+	ui = initUI;
 	// KEEP THE SLIDE FOR LATER
 	page = initPage;
-	
-        
+	headerComp = FXCollections.observableArrayList();
+        paragraphComp = FXCollections.observableArrayList();
+        updateHeader();
 	
 
 	// SETUP THE CAPTION CONTROLS
@@ -110,17 +117,97 @@ public class pageEditView extends HBox {
 	    page.setTitle(text);
             
 	});	    
-//	addImage();
+
 	
-	
-	
+//   addHeader();
+//       addImage();
+//	
 	
 	
     }
     
-    public HBox getWorkspace(){
+    public VBox getWorkspace(){
         return this;
     }
+    
+//    public void addHeader(String h1){
+//        TextArea ta = new TextArea(h1);
+//        getChildren().add(ta);
+//    }
+    public void addHeader(){
+        String input = "Hello World";
+        TextArea ta = new TextArea(input);
+        ta.setEditable(false);
+        getChildren().add(ta);
+        
+    }
+    
+    public void updateHeader(){
+        ArrayList<String> header = page.getHeader();
+        for (String text : header){
+          addHeaderToVBox(text);
+        }
+        reloadPageEditView(page);
+        
+//        ui.reloadPortfolioPane();
+    }
+    
+    //add the header vbox to the pageEditView
+    public void addHeaderToVBox(String x){
+        VBox h1 = new VBox();
+        TextArea ta = new TextArea(x);
+        ta.setEditable(false);
+        ta.setOnMouseClicked(e -> {
+            System.out.println("this has been clicked");
+        });
+        h1.getChildren().add(ta);
+        headerComp.add(h1);
+        getChildren().add(h1);
+    }
+    
+    //Add the paragraph vbox to the pageEditView
+    public void addParagraphToVBox(String x){
+        VBox h1 = new VBox();
+        TextArea ta = new TextArea(x);
+        ta.setEditable(false);
+        ta.setOnMouseClicked(e -> {
+            System.out.println("this has been clicked");
+        });
+        h1.getChildren().add(ta);
+        paragraphComp.add(h1);
+        getChildren().add(h1);
+    }
+    
+     //reload the page
+     public void reloadPageEditView(Page testPage){
+//         getChildren().clear();
+         page = testPage;
+         
+         
+         
+        
+	
+	
+	
+        
+//         if(headerComp.size()> 0){
+////             for(int i = 0; i<headerComp.size();i++){
+//         getChildren().add(headerComp.get(0));
+//         
+//         }
+        
+         
+         
+	 
+        
+	
+
+           
+//        addHeader();
+
+    }
+    
+
     
     public void addImage(){
        imgLabel = new Label("Select An Image:");
@@ -216,6 +303,7 @@ public class pageEditView extends HBox {
         System.out.println(page.getTitle());
     }
     
+   
    
    
    

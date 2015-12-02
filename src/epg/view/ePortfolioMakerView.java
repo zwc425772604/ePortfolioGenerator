@@ -185,11 +185,13 @@ public class ePortfolioMakerView {
      // THIS CONTROLLER RESPONDS TO SLIDE SHOW EDIT BUTTONS
     private ePortfolioEditController editController;
     private pageEditorController pageController;
+  
 
     public ePortfolioMakerView(ePortfolioFileManager initFileManager) {
         fileManager = initFileManager;
         portfolio = new PortfolioModel(this);
         pageButton = FXCollections.observableArrayList();
+        
     }
     
     public PortfolioModel getPortfolio(){
@@ -649,11 +651,12 @@ public class ePortfolioMakerView {
      * 
      * @param slideShowToLoad SLide show being reloaded.
      */
-    public void reloadSlideShowPane() {
+    public void reloadPortfolioPane() {
 	sitesEditorPane.getChildren().clear();
 //	reloadTitleControls();
 	for (Page page : portfolio.getPages()) {
-	    pageEditView pageEditor = new pageEditView(page);
+	    pageEditView pageEditor = new pageEditView(page,this);
+            page.setPageEditView(pageEditor);
 	    if (portfolio.isSelectedPage(page))
 		pageEditor.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
 	    else
@@ -661,11 +664,15 @@ public class ePortfolioMakerView {
 	    sitesEditorPane.getChildren().add(pageEditor);
 	    pageEditor.setOnMousePressed(e -> {
 		portfolio.setSelectedPage(page);
-		this.reloadSlideShowPane();
+		this.reloadPortfolioPane();
 	    });
 	}
 //	updateSlideshowEditToolbarControls();
     }
+    
+//    public pageEditView getPageEditPage(Page testPage){
+//         
+//    }
     
     /**
      * Updates the enabled/disabled status of all toolbar

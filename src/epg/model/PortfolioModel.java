@@ -62,15 +62,20 @@ public class PortfolioModel {
 	Page pageToAdd = p;
 	pages.add(pageToAdd);
         
-	ui.reloadSlideShowPane();
+	ui.reloadPortfolioPane();
     }
     
     public void removeSelectedPage() {
 	if (isPageSelected()) {
 	    pages.remove(selectedPage);
 	    selectedPage = null;
-	    ui.reloadSlideShowPane();
+	    ui.reloadPortfolioPane();
 	}
+    }
+    
+    public void addHeader(String text){
+        this.getSelectedPage().addHeader(text);
+        ui.reloadPortfolioPane();
     }
     
     

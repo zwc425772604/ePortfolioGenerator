@@ -9,6 +9,7 @@ import epg.dialog.addImageComponentDialog;
 import epg.dialog.addTextComponentDialog;
 import epg.dialog.addVideoComponentDialog;
 import epg.view.ePortfolioMakerView;
+import epg.view.pageEditView;
 import epg.view.siteViewerWorkspace;
 import javafx.stage.Stage;
 
@@ -21,19 +22,22 @@ import javafx.stage.Stage;
 public class pageEditorController {
     private ePortfolioMakerView ui;
     siteViewerWorkspace siteViewer;
+    //private pageEditView pageUI;
     public pageEditorController(ePortfolioMakerView initUI){
         ui = initUI;
+//        pageUI = initPageUI;
     }
     
     
 
     public void processAddTextComponent() {
-        addTextComponentDialog textDialog = new addTextComponentDialog();
-	textDialog.showAndWait();
+        addTextComponentDialog textDialog = new addTextComponentDialog(ui);
+//	textDialog.showAndWait();
+        textDialog.show();
     }
 
     public void processAddImageComponent() {
-        addImageComponentDialog imageDialog = new addImageComponentDialog();
+        addImageComponentDialog imageDialog = new addImageComponentDialog(ui);
 	imageDialog.showAndWait();
     }
 
@@ -48,7 +52,7 @@ public class pageEditorController {
     }
 
     public void processPageEditor() {
-        System.out.println("close");
+      //  System.out.println("close");
        ui.setToolbarVisible();
        siteViewer.closeWindow();
 //       siteViewer.getScene().getWindow().hide();

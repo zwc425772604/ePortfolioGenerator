@@ -70,7 +70,7 @@ public class listDialog extends Stage {
 //            System.out.println(inputTextField.size());
             
             //TODO
-            this.hide();
+             this.hide();
         });
         
         cancelButton.setOnAction(e -> {

@@ -5,6 +5,8 @@
  */
 package epg.model;
 
+import epg.view.pageEditView;
+import java.util.ArrayList;
 import javafx.scene.control.TextArea;
 
 /**
@@ -15,14 +17,25 @@ public class Page {
     String title;
     String studentName;
     Component selectedComponent;
+    ArrayList<String>header;
+    ArrayList<String>paragraph;
+    pageEditView p;
     
     public Page(String defaultTitle, String defaultStuName){
         title = defaultTitle;
         studentName = defaultStuName;
+        header = new ArrayList<String>();
+        paragraph = new ArrayList<String>();
     }
     
     public String getTitle(){
         return title;
+    }
+    public pageEditView getPageEditView(){
+        return p;
+    }
+    public void setPageEditView(pageEditView testPEV){
+        p = testPEV;
     }
     
     public String getStudentName(){
@@ -36,8 +49,21 @@ public class Page {
         studentName = initName;
     }
     
-    public void addTextComponent(TextArea ta){
+    public void addTextComponent(String st){
         
     }
+    public void addHeader(String text){
+        header.add(text);
+    }
+    public ArrayList getHeader(){
+        return header;
+    }
     
+    public void addParagraph(String text){
+        paragraph.add(text);
+        
+    }
+    public ArrayList getParagraph(){
+        return paragraph;
+    }
 }

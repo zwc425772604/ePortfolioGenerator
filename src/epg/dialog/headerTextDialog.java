@@ -42,7 +42,10 @@ public class headerTextDialog extends Stage {
    pageEditView pev = p.getPageEditView();
 //    pageEditView pev = new pageEditView(p,ui);
    // pev.addHeader();
-    pev.updateHeader();
+   
+    pev.reloadPageEditView(p);
+    pev.addHeaderToVBox(entered);
+    //pev.updateHeader();
     
    // ui.reloadPortfolioPane();
     System.out.println(p.getHeader().get(0));

@@ -80,8 +80,9 @@ public class addTextComponentDialog extends Stage{
 	    selectedTypeComponent = textCompComboBox.getSelectionModel().getSelectedItem().toString();
             if (selectedTypeComponent.equals("paragraph")){
 //                paragraphDialog dialog = new paragraphDialog();
-                paragraphTextDialog dialog = new paragraphTextDialog();
-                dialog.show();
+                paragraphTextDialog dialog;
+                dialog = new paragraphTextDialog(ui);
+//                dialog.show();
 //                this.hide();
 //                dialog.showAndWait();
 //                dialog.show();

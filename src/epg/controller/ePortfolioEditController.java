@@ -40,7 +40,7 @@ public class ePortfolioEditController {
 	portfolio.addPage(p);
         ui.initPageButton(ui.getLeftSiteToolbar(),p.getTitle(),CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
         ui.updatePageEditorControls();
-        pageEditView pev = new pageEditView(p);
+        pageEditView pev = new pageEditView(p,ui);
         pev.addImage();
         
         System.out.println("create a new page");
@@ -53,7 +53,7 @@ public class ePortfolioEditController {
 	portfolio.removeSelectedPage();
         
         ui.updatePageTitle();
-	ui.reloadSlideShowPane();
+	ui.reloadPortfolioPane();
     
     }
     
