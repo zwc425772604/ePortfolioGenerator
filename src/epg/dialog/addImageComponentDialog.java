@@ -7,6 +7,7 @@ package epg.dialog;
 
 import epg.controller.ImageSelectionController;
 import epg.model.Page;
+import epg.model.PortfolioModel;
 import epg.view.ePortfolioMakerView;
 import epg.view.pageEditView;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX;
@@ -65,6 +66,7 @@ public class addImageComponentDialog extends Stage {
     
     public addImageComponentDialog(ePortfolioMakerView initUI){
         ui = initUI;
+        selectedPage = ui.getPortfolio().getSelectedPage();
         imgLabel = new Label("Select An Image:");
         imageSelectionView = new ImageView();
         String imagePath = "./images/slide_show_images/DefaultStartSlide.png";
@@ -144,20 +146,33 @@ public class addImageComponentDialog extends Stage {
         vBox.getChildren().add(cancelButton);
         imageController = new ImageSelectionController();
 	imageSelectionView.setOnMousePressed(e -> {
-	    imageController.processSelectImage(imageSelectionView);
+	    imageController.processSelectImage(selectedPage,selectedPage.getPageEditView());
 	});
 //     
         okButton.setOnAction(e -> {
 //	    selectedTypeComponent = textCompComboBox.getSelectionModel().getSelectedItem().toString();
             //TODO
             //execute the textfield
-            String captionT = captionTextField.getText();
+//            String captionT = captionTextField.getText();
             int wid = Integer.parseInt(imgWidthTextField.getText());
             int hei = Integer.parseInt(imgHeightTextField.getText());
-            Image img = imageSelectionView.getImage();
-            pageEditView pev = new pageEditView(selectedPage,ui);
-            pev.addImage();
-	    this.hide();
+            String selectLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
+//            Image img = imageSelectionView.getImage();
+//            pageEditView pev = new pageEditView(selectedPage,ui);
+//            pev.addImage();
+//	    this.hide();
+         PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
+         Page p = model.getSelectedPage();  //return the selected page
+                //add the text for paragraph to the selected page
+         pageEditView pev = p.getPageEditView();   //load the corresponding pageEditView
+         pev.reloadPageEditView(p);
+         
+         String path = imageController.getImagePath() + imageController.getImageFileName();
+         System.out.println(path);
+         pev.addImageToVBox(path,hei, wid,selectLayout);
+         
+         //pev.addImage();
+         this.hide();
 	});
         
         cancelButton.setOnAction(e ->{

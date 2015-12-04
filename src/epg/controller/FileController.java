@@ -6,6 +6,7 @@
 package epg.controller;
 
 
+import epg.dialog.FileNameDialog;
 import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
 import epg.model.PortfolioModel;
@@ -83,8 +84,28 @@ public class FileController {
         
     }
     
-    public void handleSavePortfolioRequest(){
-        
+    public boolean handleSavePortfolioRequest(){
+         try {
+	    // GET THE SLIDE SHOW TO SAVE
+             
+	    PortfolioModel portfolioToSave = ui.getPortfolio();
+	    
+            FileNameDialog dialog = new FileNameDialog(ui);
+            // SAVE IT TO A FILE
+            portfolioIO.savePortfolio(portfolioToSave);
+
+            // MARK IT AS SAVED
+            saved = true;
+
+            // AND REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
+            // THE APPROPRIATE CONTROLS
+            ui.updateToolbarControls(saved);
+	    return true;
+        } catch (IOException ioe) {
+//            ErrorHandler eH = ui.getErrorHandler();
+//            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	    return false;
+        }
     }
     
     public void handleSaveAsPortfolioRequest(){

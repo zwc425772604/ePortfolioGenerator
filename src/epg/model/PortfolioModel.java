@@ -20,6 +20,7 @@ public class PortfolioModel {
     ObservableList<Page> pages;
     Page selectedPage;
     String title;
+    String fileNameToSave;
     
    public PortfolioModel(ePortfolioMakerView initUI){
        ui = initUI;
@@ -77,6 +78,16 @@ public class PortfolioModel {
         this.getSelectedPage().addHeader(text);
         ui.reloadPortfolioPane();
     }
+    
+    //the file name when saving the portfolio
+    public String getFileName(){
+        return fileNameToSave;
+    }
+    public void setFileName(String name){
+        fileNameToSave = name;
+    }
+    
+    
     
     
     // SERVICE METHODS

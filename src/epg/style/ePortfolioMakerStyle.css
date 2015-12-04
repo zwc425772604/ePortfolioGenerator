@@ -71,6 +71,10 @@
     -fx-border-thickness: 10px;
     -fx-spacing: 60px;
 }
+
+.selected_component{
+    -fx-background-color: gray;
+}
 //deal with the size of the button
 .vertical_toolbar_button {
     -fx-background-color: rgb(250, 130, 130);
@@ -109,6 +113,7 @@
   
   .page_label{
       -fx-text-fill: black;
+  
   }
 
   //deal with the background color of the scene( the application window)

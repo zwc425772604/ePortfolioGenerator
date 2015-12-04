@@ -20,12 +20,16 @@ public class Page {
     ArrayList<String>header;
     ArrayList<String>paragraph;
     pageEditView p;
+     String imageFileName;
+    String imagePath;
+    ArrayList<String>image;
     
     public Page(String defaultTitle, String defaultStuName){
         title = defaultTitle;
         studentName = defaultStuName;
         header = new ArrayList<String>();
         paragraph = new ArrayList<String>();
+        image = new ArrayList<String>();
     }
     
     public String getTitle(){
@@ -65,5 +69,22 @@ public class Page {
     }
     public ArrayList getParagraph(){
         return paragraph;
+    }
+    
+    public void addImage(String path){
+        image.add(path);
+    }
+    
+    public void setImage(String initPath, String initFileName) {
+	imagePath = initPath;
+	imageFileName = initFileName;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
     }
 }

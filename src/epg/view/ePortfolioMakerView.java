@@ -85,6 +85,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -260,7 +261,7 @@ public class ePortfolioMakerView {
         pagesEditorToolbarScrollPane.setContent(pageEditorToolbar);
         
         pageTitleVBox = this.initPageTextfieldControl(pageEditorToolbar,"Title:","ENTER THE TITLE");
-        studentNameVBox = this.initPageTextfieldControl(pageEditorToolbar,"Student Name:", "ENTER STUDENT NAME");
+        studentNameVBox = this.initStudentNameTextfieldControl(pageEditorToolbar,"Student Name:", "ENTER STUDENT NAME");
         footerVBox = this.initPageTextfieldControl(pageEditorToolbar, "Footer:", "ENTER THE FOOTER");
         ArrayList<String> layoutChoices = new ArrayList();
         layoutChoices.add("topLeftNavBar");layoutChoices.add("dropdownNavBar");layoutChoices.add("center");
@@ -272,23 +273,7 @@ public class ePortfolioMakerView {
         
         fontComponent = this.initFontTemplate(pageEditorToolbar);
         
-//	initPageTitleControl(pageEditorWorkspace);
-//    Button addTextComponentButton; // dialog
-//    Button addImageComponentButton;//dialog
-  //  Button addSlideshowComponenetButton;//dialog
-//    Button addVideoComponentButton;//dialog
-//    Button removeComponentButton;
-//    Button editTextComponentButton;//dialog
-//    Button editImageComponentButton;//dialog
-//    Button editSlideshowComponentButton;//dialog
-//    Button editVideoComponentButton;//dialog
-//    Button addTextHyperlinkButton;//dialog
-	
-//    Button editTextComponentButton;//dialog
-//    Button editImageComponentButton;//dialog
-//    Button editSlideshowComponentButton;//dialog
-//    Button editVideoComponentButton;//dialog
-//    Button addTextHyperlinkButton;//dialog
+
         
         //PAGE EDITOR CONTROLL
      selectBannerImage = this.initChildButton(pageEditorToolbar, ICON_SELECT_BANNER_IMAGE, 
@@ -445,8 +430,15 @@ public class ePortfolioMakerView {
             for (int i = 0; i<portfolio.getPages().size();i++){
                 if (title.equals(portfolio.getPages().get(i).getTitle()))
                      portfolio.setSelectedPage(portfolio.getPages().get(i));
+                
             }
             
+        });
+        //TODO 
+        button.setOnMouseClicked((MouseEvent e) -> {
+            System.out.println(button.getText());
+           // portfolio.getSelectedPage().getPageEditView().removeVBoxTesting();
+
         });
         
 //	return button;
@@ -543,32 +535,37 @@ public class ePortfolioMakerView {
 //            System.out.println(tf.getText());
 //            System.out.println(portfolio.getPages().get(0).getTitle());
             portfolio.getSelectedPage().setTitle(tf.getText());
-            updatePageTitle();
+            updatePageTitleButton();
                     
 	});
         pane.getChildren().add(pageTitleVBox);
         return pageTitleVBox;
        }
-//        PropertiesManager props = PropertiesManager.getPropertiesManager();
-//	String labelPrompt = props.getProperty(LABEL_PAGE_TITLE);
-//	pageTitlePane = new FlowPane();
-//	pageTitleLabel = new Label(labelPrompt);
-//	pageTitleTextfield = new TextField();
-//        pageTitleTextfield.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-//	pageTitlePane.getChildren().add(pageTitleLabel);
-//	pageTitlePane.getChildren().add(pageTitleTextfield);
-//	
-//	String titlePrompt = props.getProperty(LanguagePropertyType.LABEL_PAGE_TITLE);
-//	pageTitleTextfield.setText(titlePrompt);
-//	
-//	pageTitleTextfield.textProperty().addListener(e -> {
-//	    portfolio.setTitle(pageTitleTextfield.getText());
-//	});
-//        pageEditorWorkspace.getChildren().add(pageTitlePane);
        
+       public VBox initStudentNameTextfieldControl(Pane pane, String nameLabel, String namePrompt){
+           
+            studentNameVBox = new VBox();
+        Label lbl = new Label(nameLabel);
+        lbl.getStyleClass().add(CSS_CLASS_PAGE_LABEL);
+        TextField tf = new TextField();
+        tf.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+        studentNameVBox.getChildren().add(lbl);
+        studentNameVBox.getChildren().add(tf);
+        String titlePrompt = namePrompt;
+        tf.setText(titlePrompt);
+        tf.textProperty().addListener(e -> {
+            for (int i = 0; i< portfolio.getPages().size();i++){
+                portfolio.getPages().get(i).setStudentName(tf.getText());
+                portfolio.getPages().get(i).getPageEditView().reloadPageEditView(portfolio.getPages().get(i));
+            }
+           
+                    
+	});
+        pane.getChildren().add(studentNameVBox);
+        return studentNameVBox;
+       }
+     
        
-//        addToolbarToPageEditWorkspace(pageTitlePane);
-    
     
        public void addToolbarToPageEditWorkspace(Pane pane){
            pageEditorToolbar.getChildren().add(pane);
@@ -639,7 +636,7 @@ public class ePortfolioMakerView {
         
     }
     
-    public void updatePageTitle(){
+    public void updatePageTitleButton(){
         for (int i = 0; i<pageButton.size();i++){
             pageButton.get(i).setText(portfolio.getPages().get(i).getTitle());
         }

@@ -18,7 +18,7 @@ public class StartupConstants {
     public static String PROPERTY_TYPES_LIST = "property_types.txt";
     public static String PROPERTIES_SCHEMA_FILE_NAME = "properties_schema.xsd";
     public static String PATH_DATA = "./data/";
-    public static String PATH_SLIDE_SHOWS = PATH_DATA + "slide_shows/";
+    public static String PATH_PORTFOLIO = PATH_DATA + "portfolio/";
     public static String PATH_IMAGES = "./images/";
     public static String PATH_ICONS = PATH_IMAGES + "icons/";
      public static String PATH_SLIDE_SHOW_IMAGES = PATH_IMAGES + "slide_show_images/";
@@ -73,6 +73,7 @@ public class StartupConstants {
     public static String    CSS_CLASS_PAGE_LABEL = "page_label";
     public static String    CSS_CLASS_PAGE_EDIT_VIEW = "page_edit_view";
     public static String    CSS_CLASS_SELECTED_PAGE_EDIT_VIEW = "selected_page_edit_view";
+    public static String    CSS_CLASS_SELECTED_COMPONENT = "selected_component";
     
     public static String    CSS_CLASS_TEXT_COMPONENT_COMBOBOX = "text_component_combobox";
     

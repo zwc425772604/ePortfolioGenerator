@@ -6,6 +6,8 @@
 package epg.view;
 
 import epg.controller.ImageSelectionController;
+import epg.error.ErrorHandler;
+import static epg.file.ePortfolioFileManager.SLASH;
 import epg.model.Page;
 import eportfoliogenerator.LanguagePropertyType;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX;
@@ -20,11 +22,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import properties_manager.PropertiesManager;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDIT_VIEW;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_LABEL;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_SELECTED_COMPONENT;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
+import static eportfoliogenerator.StartupConstants.DEFAULT_THUMBNAIL_WIDTH;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -77,8 +83,12 @@ public class pageEditView extends VBox {
     
     private int index = 0;
     
+    VBox studentNameVBox;
+    VBox footerVBox;
+    
     ObservableList<VBox> headerComp;
     ObservableList<VBox> paragraphComp;
+    ObservableList<VBox> imageComp;
     /**
      * THis' constructor initializes the full UI for this component, using
      * the initSlide data for initializing values./
@@ -91,37 +101,42 @@ public class pageEditView extends VBox {
 	ui = initUI;
 	// KEEP THE SLIDE FOR LATER
 	page = initPage;
+        this.setPrefHeight(1200);
 	headerComp = FXCollections.observableArrayList();
         paragraphComp = FXCollections.observableArrayList();
+        imageComp = FXCollections.observableArrayList();
+        addStudentNameToVBox();
         updateHeader();
+        
 	
 
 	// SETUP THE CAPTION CONTROLS
-	captionVBox = new VBox();
-        captionVBox.setPrefSize(300, 500);
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-	captionLabel = new Label(props.getProperty(LanguagePropertyType.LABEL_CAPTION));
-	captionTextField = new TextField();
-        captionTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-	captionTextField.setText("enter title");
-	captionVBox.getChildren().add(captionLabel);
-	captionVBox.getChildren().add(captionTextField);
-
-	// LAY EVERYTHING OUT INSIDE THIS COMPONENT
-	
-	getChildren().add(captionVBox);
-
-	
-	captionTextField.textProperty().addListener(e -> {
-	    String text = captionTextField.getText();
-	    page.setTitle(text);
-            
-	});	    
+//	captionVBox = new VBox();
+//        captionVBox.setPrefSize(300, 500);
+//        PropertiesManager props = PropertiesManager.getPropertiesManager();
+//	captionLabel = new Label(props.getProperty(LanguagePropertyType.LABEL_CAPTION));
+//	captionTextField = new TextField();
+//        captionTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+//	captionTextField.setText("enter title");
+//	captionVBox.getChildren().add(captionLabel);
+//	captionVBox.getChildren().add(captionTextField);
+//
+//	// LAY EVERYTHING OUT INSIDE THIS COMPONENT
+//	
+//	getChildren().add(captionVBox);
+//
+//	
+//	captionTextField.textProperty().addListener(e -> {
+//	    String text = captionTextField.getText();
+//	    page.setTitle(text);
+//            
+//	});	    
 
 	
 //   addHeader();
-//       addImage();
-//	
+         //addImage("./images/slide_show_images/ArchesUtah.jpg");
+//        String x = "./images/slide_show_images/ArchesUtah.jpg";
+//        addImageToVBox(x,200,200);
 	
 	
     }
@@ -129,6 +144,11 @@ public class pageEditView extends VBox {
     public VBox getWorkspace(){
         return this;
     }
+    
+    //can remove a single vbox from the pane
+//    public void removeVBoxTesting(){
+//        this.getChildren().remove(studentNameVBox);
+//    }
     
 //    public void addHeader(String h1){
 //        TextArea ta = new TextArea(h1);
@@ -158,6 +178,7 @@ public class pageEditView extends VBox {
         TextArea ta = new TextArea(x);
         ta.setEditable(false);
         ta.setOnMouseClicked(e -> {
+            ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
             System.out.println("this has been clicked");
         });
         h1.getChildren().add(ta);
@@ -165,12 +186,88 @@ public class pageEditView extends VBox {
         getChildren().add(h1);
     }
     
+    public void addImageToVBox(String path, int height, int width, String layout){
+        VBox i1 = new VBox();
+//        ImageView imgView = new ImageView();
+//        String imagePath = path;
+//       // String ipath = "./images/slide_show_images/ArchesUtah.jpg";
+//	File file = new File(path);
+//        
+//        try {
+//	    // GET AND SET THE IMAGE
+//	    URL fileURL = file.toURI().toURL();
+//	    Image slideImage = new Image(fileURL.toExternalForm());
+//	    imageSelectionView.setImage(slideImage);
+//            imageSelectionView.setFitHeight(height);
+//            imageSelectionView.setFitWidth(width);
+//        }
+//         catch (Exception e) {
+//	    System.out.println("Invalid File");
+//	}
+        String imagePath = page.getImagePath() + SLASH + page.getImageFileName();
+       
+	File file = new File(imagePath);
+	try {
+	    // GET AND SET THE IMAGE
+	    URL fileURL = file.toURI().toURL();
+	    Image slideImage = new Image(fileURL.toExternalForm());
+           
+            imageSelectionView = new ImageView();
+	    imageSelectionView.setImage(slideImage);
+            imageSelectionView.setFitHeight(height);
+            imageSelectionView.setFitWidth(width);
+            if (layout.equals("LEFT")){
+                i1.setAlignment(Pos.CENTER_LEFT);
+            }
+            else if(layout.equals("RIGHT")){
+                i1.setAlignment(Pos.CENTER_RIGHT);
+            }
+            else{
+            i1.setAlignment(Pos.CENTER);
+            }
+	    // AND RESIZE IT
+//	    double scaledWidth = DEFAULT_THUMBNAIL_WIDTH;
+//	    double perc = scaledWidth / slideImage.getWidth();
+//	    double scaledHeight = slideImage.getHeight() * perc;
+//	    imageSelectionView.setFitWidth(scaledWidth);
+//	    imageSelectionView.setFitHeight(scaledHeight);
+             i1.getChildren().add(imageSelectionView);
+        getChildren().add(i1);
+	} catch (Exception e) {
+	    ErrorHandler eH = new ErrorHandler(null);
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	}
+//        i1.getChildren().add(imgView);
+//        getChildren().add(i1);
+        
+    }
+    
+    public void addStudentNameToVBox(){
+        studentNameVBox = new VBox();
+        studentNameVBox.setPrefSize(100,50);
+        Label name = new Label("Student Name");
+        name.getStyleClass().add(CSS_CLASS_PAGE_LABEL);
+        TextArea ta = new TextArea(page.getStudentName());
+        ta.setEditable(false);
+        studentNameVBox.getChildren().addAll(name,ta);
+        getChildren().add(studentNameVBox);
+        
+
+    }
+    
+    public void addFooterToVBox(){
+        
+    }
+    
+    
+   
     //Add the paragraph vbox to the pageEditView
     public void addParagraphToVBox(String x){
         VBox h1 = new VBox();
         TextArea ta = new TextArea(x);
         ta.setEditable(false);
         ta.setOnMouseClicked(e -> {
+            ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
             System.out.println("this has been clicked");
         });
         h1.getChildren().add(ta);
@@ -212,7 +309,9 @@ public class pageEditView extends VBox {
     public void addImage(){
        imgLabel = new Label("Select An Image:");
         imageSelectionView = new ImageView();
-        String imagePath = "./images/slide_show_images/DefaultStartSlide.png";
+        //String imagePath = "./images/slide_show_images/DefaultStartSlide.png";
+        String imagePath = "./images/slide_show_images/ArchesUtah.jpg";
+       // String imagePath = x;
 	File file = new File(imagePath);
         
         try {
@@ -289,7 +388,8 @@ public class pageEditView extends VBox {
         vBox.getChildren().add(cancelButton);
         imageController = new ImageSelectionController();
 	imageSelectionView.setOnMousePressed(e -> {
-	    imageController.processSelectImage(imageSelectionView);
+	   // imageController.processSelectImage(imageSelectionView);
+            imageController.processSelectImage(page, this);
 	});
         
         getChildren().add(vBox);
@@ -303,6 +403,27 @@ public class pageEditView extends VBox {
         System.out.println(page.getTitle());
     }
     
+    public void updatePageImage() {
+	String imagePath = page.getImagePath() + SLASH + page.getImageFileName();
+	File file = new File(imagePath);
+	try {
+	    // GET AND SET THE IMAGE
+	    URL fileURL = file.toURI().toURL();
+	    Image slideImage = new Image(fileURL.toExternalForm());
+	    imageSelectionView.setImage(slideImage);
+	    
+	    // AND RESIZE IT
+	    double scaledWidth = DEFAULT_THUMBNAIL_WIDTH;
+	    double perc = scaledWidth / slideImage.getWidth();
+	    double scaledHeight = slideImage.getHeight() * perc;
+	    imageSelectionView.setFitWidth(scaledWidth);
+	    imageSelectionView.setFitHeight(scaledHeight);
+            reloadPageEditView(page);
+	} catch (Exception e) {
+	    ErrorHandler eH = new ErrorHandler(null);
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	}
+    }    
    
    
    
