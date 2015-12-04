@@ -59,8 +59,9 @@ public class PortfolioModel {
 	title = initTitle; 
     }
     
-    public void addPage(Page p) {
-	Page pageToAdd = p;
+    public void addPage(String initPageTitle,
+                        String initStudentName) {
+	Page pageToAdd = new Page(initPageTitle,initStudentName);
 	pages.add(pageToAdd);
         
 	ui.reloadPortfolioPane();

@@ -85,5 +85,9 @@ public class StartupConstants {
     public static String    CSS_CLASS_CANCEL_BUTTON = "CANCEL_BUTTON";
     public static String    CSS_CLASS_LANGUAGE_SELECTION_SCREEN = "language_selection_screen";
     public static String    CSS_CLASS_LANG_COMBOBOX = "language_ComboBox";
+    
+    //CSS STYLE SHEET FOR PAGE EDIT VIEW COMPONENT
+    public static String    CSS_CLASS_LIST_COMPONENT = "list_component";
+    public static String    CSS_CLASS_LIST_COMPONENT_VBOX = "list_component_vbox";
 }
 

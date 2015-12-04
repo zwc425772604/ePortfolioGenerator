@@ -116,6 +116,15 @@
   
   }
 
+  .list_component{
+      -fx-background-color: green;
+      -fx-alignment: center;
+/*      -fx-alignment: center;*/
+  }
+  .list_component_vbox{
+      -fx-background-color : red;
+  }
+   
   //deal with the background color of the scene( the application window)
   .root {
 /*     -fx-background-image: url("/images/slide_show_images/ArchesUtah.jpg");*/
@@ -128,18 +137,7 @@
   
   //tried to change the language option, but didn't work
   .language_option_vbox{
-/*       -fx-background-color: rgb(230, 50, 50);
-      -fx-border-color: rgb(200, 200, 200);
-      -fx-padding: 30px 30px 30px 30px;
-      -fx-spacing: 60px;
-      -fx-background-insets: 0,1,2;*/
-/*   -fx-background-radius: 5.0;
-    -fx-background-color: rgb(230, 50, 50);
-    -fx-border-color: rgb(200, 200, 200);*/
-    //these lines change the spacing between the button
-/*    -fx-padding: 30px 30px 30px 30px;
-    -fx-spacing: 60px;
-    -fx-background-insets: 0,1,2;*/
+
   -fx-background-color: blue;
   -fx-padding: 15px;
   -fx-spacing: 15px;

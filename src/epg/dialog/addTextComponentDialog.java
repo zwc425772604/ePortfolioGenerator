@@ -102,7 +102,7 @@ public class addTextComponentDialog extends Stage{
                 
             }
             if (selectedTypeComponent.equals("list")){
-               listDialog dialog = new listDialog();
+               listDialog dialog = new listDialog(ui);
 //               this.hide();
 //                dialog.showAndWait();
                dialog.show();

@@ -31,11 +31,11 @@ public class videoSelectionController {
 	imageFileChooser.setInitialDirectory(new File(PATH_SLIDE_SHOW_IMAGES));
 	
 	// LET'S ONLY SEE IMAGE FILES
-	FileChooser.ExtensionFilter jpgFilter = new FileChooser.ExtensionFilter("MPEG-4 files (*.mp4)", "*.m4p");
-	FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("FLV files (*.rmvb)", "*.flv");
-	FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF files (*.m4p)", "*.gif");
-        FileChooser.ExtensionFilter vidFilter = new FileChooser.ExtensionFilter("Video Files", "*.mp4","*.wav");
-	imageFileChooser.getExtensionFilters().addAll(jpgFilter, pngFilter, gifFilter,vidFilter);
+	FileChooser.ExtensionFilter mp4Filter = new FileChooser.ExtensionFilter("Video Files", "*.mp4","*.wav");
+	FileChooser.ExtensionFilter flvFilter = new FileChooser.ExtensionFilter("FLV files", "(*.rmvb", "*.flv");
+	FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF files", "(*.m4p)", "*.gif");
+        //FileChooser.ExtensionFilter vidFilter = new FileChooser.ExtensionFilter("Video Files", "*.mp4","*.wav");
+	imageFileChooser.getExtensionFilters().addAll(mp4Filter, flvFilter, gifFilter);
 	
 	// LET'S OPEN THE FILE CHOOSER
 	File file = imageFileChooser.showOpenDialog(null);

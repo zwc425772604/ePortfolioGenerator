@@ -37,7 +37,7 @@ public class ePortfolioEditController {
         PortfolioModel portfolio = ui.getPortfolio();
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
         Page p = new Page("TITlE","STUDENT NAME");
-	portfolio.addPage(p);
+	portfolio.addPage("TITLE","STUDENT NAME");
         ui.initPageButton(ui.getLeftSiteToolbar(),p.getTitle(),CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
         ui.updatePageEditorControls();
         pageEditView pev = new pageEditView(p,ui);

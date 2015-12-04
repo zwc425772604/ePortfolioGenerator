@@ -12,7 +12,7 @@ import epg.view.ePortfolioMakerView;
 import epg.view.pageEditView;
 import epg.view.siteViewerWorkspace;
 import javafx.stage.Stage;
-
+import ssm.SlideShowMaker;
 /**
  *
  * @author weichaozhao
@@ -66,6 +66,12 @@ public class pageEditorController {
         ui.getPortfolio().getSelectedPage().getPageEditView().removeSelectingComponent();
         ui.reloadPortfolioPane();
         ui.getPortfolio().getSelectedPage().getPageEditView().reloadPageEditView(ui.getPortfolio().getSelectedPage());
+    }
+
+    public void processAddSlideshowComponent() throws Exception {
+//        SlideShowMaker maker = new SlideShowMaker();
+//        Stage newStage = new Stage();
+//        maker.start(newStage);
     }
     
     

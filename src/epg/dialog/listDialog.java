@@ -5,6 +5,10 @@
  */
 package epg.dialog;
 
+import epg.model.Page;
+import epg.model.PortfolioModel;
+import epg.view.ePortfolioMakerView;
+import epg.view.pageEditView;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_CANCEL_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
@@ -12,6 +16,7 @@ import static eportfoliogenerator.StartupConstants.DIALOG_STYLE_SHEET;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,14 +44,18 @@ public class listDialog extends Stage {
     TextField fontTextField;
     ObservableList<TextField> inputTextField;
     ObservableList<String> inputList;
+    //ArrayList<String>inputList;
     TextField selectedTextField;
     
-    public listDialog(){
+    ePortfolioMakerView ui;
+    public listDialog(ePortfolioMakerView initUI){
+        ui = initUI;
 //        contentsLabel = new Label("Contents:");
 //        contentsLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
 //        contentsTextField = new TextField("Entering The Contents");
 //        contentsTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         inputList = FXCollections.observableArrayList();
+       // inputList = new ArrayList<String>();
         inputTextField = FXCollections.observableArrayList();
         vBox = new VBox();
         okButton = new Button("OK");
@@ -66,12 +75,7 @@ public class listDialog extends Stage {
         
         initTextField(vBox);
         
-        okButton.setOnAction(e -> {
-//            System.out.println(inputTextField.size());
-            
-            //TODO
-             this.hide();
-        });
+       
         
         cancelButton.setOnAction(e -> {
             this.hide();
@@ -85,6 +89,21 @@ public class listDialog extends Stage {
         removeButton.setOnAction(e ->{
             vBox.getChildren().remove(selectedTextField);
             inputTextField.remove(selectedTextField);
+        });
+         okButton.setOnAction((ActionEvent e) -> {
+             for (int i = 0; i<inputTextField.size();i++){
+                 inputList.add(inputTextField.get(i).getText());
+             } 
+             
+         PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
+         Page p = model.getSelectedPage();  //return the selected page
+         p.addElementToTheList(inputList);
+         
+         pageEditView pev = p.getPageEditView();   //load the corresponding pageEditView
+         pev.reloadPageEditView(p);
+         pev.addListToVBox(inputList);
+         
+             this.hide();
         });
         
          Scene scene = new Scene(vBox, 400,400);

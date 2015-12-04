@@ -11,6 +11,8 @@ import static epg.file.ePortfolioFileManager.SLASH;
 import epg.model.Page;
 import eportfoliogenerator.LanguagePropertyType;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_LIST_COMPONENT;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_LIST_COMPONENT_VBOX;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import java.io.File;
 import java.net.URL;
@@ -27,12 +29,14 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_SELECTED_COMPONENT;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
 import static eportfoliogenerator.StartupConstants.DEFAULT_THUMBNAIL_WIDTH;
+import static eportfoliogenerator.StartupConstants.STYLE_SHEET_UI;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -95,6 +99,7 @@ public class pageEditView extends VBox {
     ObservableList<VBox> paragraphComp;
     ObservableList<VBox> imageComp;
     ObservableList<VBox> videoComp;
+    ObservableList<VBox> listComp;
     /**
      * THis' constructor initializes the full UI for this component, using
      * the initSlide data for initializing values./
@@ -103,7 +108,8 @@ public class pageEditView extends VBox {
      */
     public pageEditView(Page initPage, ePortfolioMakerView initUI) {
 	// FIRST SELECT THE CSS STYLE CLASS FOR THIS CONTAINER
-	this.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
+	//this.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
+        this.getStylesheets().add(STYLE_SHEET_UI);
 	ui = initUI;
 	// KEEP THE SLIDE FOR LATER
 	page = initPage;
@@ -113,6 +119,7 @@ public class pageEditView extends VBox {
         imageComp = FXCollections.observableArrayList();
         addStudentNameToVBox();
         addFooterToVBox();
+        //footerVBox.toBack();
         updateHeader();
         
 	
@@ -193,6 +200,20 @@ public class pageEditView extends VBox {
         h1.getChildren().add(ta);
         headerComp.add(h1);
         getChildren().add(h1);
+        //h1.toFront();
+    }
+    
+    public void addListToVBox(ObservableList<String>listElement){
+        VBox l1 = new VBox();
+        //l1.getStyleClass().add(CSS_CLASS_LIST_COMPONENT);
+        ListView<String> listView = new ListView<String>(listElement);
+        listView.getStyleClass().add(CSS_CLASS_LIST_COMPONENT);
+        listView.getStyleClass().add(CSS_CLASS_LIST_COMPONENT_VBOX);
+        l1.setPrefHeight(listElement.size() * 25);
+        l1.getChildren().add(listView);
+        
+        
+        getChildren().add(l1);
     }
     
     public void addImageToVBox(String path, int height, int width, String layout){
@@ -254,13 +275,15 @@ public class pageEditView extends VBox {
     
     public void addVideoToVBox(String path, int height, int width){
          VBox v1 = new VBox();
+         
          File f = new File(path);
          try{
             Media m = new Media(f.toURI().toString());
             MediaPlayer mp = new MediaPlayer(m);
             MediaView mv = new MediaView(mp);
-            
-            
+            mv.setFitHeight(height);
+            mv.setFitWidth(width);
+            //v1.setAlignment(Pos.CENTER); CSS 
             v1.getChildren().add(mv);
             getChildren().add(v1);
          }
@@ -294,6 +317,7 @@ public class pageEditView extends VBox {
         ta.setEditable(false);
         footerVBox.getChildren().addAll(footer,ta);
         getChildren().add(footerVBox);
+        
 //        setBottom(footerVBox); //might be a good choice
         
     }

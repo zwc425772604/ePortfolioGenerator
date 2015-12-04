@@ -1,0 +1,28 @@
+{
+   "name":"WeichaoZhao",
+   "pagesCon":[
+   {
+    "name" : "WeichaoZhao",
+    "imagePath" : "ePortfolioBannerImage.png",
+    "h1" : "Welcome to CSE 219",
+    "videoType" : "video/mp4",
+    "videoPath" : "movie.mp4"
+},
+   {
+    "imagePath" : "ePortfolioBannerImage.png",
+    "videoType" : "video/mp4",
+    "videoPath" : "movie.mp4",
+    "h1" : "This page ",
+    "h2" : "is about me"
+
+
+   }
+
+
+   ]
+
+
+
+
+
+}

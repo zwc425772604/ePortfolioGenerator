@@ -7,6 +7,7 @@ package epg.model;
 
 import epg.view.pageEditView;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
 
 /**
@@ -23,7 +24,8 @@ public class Page {
     pageEditView p;
      String imageFileName;
     String imagePath;
-    ArrayList<String>image;
+    ArrayList<String>image;//image path
+    ArrayList<String> list;
     
     public Page(String defaultTitle, String defaultStuName){
         title = defaultTitle;
@@ -31,6 +33,7 @@ public class Page {
         header = new ArrayList<String>();
         paragraph = new ArrayList<String>();
         image = new ArrayList<String>();
+        list = new ArrayList<String>();
     }
     
     public String getTitle(){
@@ -68,8 +71,15 @@ public class Page {
         paragraph.add(text);
         
     }
+    
     public ArrayList getParagraph(){
         return paragraph;
+    }
+    
+    public void addElementToTheList(ObservableList<String> input){
+        for (String x : input){
+            list.add(x);
+        }
     }
     
     public void addImage(String path){

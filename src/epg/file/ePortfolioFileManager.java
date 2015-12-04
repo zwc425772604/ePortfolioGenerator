@@ -92,21 +92,21 @@ public class ePortfolioFileManager {
      * @param jsonFilePath The JSON file to load.
      * @throws IOException
      */
-//    public void loadSlideShow(PortfolioModel slideShowToLoad, String jsonFilePath) throws IOException {
-//	// LOAD THE JSON FILE WITH ALL THE DATA
-//	JsonObject json = loadJSONFile(jsonFilePath);
-//
-//	// NOW LOAD THE COURSE
-//	slideShowToLoad.reset();
-//	slideShowToLoad.setTitle(json.getString(JSON_TITLE));
-//	JsonArray jsonSlidesArray = json.getJsonArray(JSON_SLIDES);
-//	for (int i = 0; i < jsonSlidesArray.size(); i++) {
-//	    JsonObject slideJso = jsonSlidesArray.getJsonObject(i);
-//	    slideShowToLoad.addSlide(slideJso.getString(JSON_IMAGE_FILE_NAME),
-//		    slideJso.getString(JSON_IMAGE_PATH),
-//		    slideJso.getString(JSON_CAPTION));
-//	}
-//    }
+    public void loadPortfolio(PortfolioModel portfolioToLoad, String jsonFilePath) throws IOException {
+	// LOAD THE JSON FILE WITH ALL THE DATA/	
+        JsonObject json = loadJSONFile(jsonFilePath);
+
+	// NOW LOAD THE COURSE
+	portfolioToLoad.reset();
+	portfolioToLoad.setTitle(json.getString(JSON_STUDENT_NAME));
+	JsonArray jsonPagesArray = json.getJsonArray(JSON_PAGES);
+	for (int i = 0; i < jsonPagesArray.size(); i++) {
+	    JsonObject slideJso = jsonPagesArray.getJsonObject(i);
+	    portfolioToLoad.addPage(slideJso.getString(JSON_PAGE_TITLE),
+		    slideJso.getString(JSON_STUDENT_NAME));
+		   
+	}
+    }
 
     // AND HERE ARE THE PRIVATE HELPER METHODS TO HELP THE PUBLIC ONES
     private JsonObject loadJSONFile(String jsonFilePath) throws IOException {
@@ -145,6 +145,8 @@ public class ePortfolioFileManager {
 		.build();
 	return jso;
     }
+
+   
 }
 
 

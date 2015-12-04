@@ -73,6 +73,8 @@ import static eportfoliogenerator.StartupConstants.PATH_ICONS;
 import static eportfoliogenerator.StartupConstants.STYLE_SHEET_UI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
@@ -517,7 +519,13 @@ public class ePortfolioMakerView {
         removeComponentButton.setOnAction(e ->{
             pageController.processRemoveComponent();
         });
-        
+        addSlideshowComponentButton.setOnAction(e ->{
+           try {
+               pageController.processAddSlideshowComponent();
+           } catch (Exception ex) {
+               Logger.getLogger(ePortfolioMakerView.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        });
      
 	
     }
@@ -675,7 +683,7 @@ public class ePortfolioMakerView {
             page.setPageEditView(pageEditor);
 	    if (portfolio.isSelectedPage(page))
 		pageEditor.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
-	    else
+                 else
 	        pageEditor.getStyleClass().add(CSS_CLASS_SELECTED_PAGE_EDIT_VIEW);
 	    sitesEditorPane.getChildren().add(pageEditor);
 	    pageEditor.setOnMousePressed(e -> {
