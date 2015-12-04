@@ -262,7 +262,7 @@ public class ePortfolioMakerView {
         
         pageTitleVBox = this.initPageTextfieldControl(pageEditorToolbar,"Title:","ENTER THE TITLE");
         studentNameVBox = this.initStudentNameTextfieldControl(pageEditorToolbar,"Student Name:", "ENTER STUDENT NAME");
-        footerVBox = this.initPageTextfieldControl(pageEditorToolbar, "Footer:", "ENTER THE FOOTER");
+        footerVBox = this.initFooterTextFieldControl(pageEditorToolbar, "Footer:", "ENTER THE FOOTER");
         ArrayList<String> layoutChoices = new ArrayList();
         layoutChoices.add("topLeftNavBar");layoutChoices.add("dropdownNavBar");layoutChoices.add("center");
         layoutChoices.add("circularNavBar"); layoutChoices.add("dotNavBar");
@@ -514,6 +514,9 @@ public class ePortfolioMakerView {
         selectPageEditorWorkspaceButton.setOnAction(e ->{
             pageController.processPageEditor();
         });
+        removeComponentButton.setOnAction(e ->{
+            pageController.processRemoveComponent();
+        });
         
      
 	
@@ -542,6 +545,21 @@ public class ePortfolioMakerView {
         return pageTitleVBox;
        }
        
+       public VBox initFooterTextFieldControl(Pane pane, String nameLabel,String namePrompt){
+           footerVBox = new VBox();
+           Label lbl = new Label(nameLabel);
+           lbl.getStyleClass().add(CSS_CLASS_PAGE_LABEL);
+           TextField tf = new TextField();
+           tf.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+           footerVBox.getChildren().addAll(lbl,tf);
+           tf.setText(namePrompt);
+           tf.textProperty().addListener(e ->{
+               portfolio.getSelectedPage().setFooter(tf.getText());
+           });
+           pane.getChildren().add(footerVBox);
+           return footerVBox;
+       }
+       
        public VBox initStudentNameTextfieldControl(Pane pane, String nameLabel, String namePrompt){
            
             studentNameVBox = new VBox();
@@ -564,6 +582,7 @@ public class ePortfolioMakerView {
         pane.getChildren().add(studentNameVBox);
         return studentNameVBox;
        }
+       
      
        
     

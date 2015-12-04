@@ -18,6 +18,8 @@ import javafx.stage.FileChooser;
  * @author weichaozhao
  */
 public class videoSelectionController {
+    
+    private String videoPath;
     public videoSelectionController(){
         
     }
@@ -32,20 +34,32 @@ public class videoSelectionController {
 	FileChooser.ExtensionFilter jpgFilter = new FileChooser.ExtensionFilter("MPEG-4 files (*.mp4)", "*.m4p");
 	FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("FLV files (*.rmvb)", "*.flv");
 	FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF files (*.m4p)", "*.gif");
-	imageFileChooser.getExtensionFilters().addAll(jpgFilter, pngFilter, gifFilter);
+        FileChooser.ExtensionFilter vidFilter = new FileChooser.ExtensionFilter("Video Files", "*.mp4","*.wav");
+	imageFileChooser.getExtensionFilters().addAll(jpgFilter, pngFilter, gifFilter,vidFilter);
 	
 	// LET'S OPEN THE FILE CHOOSER
 	File file = imageFileChooser.showOpenDialog(null);
 	if (file != null) {
 	    String path = file.getPath().substring(0, file.getPath().indexOf(file.getName()));
 	    String fileName = file.getName();
-            Media media = new Media(path);
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-	    MediaView mediaView = new MediaView(mediaPlayer);
-	    pane.getChildren().add(mediaView);
+             videoPath = path + fileName;
+//            Media media = new Media(videoPath);
+//            MediaPlayer mediaPlayer = new MediaPlayer(media);
+//	    MediaView mediaView = new MediaView(mediaPlayer);
+//	    pane.getChildren().add(mediaView);
+            File f = new File(videoPath);
+            Media m = new Media(f.toURI().toString());
+            MediaPlayer mp = new MediaPlayer(m);
+            MediaView mv = new MediaView(mp);
+            pane.getChildren().add(mv);
+            
 	}
         
         }
+    
+    public String getVideoPath(){
+        return videoPath;
+    }
    }
     
 

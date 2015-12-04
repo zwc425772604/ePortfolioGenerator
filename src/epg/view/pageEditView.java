@@ -34,6 +34,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 
 /**
@@ -86,9 +89,12 @@ public class pageEditView extends VBox {
     VBox studentNameVBox;
     VBox footerVBox;
     
+    VBox selectedComponent;
+    
     ObservableList<VBox> headerComp;
     ObservableList<VBox> paragraphComp;
     ObservableList<VBox> imageComp;
+    ObservableList<VBox> videoComp;
     /**
      * THis' constructor initializes the full UI for this component, using
      * the initSlide data for initializing values./
@@ -106,6 +112,7 @@ public class pageEditView extends VBox {
         paragraphComp = FXCollections.observableArrayList();
         imageComp = FXCollections.observableArrayList();
         addStudentNameToVBox();
+        addFooterToVBox();
         updateHeader();
         
 	
@@ -146,9 +153,10 @@ public class pageEditView extends VBox {
     }
     
     //can remove a single vbox from the pane
-//    public void removeVBoxTesting(){
-//        this.getChildren().remove(studentNameVBox);
-//    }
+    public void removeSelectingComponent(){
+        this.getChildren().remove(selectedComponent);
+        
+    }
     
 //    public void addHeader(String h1){
 //        TextArea ta = new TextArea(h1);
@@ -178,8 +186,9 @@ public class pageEditView extends VBox {
         TextArea ta = new TextArea(x);
         ta.setEditable(false);
         ta.setOnMouseClicked(e -> {
+            selectedComponent = this;
             ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
-            System.out.println("this has been clicked");
+            System.out.println("header component  has been clicked");
         });
         h1.getChildren().add(ta);
         headerComp.add(h1);
@@ -187,7 +196,7 @@ public class pageEditView extends VBox {
     }
     
     public void addImageToVBox(String path, int height, int width, String layout){
-        VBox i1 = new VBox();
+       
 //        ImageView imgView = new ImageView();
 //        String imagePath = path;
 //       // String ipath = "./images/slide_show_images/ArchesUtah.jpg";
@@ -204,9 +213,10 @@ public class pageEditView extends VBox {
 //         catch (Exception e) {
 //	    System.out.println("Invalid File");
 //	}
-        String imagePath = page.getImagePath() + SLASH + page.getImageFileName();
+         VBox i1 = new VBox();
+        //String imagePath = page.getImagePath() + SLASH + page.getImageFileName();
        
-	File file = new File(imagePath);
+	File file = new File(path);
 	try {
 	    // GET AND SET THE IMAGE
 	    URL fileURL = file.toURI().toURL();
@@ -232,7 +242,7 @@ public class pageEditView extends VBox {
 //	    imageSelectionView.setFitWidth(scaledWidth);
 //	    imageSelectionView.setFitHeight(scaledHeight);
              i1.getChildren().add(imageSelectionView);
-        getChildren().add(i1);
+             getChildren().add(i1);
 	} catch (Exception e) {
 	    ErrorHandler eH = new ErrorHandler(null);
             eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
@@ -240,6 +250,26 @@ public class pageEditView extends VBox {
 //        i1.getChildren().add(imgView);
 //        getChildren().add(i1);
         
+    }
+    
+    public void addVideoToVBox(String path, int height, int width){
+         VBox v1 = new VBox();
+         File f = new File(path);
+         try{
+            Media m = new Media(f.toURI().toString());
+            MediaPlayer mp = new MediaPlayer(m);
+            MediaView mv = new MediaView(mp);
+            
+            
+            v1.getChildren().add(mv);
+            getChildren().add(v1);
+         }
+         catch (Exception e) {
+	    ErrorHandler eH = new ErrorHandler(null);
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	}
+        
+         
     }
     
     public void addStudentNameToVBox(){
@@ -256,6 +286,15 @@ public class pageEditView extends VBox {
     }
     
     public void addFooterToVBox(){
+        footerVBox = new VBox();
+        footerVBox.setPrefSize(100, 100);
+        Label footer = new Label("Footer");
+        footer.getStyleClass().add(CSS_CLASS_PAGE_LABEL);
+        TextArea ta = new TextArea(page.getFooter());
+        ta.setEditable(false);
+        footerVBox.getChildren().addAll(footer,ta);
+        getChildren().add(footerVBox);
+//        setBottom(footerVBox); //might be a good choice
         
     }
     
@@ -267,8 +306,9 @@ public class pageEditView extends VBox {
         TextArea ta = new TextArea(x);
         ta.setEditable(false);
         ta.setOnMouseClicked(e -> {
+            selectedComponent = this;
             ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
-            System.out.println("this has been clicked");
+            System.out.println("paragraph component has been clicked");
         });
         h1.getChildren().add(ta);
         paragraphComp.add(h1);

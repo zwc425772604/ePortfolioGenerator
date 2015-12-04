@@ -42,7 +42,7 @@ public class pageEditorController {
     }
 
     public void processAddVideoComponent() {
-        addVideoComponentDialog videoDialog = new addVideoComponentDialog();
+        addVideoComponentDialog videoDialog = new addVideoComponentDialog(ui);
         videoDialog.showAndWait();
     }
 
@@ -60,6 +60,12 @@ public class pageEditorController {
 //        stage.hide();
 //       System.out.println("close");
 //       ui.setToolbarVisible();
+    }
+
+    public void processRemoveComponent() {
+        ui.getPortfolio().getSelectedPage().getPageEditView().removeSelectingComponent();
+        ui.reloadPortfolioPane();
+        ui.getPortfolio().getSelectedPage().getPageEditView().reloadPageEditView(ui.getPortfolio().getSelectedPage());
     }
     
     

@@ -16,6 +16,7 @@ import javafx.scene.control.TextArea;
 public class Page {
     String title;
     String studentName;
+    String footer;
     Component selectedComponent;
     ArrayList<String>header;
     ArrayList<String>paragraph;
@@ -86,5 +87,12 @@ public class Page {
 
     public String getImageFileName() {
         return imageFileName;
+    }
+    
+    public String getFooter(){
+        return footer;
+    }
+    public void setFooter(String x){
+        footer = x;
     }
 }

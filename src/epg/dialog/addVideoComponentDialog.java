@@ -7,6 +7,10 @@ package epg.dialog;
 
 import epg.controller.ImageSelectionController;
 import epg.controller.videoSelectionController;
+import epg.model.Page;
+import epg.model.PortfolioModel;
+import epg.view.ePortfolioMakerView;
+import epg.view.pageEditView;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.DIALOG_STYLE_SHEET;
@@ -52,7 +56,9 @@ public class addVideoComponentDialog extends Stage{
     TextField videoHeightTextField;
     TextField videoWidthTextField;
     
-    public addVideoComponentDialog(){
+    ePortfolioMakerView ui;
+    public addVideoComponentDialog(ePortfolioMakerView initUI){
+        ui = initUI;
         videoLabel = new Label("Select a video");
         openButton = new Button("Open File");
         videoLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
@@ -91,6 +97,20 @@ public class addVideoComponentDialog extends Stage{
         okButton.getStyleClass().add(CSS_CLASS_OK_BUTTON);
         cancelButton = new Button("CANCEL");
         cancelButton.getStyleClass().add(CSS_CLASS_OK_BUTTON);
+        okButton.setOnAction(e ->{
+            int wid = Integer.parseInt(videoWidthTextField.getText());
+            int hei = Integer.parseInt(videoHeightTextField.getText());
+            
+            PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
+         Page p = model.getSelectedPage();  //return the selected page
+                //add the text for paragraph to the selected page
+         pageEditView pev = p.getPageEditView();   //load the corresponding pageEditView
+         pev.reloadPageEditView(p);
+         String videoPath = videoController.getVideoPath();
+         System.out.println(videoPath);
+         pev.addVideoToVBox(videoPath,hei, wid);
+            this.hide();
+        });
         
         vBox = new VBox();
         vBox.getChildren().add(videoLabel);
