@@ -41,6 +41,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 /**
@@ -94,6 +96,11 @@ public class pageEditView extends VBox {
     VBox footerVBox;
     
     VBox selectedComponent;
+    String selectedTypeComponent;
+    String selectedComponentContents;
+    TextArea selectedTextArea;
+    int selectedFontSize;
+    String selectedFontStyle;
     
     ObservableList<VBox> headerComp;
     ObservableList<VBox> paragraphComp;
@@ -114,6 +121,7 @@ public class pageEditView extends VBox {
 	// KEEP THE SLIDE FOR LATER
 	page = initPage;
         this.setPrefHeight(1200);
+        selectedTypeComponent = null;
 	headerComp = FXCollections.observableArrayList();
         paragraphComp = FXCollections.observableArrayList();
         imageComp = FXCollections.observableArrayList();
@@ -165,10 +173,7 @@ public class pageEditView extends VBox {
         
     }
     
-//    public void addHeader(String h1){
-//        TextArea ta = new TextArea(h1);
-//        getChildren().add(ta);
-//    }
+
     public void addHeader(){
         String input = "Hello World";
         TextArea ta = new TextArea(input);
@@ -194,13 +199,28 @@ public class pageEditView extends VBox {
         ta.setEditable(false);
         ta.setOnMouseClicked(e -> {
             selectedComponent = this;
-            ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
-            System.out.println("header component  has been clicked");
-        });
+             ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
+            System.out.println("header component  has been clicked" + ta.getText());
+            //for edit the component
+             selectedTypeComponent = "header";
+             selectedComponentContents = ta.getText();
+             
+             selectedTextArea = ta;
+     });
+        
         h1.getChildren().add(ta);
+        h1.setPrefHeight(30);
         headerComp.add(h1);
         getChildren().add(h1);
         //h1.toFront();
+    }
+    //update the contents after the user edited the component
+    public void updateHeaderToVBox(String x ){
+       getSelectedTextArea().setText(x);
+       setSelectedComponentContent(null);
+       setSelectedTypeComponent(null);
+       setSelectedTextArea(null);
+       reloadPageEditView(page);
     }
     
     public void addListToVBox(ObservableList<String>listElement){
@@ -216,24 +236,10 @@ public class pageEditView extends VBox {
         getChildren().add(l1);
     }
     
-    public void addImageToVBox(String path, int height, int width, String layout){
+    public void addImageToVBox(String path, int height, int width,
+            String layout,String caption){
        
-//        ImageView imgView = new ImageView();
-//        String imagePath = path;
-//       // String ipath = "./images/slide_show_images/ArchesUtah.jpg";
-//	File file = new File(path);
-//        
-//        try {
-//	    // GET AND SET THE IMAGE
-//	    URL fileURL = file.toURI().toURL();
-//	    Image slideImage = new Image(fileURL.toExternalForm());
-//	    imageSelectionView.setImage(slideImage);
-//            imageSelectionView.setFitHeight(height);
-//            imageSelectionView.setFitWidth(width);
-//        }
-//         catch (Exception e) {
-//	    System.out.println("Invalid File");
-//	}
+//       
          VBox i1 = new VBox();
         //String imagePath = page.getImagePath() + SLASH + page.getImageFileName();
        
@@ -262,7 +268,19 @@ public class pageEditView extends VBox {
 //	    double scaledHeight = slideImage.getHeight() * perc;
 //	    imageSelectionView.setFitWidth(scaledWidth);
 //	    imageSelectionView.setFitHeight(scaledHeight);
+            TextField captionTF = new TextField(caption);
+            
+            if (layout.equals("LEFT")){
+                captionTF.setAlignment(Pos.CENTER_LEFT);
+            }
+            else if(layout.equals("RIGHT")){
+                captionTF.setAlignment(Pos.CENTER_RIGHT);
+            }
+            else{
+                captionTF.setAlignment(Pos.CENTER);
+            }
              i1.getChildren().add(imageSelectionView);
+             i1.getChildren().add(captionTF);
              getChildren().add(i1);
 	} catch (Exception e) {
 	    ErrorHandler eH = new ErrorHandler(null);
@@ -325,18 +343,108 @@ public class pageEditView extends VBox {
     
    
     //Add the paragraph vbox to the pageEditView
-    public void addParagraphToVBox(String x){
+    public void addParagraphToVBox(String contents,String family,int fontSize){
         VBox h1 = new VBox();
-        TextArea ta = new TextArea(x);
+        h1.setPrefHeight(fontSize * 15);
+//        Text text = new Text(contents);
+//        text.setFont(Font.font(family, fontSize));
+        TextArea ta = new TextArea(contents);
+         ta.setStyle("-fx-font-size:" + fontSize);
+        System.out.println(family);
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Sigmar+One");
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Indie+Flower");
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Shadows+Into+Light");
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Dancing+Script");
+        if (family.equals("Sigmar One")){
+        ta.setStyle("-fx-font-family:'Sigmar One'");
+        }
+        if (family.equals("Indie Flower")){
+            ta.setStyle("-fx-font-family: 'Indie Flower'");
+        }
+        if (family.equals("Shadows Into Light")){
+            ta.setStyle("-fx-font-family: 'Shadows Into Light'");
+        }
+        if (family.equals("Dancing Script")){
+            ta.setStyle("-fx-font-family: 'Dancing Script'");
+        }
+        ta.setPrefSize(300, 300);
+        ta.setWrapText(true);
         ta.setEditable(false);
         ta.setOnMouseClicked(e -> {
-            selectedComponent = this;
+            selectedTypeComponent = "paragraph";
+            selectedComponentContents = ta.getText();
+            selectedTextArea = ta;
+            selectedFontSize =  12;
+            selectedFontStyle = family;
             ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
             System.out.println("paragraph component has been clicked");
         });
+        
         h1.getChildren().add(ta);
+        h1.setVisible(true);
         paragraphComp.add(h1);
         getChildren().add(h1);
+    }
+    
+    public void updateParagraphComponent(String content,String family,int fontSize){
+        TextArea ta = getSelectedTextArea();
+        ta.setText(content);
+        ta.setStyle("-fx-font-size:" + fontSize);
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Sigmar+One");
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Indie+Flower");
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Shadows+Into+Light");
+        ta.getStylesheets().add("http://fonts.googleapis.com/css?family=Dancing+Script");
+        if (family.equals("Sigmar One")){
+        ta.setStyle("-fx-font-family:'Sigmar One'");
+        }
+        if (family.equals("Indie Flower")){
+            ta.setStyle("-fx-font-family: 'Indie Flower'");
+        }
+        if (family.equals("Shadows Into Light")){
+            ta.setStyle("-fx-font-family: 'Shadows Into Light'");
+        }
+        if (family.equals("Dancing Script")){
+            ta.setStyle("-fx-font-family: 'Dancing Script'");
+        }
+        setSelectedComponentContent(null);
+        setSelectedTypeComponent(null);
+        setSelectedFontSize(0);
+        setSelectedTextArea(null);
+        setFontStyle(null);
+         reloadPageEditView(page);
+    }
+    
+    //GETTING THE INFO IN THE SELECTED COMPONENT
+    public String getSelectedTypeComponent(){
+        return selectedTypeComponent;
+    }
+    public void setSelectedTypeComponent(String x){
+        selectedTypeComponent = x;
+    }
+    public String getSelectedComponentContent(){
+        return selectedComponentContents;
+    }
+    public void setSelectedComponentContent(String x){
+        selectedComponentContents = x;
+    }
+    
+    public TextArea getSelectedTextArea(){
+        return selectedTextArea;
+    }
+    public void setSelectedTextArea(TextArea t){
+        selectedTextArea = t;
+    }
+    public int getFontSize(){
+        return selectedFontSize;
+    }
+    public void setSelectedFontSize(int x){
+        selectedFontSize = x;
+    }
+    public String getFontStyle(){
+        return selectedFontStyle;
+    }
+    public void setFontStyle(String x){
+        selectedFontStyle = x;
     }
     
      //reload the page

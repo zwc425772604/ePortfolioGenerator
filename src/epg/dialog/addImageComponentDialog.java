@@ -154,9 +154,10 @@ public class addImageComponentDialog extends Stage {
             //TODO
             //execute the textfield
 //            String captionT = captionTextField.getText();
-            int wid = Integer.parseInt(imgWidthTextField.getText());
-            int hei = Integer.parseInt(imgHeightTextField.getText());
-            String selectLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
+         int wid = Integer.parseInt(imgWidthTextField.getText());
+         int hei = Integer.parseInt(imgHeightTextField.getText());
+         String selectLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
+         String caption = captionTextField.getText();
 //            Image img = imageSelectionView.getImage();
 //            pageEditView pev = new pageEditView(selectedPage,ui);
 //            pev.addImage();
@@ -169,7 +170,7 @@ public class addImageComponentDialog extends Stage {
          
          String path = imageController.getImagePath() + imageController.getImageFileName();
          System.out.println(path);
-         pev.addImageToVBox(path,hei, wid,selectLayout);
+         pev.addImageToVBox(path,hei, wid,selectLayout,caption);
          
          //pev.addImage();
          this.hide();

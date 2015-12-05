@@ -14,6 +14,7 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXT_COMPONENT_COMBOBOX;
 import static eportfoliogenerator.StartupConstants.DIALOG_STYLE_SHEET;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -29,7 +30,8 @@ import javafx.stage.Stage;
  *
  * @author weichaozhao
  */
-public class paragraphDialog extends Stage {
+
+public class editParagraphDialog extends Stage{
     VBox vBox;
     Label contentsLabel;
     Button okButton;
@@ -45,13 +47,20 @@ public class paragraphDialog extends Stage {
     Integer selectedFont;
     
     ePortfolioMakerView ui;
-    public paragraphDialog(ePortfolioMakerView initUI){
+    public editParagraphDialog(ePortfolioMakerView initUI){
         ui = initUI;
+        
+        pageEditView pev = ui.getPortfolio().getSelectedPage().getPageEditView();
+        //get the content from the vbox
+        String text= pev.getSelectedComponentContent();
+        int size =pev.getFontSize();
+        String style = pev.getFontStyle();
+        
          contentsLabel = new Label("Contents:");
         contentsLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
 //        contentsTextField = new TextField("Entering The Contents");
 //        contentsTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-        contentsTextArea = new TextArea("Enter The Contents");
+        contentsTextArea = new TextArea(text);
         contentsTextArea.setPrefSize(300,300);
        // contentsTextArea.setMaxWidth(100);
         contentsTextArea.setWrapText(true);
@@ -68,7 +77,7 @@ public class paragraphDialog extends Stage {
         fontFamilyLabel = new Label("Select a font family from the following:");
         fontFamilyLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         fontFamilyComboBox = new ComboBox(fontFamilyChoices);
-	fontFamilyComboBox.getSelectionModel().select("Sigmar One");
+	fontFamilyComboBox.getSelectionModel().select(style);
         fontFamilyComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
         
         
@@ -80,7 +89,7 @@ public class paragraphDialog extends Stage {
         }
         
         fontSizeComboBox = new ComboBox(fontSizeChoices);
-	fontSizeComboBox.getSelectionModel().select("8");
+	fontSizeComboBox.getSelectionModel().select(size);
         fontSizeComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
         
         okButton = new Button("OK");
@@ -107,19 +116,23 @@ public class paragraphDialog extends Stage {
          int fontSize = Integer.parseInt(fontSizeComboBox.getSelectionModel().getSelectedItem().toString());
          PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
          Page p = model.getSelectedPage();  //return the selected page
-         p.addParagraph(content);        //add the text for paragraph to the selected page
-         pageEditView pev = p.getPageEditView();   //load the corresponding pageEditView
+        ArrayList<String> paragraph = p.getParagraph();
+        System.out.println(paragraph.get(0));
+        //replace the old content with the new content
+         int index = paragraph.indexOf(text);
+          paragraph.set(index, content);      //add the text for paragraph to the selected page
+         //pageEditView pev = p.getPageEditView();   //load the corresponding pageEditView
          pev.reloadPageEditView(p);
-         pev.addParagraphToVBox(content,family,fontSize); 
-//           
+        // pev.addParagraphToVBox(content,family,fontSize); 
+          pev.updateParagraphComponent(content, family, fontSize);
             
-            this.hide();
+           this.hide();
         });
         
         cancelButton.setOnAction(e -> {
             this.hide();
         });
-        
+       
         Scene scene = new Scene(vBox, 400,400);
         scene.getStylesheets().add(DIALOG_STYLE_SHEET);
 	setScene(scene);
@@ -128,4 +141,5 @@ public class paragraphDialog extends Stage {
     public int getSelectedFont(){
         return selectedFont;
     }
-}
+    }
+

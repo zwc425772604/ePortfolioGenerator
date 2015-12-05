@@ -8,6 +8,8 @@ package epg.controller;
 import epg.dialog.addImageComponentDialog;
 import epg.dialog.addTextComponentDialog;
 import epg.dialog.addVideoComponentDialog;
+import epg.dialog.editHeaderDialog;
+import epg.dialog.editParagraphDialog;
 import epg.view.ePortfolioMakerView;
 import epg.view.pageEditView;
 import epg.view.siteViewerWorkspace;
@@ -72,6 +74,18 @@ public class pageEditorController {
 //        SlideShowMaker maker = new SlideShowMaker();
 //        Stage newStage = new Stage();
 //        maker.start(newStage);
+    }
+
+    public void processEditTextComponent() {
+        String type = ui.getPortfolio().getSelectedPage().getPageEditView().getSelectedTypeComponent();
+         if (type.equals("header")){
+             editHeaderDialog dialog = new editHeaderDialog(ui);
+            
+         }
+         if (type.equals("paragraph")){
+             editParagraphDialog dialog = new editParagraphDialog(ui);
+             dialog.showAndWait();
+         }
     }
     
     

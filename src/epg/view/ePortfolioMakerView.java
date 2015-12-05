@@ -526,6 +526,9 @@ public class ePortfolioMakerView {
                Logger.getLogger(ePortfolioMakerView.class.getName()).log(Level.SEVERE, null, ex);
            }
         });
+        editTextComponentButton.setOnAction(e ->{
+            pageController.processEditTextComponent();
+        });
      
 	
     }
