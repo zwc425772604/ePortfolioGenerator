@@ -9,6 +9,7 @@ import epg.dialog.addImageComponentDialog;
 import epg.dialog.addTextComponentDialog;
 import epg.dialog.addVideoComponentDialog;
 import epg.dialog.editHeaderDialog;
+import epg.dialog.editListDialog;
 import epg.dialog.editParagraphDialog;
 import epg.view.ePortfolioMakerView;
 import epg.view.pageEditView;
@@ -84,6 +85,10 @@ public class pageEditorController {
          }
          if (type.equals("paragraph")){
              editParagraphDialog dialog = new editParagraphDialog(ui);
+             dialog.showAndWait();
+         }
+         if (type.equals("list")){
+             editListDialog dialog = new editListDialog(ui);
              dialog.showAndWait();
          }
     }

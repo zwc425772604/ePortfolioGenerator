@@ -81,6 +81,12 @@ public class Page {
             list.add(x);
         }
     }
+    public void updateListElement(ObservableList<String> input){
+        list.clear();
+        for (String x : input){
+            list.add(x);
+        }
+    }
     
     public void addImage(String path){
         image.add(path);

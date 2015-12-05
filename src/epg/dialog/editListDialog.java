@@ -13,13 +13,13 @@ import static eportfoliogenerator.StartupConstants.CSS_CLASS_CANCEL_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_OK_BUTTON;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_TEXTFIELD_STYLE;
 import static eportfoliogenerator.StartupConstants.DIALOG_STYLE_SHEET;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,7 +29,8 @@ import javafx.stage.Stage;
  *
  * @author weichaozhao
  */
-public class listDialog extends Stage {
+public class editListDialog extends Stage {
+    
     VBox vBox;
     Label contentsLabel;
     Button okButton;
@@ -48,14 +49,13 @@ public class listDialog extends Stage {
     TextField selectedTextField;
     
     ePortfolioMakerView ui;
-    public listDialog(ePortfolioMakerView initUI){
+    public editListDialog(ePortfolioMakerView initUI){
         ui = initUI;
-//        contentsLabel = new Label("Contents:");
-//        contentsLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-//        contentsTextField = new TextField("Entering The Contents");
-//        contentsTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-        inputList = FXCollections.observableArrayList();
-       // inputList = new ArrayList<String>();
+        
+        pageEditView pev = ui.getPortfolio().getSelectedPage().getPageEditView();
+        ListView lv= pev.getSelectedListView();
+        inputList = pev.getListElement();
+        
         inputTextField = FXCollections.observableArrayList();
         vBox = new VBox();
         okButton = new Button("OK");
@@ -72,16 +72,18 @@ public class listDialog extends Stage {
         vBox.getChildren().add(removeButton);
         
         
+        for (int i = 0; i<inputList.size();i++){
+            String element = inputList.get(i);
+            initTextField(vBox,element);
         
-        initTextField(vBox);
-        
-       
+        }
         
         cancelButton.setOnAction(e -> {
             this.hide();
         });
 
-        addMoreListButton.setOnAction( e -> {       
+        addMoreListButton.setOnAction( e -> {  
+            
             addMoreTextField(vBox);
             
         });
@@ -91,18 +93,19 @@ public class listDialog extends Stage {
             inputTextField.remove(selectedTextField);
         });
          okButton.setOnAction((ActionEvent e) -> {
+             inputList.clear();
              for (int i = 0; i<inputTextField.size();i++){
                  inputList.add(inputTextField.get(i).getText());
              } 
              
          PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
          Page p = model.getSelectedPage();  //return the selected page
-         p.addElementToTheList(inputList);
-         
-         pageEditView pev = p.getPageEditView();   //load the corresponding pageEditView
+        // p.addElementToTheList(inputList);
+         p.updateListElement(inputList);
+           
          pev.reloadPageEditView(p);
-         pev.addListToVBox(inputList);
-         
+         //pev.addListToVBox(inputList);
+         pev.updateListComponent(inputList);
              this.hide();
         });
         
@@ -112,15 +115,10 @@ public class listDialog extends Stage {
     }
     
     
-    public ObservableList<String> getInputList(){
-        return inputList;
-    }
-    
-    
-    private void initTextField(Pane pane){
+    private void initTextField(Pane pane,String x){
         contentsLabel = new Label("Contents:");
         contentsLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-        contentsTextField = new TextField("Entering The Contents");
+        contentsTextField = new TextField(x);
         contentsTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         contentsTextField.setOnMouseClicked(e ->{
             selectedTextField = this.contentsTextField;
@@ -142,6 +140,4 @@ public class listDialog extends Stage {
         inputTextField.add(tf);
         pane.getChildren().add(tf);
     }
-    
-    
 }

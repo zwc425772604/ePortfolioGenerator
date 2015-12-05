@@ -37,6 +37,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -101,6 +102,8 @@ public class pageEditView extends VBox {
     TextArea selectedTextArea;
     int selectedFontSize;
     String selectedFontStyle;
+    ListView selectedListView;
+    ObservableList<String> selectedListElement;
     
     ObservableList<VBox> headerComp;
     ObservableList<VBox> paragraphComp;
@@ -231,10 +234,44 @@ public class pageEditView extends VBox {
         listView.getStyleClass().add(CSS_CLASS_LIST_COMPONENT_VBOX);
         l1.setPrefHeight(listElement.size() * 25);
         l1.getChildren().add(listView);
-        
+        listView.setOnMouseClicked(e ->{
+           selectedTypeComponent = "list";
+           selectedListView = listView;
+           selectedListElement = listView.getItems();
+           
+          
+           });
         
         getChildren().add(l1);
     }
+    public void updateListComponent(ObservableList<String> listElement){
+        ListView<String> lv = getSelectedListView();
+        //lv.setPrefHeight(listElement.size() * 500);
+        //lv.setMinHeight(listElement.size() * 20);
+        lv.setMinHeight(30* listElement.size());
+        final ScrollBar scrollBarH = (ScrollBar) lv.lookup(".scroll-bar:vertical");
+        scrollBarH.setVisible(false);
+        lv.setItems(listElement);
+        setListView(null);
+        setListElement(null);
+        reloadPageEditView(page);
+        
+    }
+    
+    public ListView getSelectedListView(){
+        return selectedListView;
+    }
+    public void setListView(ListView<String> lv){
+        selectedListView = lv;
+    }
+    
+    public ObservableList getListElement(){
+        return selectedListElement;
+    }
+    public void setListElement(ObservableList<String> LE){
+        selectedListElement = LE;
+    }
+    
     
     public void addImageToVBox(String path, int height, int width,
             String layout,String caption){
