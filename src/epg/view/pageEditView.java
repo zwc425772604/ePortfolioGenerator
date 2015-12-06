@@ -739,6 +739,10 @@ public class pageEditView extends VBox {
             eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
 	}
     }    
+
+    public void moveFront() {
+        
+    }
    
    
    

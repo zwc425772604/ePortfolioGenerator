@@ -34,7 +34,7 @@ public class Page {
         title = defaultTitle;
         studentName = defaultStuName;
         
-        
+        footer = "";
         header = new ArrayList<String>();
         paragraph = new ArrayList<String>();
         image = new ArrayList<String>();

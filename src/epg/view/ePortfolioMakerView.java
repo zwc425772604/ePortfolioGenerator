@@ -434,30 +434,37 @@ public class ePortfolioMakerView {
 	pageButton.add(button);
 	toolbar.getChildren().add(button);
         button.setOnMouseClicked(e ->{
-            portfolio.setSelectedPage(portfolio.getSelectedPage());
+//            for(int i = 0; i<portfolio.getPages().size();i++){
+//             if (button.getText().equals(portfolio.getPages().get(i))){
+//                 portfolio.setSelectedPage(portfolio.getPages().get(i));
+//             }
+//            }
             System.out.println(button.getText());
-            for (int i = 0; i<portfolio.getPages().size();i++){
-                if (button.getText().equals(portfolio.getPages().get(i).getTitle())){
-                     portfolio.setSelectedPage(portfolio.getPages().get(i));
+            for (int j = 0; j<portfolio.getPages().size();j++){
+                if (button.getText().equals(portfolio.getPages().get(j).getTitle())){
+                     portfolio.setSelectedPage(portfolio.getPages().get(j));
+                     portfolio.getSelectedPage().getPageEditView()
+                     .getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
                 }
-               // System.out.println(portfolio.getSelectedPage().getTitle());
-            
-//                portfolio.getSelectedPage().getPageEditView().toBack();
-                portfolio.getSelectedPage().getPageEditView().reloadPageEditView(portfolio.getSelectedPage());
-                reloadPortfolioPane();
+            }
+                moveToFront(portfolio.getSelectedPage().getPageEditView());
+               // portfolio.getSelectedPage().getPageEditView().reloadPageEditView(portfolio.getSelectedPage());
+                //reloadPortfolioPane();
                 //portfolio.setSelectedPage(null);
             
             
-        }});
-        //TODO 
-//        button.setOnMouseClicked((MouseEvent e) -> {
-//            System.out.println(button.getText());
-//           // portfolio.getSelectedPage().getPageEditView().removeVBoxTesting();
-//
-//        });
-        
-//	return button;
-        
+        });
+       
+    }
+    public void moveToFront(pageEditView pev){
+       // sitesEditorPane.getChildren().remove(pev);this line good
+        sitesEditorPane.getChildren().clear();
+        sitesEditorPane.getChildren().add(0, pev);
+//        portfolio.setSelectedPage(null);
+       // sitesEditorPane.getChildren().
+//        reloadPortfolioPane();
+        pev.reloadPageEditView(portfolio.getSelectedPage());
+       // portfolio.setSelectedPage(null);
     }
 
     private void initFileToolbar() {
@@ -493,7 +500,7 @@ public class ePortfolioMakerView {
 	    fileController.handleSavePortfolioRequest();
 	});
         savePortfolioAsButton.setOnAction(e -> {
-            fileController.handleSaveAsPortfolioRequest();
+            fileController.handleSaveAs();
         });
 	exportPortfolioButton.setOnAction(e -> {
 	    fileController.handleExportPortfolioRequest();
@@ -544,6 +551,9 @@ public class ePortfolioMakerView {
         });
         addTextHyperlinkButton.setOnAction(e -> {
             pageController.processAddHyperLink();
+        });
+        selectBannerImage.setOnAction(e ->{
+            pageController.processAddBannerImage();
         });
         
        
@@ -708,7 +718,7 @@ public class ePortfolioMakerView {
 	for (Page page : portfolio.getPages()) {
 	    pageEditView pageEditor = new pageEditView(page,this);
             page.setPageEditView(pageEditor);
-	    if (portfolio.isSelectedPage(page))
+               if (portfolio.isSelectedPage(page))
 		pageEditor.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
                  else
 		pageEditor.getStyleClass().add(CSS_CLASS_SELECTED_PAGE_EDIT_VIEW);
@@ -724,8 +734,9 @@ public class ePortfolioMakerView {
 		portfolio.setSelectedPage(page);
 		this.reloadPortfolioPane();
 	    });
-            
-        }
+	   
+        } 
+
 	updateSlideshowEditToolbarControls();
     }
     

@@ -175,7 +175,7 @@ public class ePortfolioFileManager {
 
     private JsonObject makeSlideJsonObject(Page page) {
 	JsonObject jso = Json.createObjectBuilder()
-		.add(JSON_STUDENT_NAME, page.getStudentName())
+            	.add(JSON_STUDENT_NAME, page.getStudentName())
 		.add(JSON_PAGE_TITLE, page.getTitle())
                 .add(JSON_PAGE_HEADER, makeArray(page.getHeader()))
                 .add(JSON_PAGE_FOOTER, page.getFooter())
@@ -186,6 +186,7 @@ public class ePortfolioFileManager {
                 .add(JSON_PAGE_VIDEO_PATH, makeArray(page.getVideoPath()))
                 .add(JSON_VIDEO_FILE_NAME, makeArray(page.getVidFileNameList()))
                 .build();
+        
 	return jso;
     }
     private JsonArray makeArray(ArrayList<String> elements){

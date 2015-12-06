@@ -6,7 +6,10 @@
 package epg.model;
 
 import epg.view.ePortfolioMakerView;
+import epg.view.pageEditView;
 import eportfoliogenerator.LanguagePropertyType;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDIT_VIEW;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_SELECTED_PAGE_EDIT_VIEW;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import properties_manager.PropertiesManager;
@@ -62,9 +65,13 @@ public class PortfolioModel {
     public void addPage(String initPageTitle,
                         String initStudentName) {
 	Page pageToAdd = new Page(initPageTitle,initStudentName);
-        
+//        pageToAdd.setStudentName("default name");
+//        pageToAdd.setTitle("default title");
 	pages.add(pageToAdd);
-        
+        pageEditView pageEditor = new pageEditView(pageToAdd,ui);
+            pageToAdd.setPageEditView(pageEditor);
+          pageEditor.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
+          
 	ui.reloadPortfolioPane();
     }
     

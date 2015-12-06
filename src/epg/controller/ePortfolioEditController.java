@@ -38,7 +38,7 @@ public class ePortfolioEditController {
         
         PortfolioModel portfolio = ui.getPortfolio();
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
-        Page p = new Page("TITlE","STUDENT NAME");
+        Page p = new Page("TITLE","STUDENT NAME");
         
 	portfolio.addPage("TITLE","STUDENT NAME");
         ui.initPageButton(ui.getLeftSiteToolbar(),p.getTitle(),CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
@@ -60,7 +60,5 @@ public class ePortfolioEditController {
     
     }
     
-    public void processSelectPageRequest(){
-        
-}
+    
 }

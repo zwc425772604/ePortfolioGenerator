@@ -28,6 +28,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ssm.model.SlideShowModel;
 
 /**
  * This class serves as the controller for all file toolbar operations,
@@ -121,7 +122,6 @@ public class FileController {
 
             // AND REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
             // THE APPROPRIATE CONTROLS
-            
             ui.updateToolbarControls(saved);
             ui.setSaveAsButtonAble();
             ui.reloadPortfolioPane();
@@ -133,34 +133,96 @@ public class FileController {
         }
     }
     
-    public void handleSaveAsPortfolioRequest(){
+    public boolean handleSaveAsPortfolioRequest(){ 
+        try{
         PortfolioModel portfolioToSave = ui.getPortfolio();
         FileSaverDialog dialog = new FileSaverDialog(ui);
+        portfolioIO.savePortfolio(portfolioToSave);
+
+            // MARK IT AS SAVED
+            saved = true;
+
+            // AND REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
+            // THE APPROPRIATE CONTROLS
+            
+            ui.updateToolbarControls(saved);
+            ui.setSaveAsButtonAble();
+            ui.reloadPortfolioPane();
+	    return true;
+        } catch (IOException ioe) {
+//            ErrorHandler eH = ui.getErrorHandler();
+//            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	    return false;
+        }
         
     }
     
     public void handleExportPortfolioRequest(){
+        PortfolioModel model = ui.getPortfolio();
+	    
+            //Save the slide show every times the view button has been clicked
+        try{
+            portfolioIO.savePortfolio(model);
+        }
+        catch (IOException ioe) {
+           
+    }   
+//        initDirectory();
+        Stage primaryStage = new Stage();
+        primaryStage.setWidth(1500);
+        primaryStage.setHeight(1500);
+        Scene scene = new Scene(new Group(),1350,1350);
+       
+
+         final WebView browser = new WebView();
+       final WebEngine webEngine = browser.getEngine();
+        FlowPane flowpane = new FlowPane();
+     
+      flowpane.getChildren().add(browser);
+       flowpane.setAlignment(Pos.CENTER);
+
+     //load a local file
+        String path = ("public_html/" + "1stPage.html");
+        File file = new File(path);
+	try{
+	  URL fileURL = file.toURI().toURL();
+          //System.out.println(fileURL.toExternalForm());
+	    webEngine.load(fileURL.toExternalForm());
+        }
+        catch (Exception e){
+        
+        }
+        
+
+       
+        
+        
+       scene.setRoot(flowpane);
+    
+    primaryStage.setScene(scene);
+    primaryStage.show();
         
     }
     
     public void handleExitRequest(){
-//         try {
-//            // WE MAY HAVE TO SAVE CURRENT WORK
-//            boolean continueToExit = true;
-//            if (!saved) {
-//                // THE USER CAN OPT OUT HERE
-//                continueToExit = promptToSave();
-//            }
-//
-//            // IF THE USER REALLY WANTS TO EXIT THE APP
-//            if (continueToExit) {
-//                // EXIT THE APPLICATION
-//                System.exit(0);
-//            }
-//        } catch (IOException ioe) {
-//            ErrorHandler eH = ui.getErrorHandler();
-//            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
-//        }
+         try {
+            // WE MAY HAVE TO SAVE CURRENT WORK
+            boolean continueToExit = true;
+            if (!saved) {
+                // THE USER CAN OPT OUT HERE
+                continueToExit = promptToSave();
+            }
+
+            // IF THE USER REALLY WANTS TO EXIT THE APP
+            if (continueToExit) {
+                // EXIT THE APPLICATION
+                System.exit(0);
+            }
+        } catch (IOException ioe) {
+            ErrorHandler eH = ui.getErrorHandler();
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+        }
+       
     }
     
     //still working
@@ -238,8 +300,8 @@ public class FileController {
 
         // IF THE USER SAID YES, THEN SAVE BEFORE MOVING ON
         if (saveWork) {
-            PortfolioModel slideShow = ui.getPortfolio();
-            portfolioIO.savePortfolio(slideShow);
+            PortfolioModel model = ui.getPortfolio();
+            portfolioIO.savePortfolio(model);
             saved = true;
         } // IF THE USER SAID CANCEL, THEN WE'LL TELL WHOEVER
         // CALLED THIS THAT THE USER IS NOT INTERESTED ANYMORE
@@ -247,6 +309,23 @@ public class FileController {
             return false;
         }
     return true;
+    }
+
+    public void handleSaveAs() {
+        try{
+      PortfolioModel portfolioToSave = ui.getPortfolio();
+        FileSaverDialog dialog = new FileSaverDialog(ui);
+        portfolioIO.savePortfolio(portfolioToSave);
+        ui.updateToolbarControls(saved);
+            ui.setSaveAsButtonAble();
+            ui.reloadPortfolioPane();
+        }
+        catch
+            (IOException ioe) {
+//            ErrorHandler eH = ui.getErrorHandler();
+//            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	    System.out.println("Cannot save the file");
+        }
     }
 }
   

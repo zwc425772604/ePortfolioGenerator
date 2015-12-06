@@ -38,7 +38,7 @@ import ssm.error.ErrorHandler;
  *
  * @author weichaozhao
  */
-public class addImageComponentDialog extends Stage {
+public class addBannerImageDialog extends Stage {
    
     VBox vBox;
     ImageView imageSelectionView;
@@ -67,7 +67,7 @@ public class addImageComponentDialog extends Stage {
     private ePortfolioMakerView ui;
    
     
-    public addImageComponentDialog(ePortfolioMakerView initUI){
+    public addBannerImageDialog(ePortfolioMakerView initUI){
         ui = initUI;
         selectedPage = ui.getPortfolio().getSelectedPage();
         imgLabel = new Label("Select An Image:");
@@ -152,20 +152,14 @@ public class addImageComponentDialog extends Stage {
 	    imageController.processSelectImage(selectedPage,selectedPage.getPageEditView());
             updateSelectionImage(imageController.getImagePath(),imageController.getImageFileName());
 	});
-//     
+        
         okButton.setOnAction(e -> {
-//	    selectedTypeComponent = textCompComboBox.getSelectionModel().getSelectedItem().toString();
-            //TODO
-            //execute the textfield
-//            String captionT = captionTextField.getText();
+//	   
          int wid = Integer.parseInt(imgWidthTextField.getText());
          int hei = Integer.parseInt(imgHeightTextField.getText());
          String selectLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
          String caption = captionTextField.getText();
-//            Image img = imageSelectionView.getImage();
-//            pageEditView pev = new pageEditView(selectedPage,ui);
-//            pev.addImage();
-//	    this.hide();
+            
          PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
          Page p = model.getSelectedPage();  //return the selected page
                 //add the text for paragraph to the selected page
