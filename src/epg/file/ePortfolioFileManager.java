@@ -15,10 +15,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -46,7 +49,13 @@ public class ePortfolioFileManager {
     public static String JSON_STUDENT_NAME = "student_name";
     public static String JSON_PAGES = "pages";
     public static String JSON_PAGE_TITLE = "page_title";
-    
+    public static String JSON_PAGE_HEADER = "page_header";
+    public static String JSON_PAGE_FOOTER = "page_footer";
+    public static String JSON_PAGE_LIST = "page_list";
+    public static String JSON_PAGE_PARAGRAPH = "page_paragraph";
+    public static String JSON_PAGE_VIDEO_PATH = "page_video";
+    public static String JSON_VIDEO_FILE_NAME = "video_file_name";
+     
     public void savePortfolio(PortfolioModel portfolioToSave) throws IOException {
        
         
@@ -104,9 +113,32 @@ public class ePortfolioFileManager {
 	    JsonObject slideJso = jsonPagesArray.getJsonObject(i);
 	    portfolioToLoad.addPage(slideJso.getString(JSON_PAGE_TITLE),
 		    slideJso.getString(JSON_STUDENT_NAME));
-		   
-	}
-    }
+          //  if (!slideJso.getString(JSON_PAGE_HEADER).isEmpty()){
+//            if (!slideJso.getString(JSON_PAGE_HEADER).equals("[]")){
+//                 portfolioToLoad.getPages().get(i).addHeader(slideJso.getString(JSON_PAGE_HEADER)
+//                    .replace("[","").replace("]",""));
+//                 }
+            JsonArray Headerarray = slideJso.getJsonArray(JSON_PAGE_HEADER);
+            for (int h = 0; h<Headerarray.size();h++){
+                portfolioToLoad.getPages().get(i).addHeader(Headerarray.getString(h));
+            }
+            if (!slideJso.getString(JSON_PAGE_FOOTER).equals("[]")){
+                portfolioToLoad.getPages().get(i).addFooter(slideJso.getString(JSON_PAGE_FOOTER)
+                .replace("[", "").replace("]",""));
+            }
+            
+            JsonArray paragraphArray = slideJso.getJsonArray(JSON_PAGE_PARAGRAPH);
+            for (int p1 = 0; p1<paragraphArray.size();p1++){
+                portfolioToLoad.getPages().get(i).addParagraph(paragraphArray.getString(p1));
+            }
+            
+//            if (!slideJso.getString(JSON_PAGE_PARAGRAPH).equals("[]")){
+//                portfolioToLoad.getPages().get(i).addParagraph(slideJso.getString(JSON_PAGE_PARAGRAPH)
+//                .replace("]", ""));
+//            }
+//            
+	
+    }}
 
     // AND HERE ARE THE PRIVATE HELPER METHODS TO HELP THE PUBLIC ONES
     private JsonObject loadJSONFile(String jsonFilePath) throws IOException {
@@ -137,15 +169,43 @@ public class ePortfolioFileManager {
 	JsonArray jA = jsb.build();
 	return jA;
     }
+   
+    
+    
 
     private JsonObject makeSlideJsonObject(Page page) {
 	JsonObject jso = Json.createObjectBuilder()
 		.add(JSON_STUDENT_NAME, page.getStudentName())
 		.add(JSON_PAGE_TITLE, page.getTitle())
-		.build();
+                .add(JSON_PAGE_HEADER, makeArray(page.getHeader()))
+                .add(JSON_PAGE_FOOTER, page.getFooter())
+                .add(JSON_PAGE_PARAGRAPH, makeArray(page.getParagraph()))
+                .add(JSON_PAGE_LIST, makeArray(page.getListElement()))
+                .add(JSON_IMAGE_PATH, makeArray(page.getImageList()))
+                .add(JSON_IMAGE_FILE_NAME, makeArray(page.getImgFileNameList()))
+                .add(JSON_PAGE_VIDEO_PATH, makeArray(page.getVideoPath()))
+                .add(JSON_VIDEO_FILE_NAME, makeArray(page.getVidFileNameList()))
+                .build();
 	return jso;
     }
+    private JsonArray makeArray(ArrayList<String> elements){
+        JsonArrayBuilder jsb = Json.createArrayBuilder();
+	for (String x : elements) {
 
+            jsb.add(x);
+	   
+	}
+	JsonArray jA = jsb.build();
+	return jA;
+    }
+
+    private JsonObject makeJSobject(String y){
+        JsonObject jso = Json.createObjectBuilder()
+                .add("",y)
+                .build();
+        return jso;
+    }
+    
    
 }
 

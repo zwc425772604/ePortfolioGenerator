@@ -11,6 +11,8 @@ import epg.view.ePortfolioMakerView;
 import epg.view.pageEditView;
 import static eportfoliogenerator.LanguagePropertyType.DEFAULT_PAGE_TITLE;
 import static eportfoliogenerator.LanguagePropertyType.DEFAULT_STUDENT_NAME;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_PAGE_EDIT_VIEW;
+import static eportfoliogenerator.StartupConstants.CSS_CLASS_SELECTED_PAGE_EDIT_VIEW;
 import static eportfoliogenerator.StartupConstants.CSS_CLASS_VERTICAL_TOOLBAR_BUTTON;
 import properties_manager.PropertiesManager;
 
@@ -37,12 +39,13 @@ public class ePortfolioEditController {
         PortfolioModel portfolio = ui.getPortfolio();
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
         Page p = new Page("TITlE","STUDENT NAME");
+        
 	portfolio.addPage("TITLE","STUDENT NAME");
         ui.initPageButton(ui.getLeftSiteToolbar(),p.getTitle(),CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
         ui.updatePageEditorControls();
         pageEditView pev = new pageEditView(p,ui);
         //pev.addImage();
-        
+       
         System.out.println("create a new page");
     }
     

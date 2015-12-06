@@ -169,6 +169,8 @@ public class addImageComponentDialog extends Stage {
          pev.reloadPageEditView(p);
          
          String path = imageController.getImagePath() + imageController.getImageFileName();
+         p.addImage(path);
+         
          System.out.println(path);
          pev.addImageToVBox(path,hei, wid,selectLayout,caption);
          

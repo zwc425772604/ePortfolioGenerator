@@ -19,7 +19,8 @@ import javafx.stage.FileChooser;
  */
 public class videoSelectionController {
     
-    private String videoPath;
+    private String path;
+    private String fileName;
     public videoSelectionController(){
         
     }
@@ -40,9 +41,10 @@ public class videoSelectionController {
 	// LET'S OPEN THE FILE CHOOSER
 	File file = imageFileChooser.showOpenDialog(null);
 	if (file != null) {
-	    String path = file.getPath().substring(0, file.getPath().indexOf(file.getName()));
-	    String fileName = file.getName();
-             videoPath = path + fileName;
+	     path = file.getPath().substring(0, file.getPath().indexOf(file.getName()));
+	    fileName = file.getName();
+            String videoPath = path + fileName;
+             
 //            Media media = new Media(videoPath);
 //            MediaPlayer mediaPlayer = new MediaPlayer(media);
 //	    MediaView mediaView = new MediaView(mediaPlayer);
@@ -58,8 +60,12 @@ public class videoSelectionController {
         }
     
     public String getVideoPath(){
-        return videoPath;
+        return path;
     }
+    public String getVideoFileName(){
+        return fileName;
+    }
+    
    }
     
 

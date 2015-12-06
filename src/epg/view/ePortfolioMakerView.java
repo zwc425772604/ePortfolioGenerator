@@ -78,6 +78,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -196,6 +197,10 @@ public class ePortfolioMakerView {
         pageButton = FXCollections.observableArrayList();
         
     }
+    public ObservableList getPageButton(){
+        return pageButton;
+    }
+   
     
     public PortfolioModel getPortfolio(){
         return portfolio;
@@ -425,23 +430,31 @@ public class ePortfolioMakerView {
         Button button = new Button();
 	button.getStyleClass().add(cssClass);
         button.setText(title);
-	button.setDisable(disable);
+	button.setDisable(false);
 	pageButton.add(button);
 	toolbar.getChildren().add(button);
-        button.setOnAction(e ->{
-            for (int i = 0; i<portfolio.getPages().size();i++){
-                if (title.equals(portfolio.getPages().get(i).getTitle()))
-                     portfolio.setSelectedPage(portfolio.getPages().get(i));
-                
-            }
-            
-        });
-        //TODO 
-        button.setOnMouseClicked((MouseEvent e) -> {
+        button.setOnMouseClicked(e ->{
+            portfolio.setSelectedPage(portfolio.getSelectedPage());
             System.out.println(button.getText());
-           // portfolio.getSelectedPage().getPageEditView().removeVBoxTesting();
-
-        });
+            for (int i = 0; i<portfolio.getPages().size();i++){
+                if (button.getText().equals(portfolio.getPages().get(i).getTitle())){
+                     portfolio.setSelectedPage(portfolio.getPages().get(i));
+                }
+               // System.out.println(portfolio.getSelectedPage().getTitle());
+            
+//                portfolio.getSelectedPage().getPageEditView().toBack();
+                portfolio.getSelectedPage().getPageEditView().reloadPageEditView(portfolio.getSelectedPage());
+                reloadPortfolioPane();
+                //portfolio.setSelectedPage(null);
+            
+            
+        }});
+        //TODO 
+//        button.setOnMouseClicked((MouseEvent e) -> {
+//            System.out.println(button.getText());
+//           // portfolio.getSelectedPage().getPageEditView().removeVBoxTesting();
+//
+//        });
         
 //	return button;
         
@@ -529,6 +542,11 @@ public class ePortfolioMakerView {
         editTextComponentButton.setOnAction(e ->{
             pageController.processEditTextComponent();
         });
+        addTextHyperlinkButton.setOnAction(e -> {
+            pageController.processAddHyperLink();
+        });
+        
+       
      
 	
     }
@@ -566,6 +584,9 @@ public class ePortfolioMakerView {
            tf.setText(namePrompt);
            tf.textProperty().addListener(e ->{
                portfolio.getSelectedPage().setFooter(tf.getText());
+               pageEditView pev = getPortfolio().getSelectedPage().getPageEditView();
+               pev.updateFooterVBox(tf.getText());
+               
            });
            pane.getChildren().add(footerVBox);
            return footerVBox;
@@ -585,7 +606,9 @@ public class ePortfolioMakerView {
         tf.textProperty().addListener(e -> {
             for (int i = 0; i< portfolio.getPages().size();i++){
                 portfolio.getPages().get(i).setStudentName(tf.getText());
-                portfolio.getPages().get(i).getPageEditView().reloadPageEditView(portfolio.getPages().get(i));
+               //portfolio.getPages().get(i).getPageEditView().reloadPageEditView(portfolio.getPages().get(i));
+               portfolio.getPages().get(i).getPageEditView().updateStudentNameVBox(tf.getText());
+               System.out.println(portfolio.getSelectedPage().getStudentName());
             }
            
                     
@@ -680,6 +703,7 @@ public class ePortfolioMakerView {
      */
     public void reloadPortfolioPane() {
 	sitesEditorPane.getChildren().clear();
+        pageEditView selectedPEV = null; //added
 //	reloadTitleControls();
 	for (Page page : portfolio.getPages()) {
 	    pageEditView pageEditor = new pageEditView(page,this);
@@ -687,14 +711,22 @@ public class ePortfolioMakerView {
 	    if (portfolio.isSelectedPage(page))
 		pageEditor.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VIEW);
                  else
-	        pageEditor.getStyleClass().add(CSS_CLASS_SELECTED_PAGE_EDIT_VIEW);
+		pageEditor.getStyleClass().add(CSS_CLASS_SELECTED_PAGE_EDIT_VIEW);
 	    sitesEditorPane.getChildren().add(pageEditor);
+            
+//            Node first = sitesEditorPane.getChildren().get(0);
+//            sitesEditorPane.getChildren().remove(first);
+//            sitesEditorPane.getChildren().add(first);
+            //sitesEditorPane.getChildren().add(0, selectedPEV);
+           // portfolio.getSelectedPage().getPageEditView().toBack();
+           // portfolio.getSelectedPage().getPageEditView().toFront();
 	    pageEditor.setOnMousePressed(e -> {
 		portfolio.setSelectedPage(page);
 		this.reloadPortfolioPane();
 	    });
-	}
-//	updateSlideshowEditToolbarControls();
+            
+        }
+	updateSlideshowEditToolbarControls();
     }
     
 //    public pageEditView getPageEditPage(Page testPage){
@@ -724,6 +756,7 @@ public class ePortfolioMakerView {
 	savePortfolioButton.setDisable(saved);
 	exportPortfolioButton.setDisable(false);
 	
+        
 	updateSlideshowEditToolbarControls();
     }
     
@@ -757,11 +790,24 @@ public class ePortfolioMakerView {
         sitesEditorScrollPane.setVisible(true);
     }
    
+    public void reset(){
+        if(pageButton.size() > 0)
+        pageButton.clear();
+        updatePageTitleButton();
+        //setToolbarInvisible();
+//        reloadPortfolioPane();
+        }
+//        
+    
+    public void setSaveAsButtonAble(){
+        savePortfolioAsButton.setDisable(false);
+    }
+    }
 
    
     
    
-}
+
     
 
    

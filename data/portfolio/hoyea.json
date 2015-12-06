@@ -1,10 +1,21 @@
 
 {
-    "student_name":"alllll",
+    "student_name":"dsad",
     "pages":[
         {
-            "student_name":"alllll",
-            "page_title":"that"
+            "student_name":"dsad",
+            "page_title":"goo",
+            "page_header":[
+                "dsadsad"
+            ],
+            "page_footer":"eeee",
+            "page_paragraph":[
+                "dsadsad"
+            ],
+            "page_list":[
+                "dsadd",
+                "ddd"
+            ]
         }
     ]
 }

@@ -62,6 +62,7 @@ public class PortfolioModel {
     public void addPage(String initPageTitle,
                         String initStudentName) {
 	Page pageToAdd = new Page(initPageTitle,initStudentName);
+        
 	pages.add(pageToAdd);
         
 	ui.reloadPortfolioPane();
@@ -94,11 +95,15 @@ public class PortfolioModel {
     // SERVICE METHODS
     public void reset() {
 	pages.clear();
+        //ui.reset();
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
 //	title = props.getProperty(LanguagePropertyType.DEFAULT_SLIDE_SHOW_TITLE);
 	selectedPage = null;
     }
 
+    public boolean isPortfolioExist(){
+        return getPages().size()> 0;
+    }
     
   
 }

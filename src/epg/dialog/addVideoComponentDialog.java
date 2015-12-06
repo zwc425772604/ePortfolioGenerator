@@ -107,8 +107,11 @@ public class addVideoComponentDialog extends Stage{
          pageEditView pev = p.getPageEditView();   //load the corresponding pageEditView
          pev.reloadPageEditView(p);
          String videoPath = videoController.getVideoPath();
+         String videoFileName = videoController.getVideoFileName();
+         p.addVideo(videoPath);
+         p.addVideoFileName(videoFileName);
          System.out.println(videoPath);
-         pev.addVideoToVBox(videoPath,hei, wid);
+         pev.addVideoToVBox(videoPath+videoFileName,hei, wid);
             this.hide();
         });
         

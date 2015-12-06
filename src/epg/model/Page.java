@@ -24,16 +24,24 @@ public class Page {
     pageEditView p;
      String imageFileName;
     String imagePath;
-    ArrayList<String>image;//image path
+    ArrayList<String>image;//whole image path
+    ArrayList<String>imageFileNameList;
     ArrayList<String> list;
+    ArrayList<String> video;
+    ArrayList<String> videoFileNameList;
     
     public Page(String defaultTitle, String defaultStuName){
         title = defaultTitle;
         studentName = defaultStuName;
+        
+        
         header = new ArrayList<String>();
         paragraph = new ArrayList<String>();
         image = new ArrayList<String>();
+        imageFileNameList = new ArrayList<String>();
         list = new ArrayList<String>();
+        video = new ArrayList<String>();
+        videoFileNameList = new ArrayList<String>();
     }
     
     public String getTitle(){
@@ -66,6 +74,7 @@ public class Page {
     public ArrayList getHeader(){
         return header;
     }
+   
     
     public void addParagraph(String text){
         paragraph.add(text);
@@ -87,9 +96,34 @@ public class Page {
             list.add(x);
         }
     }
+    public ArrayList<String> getListElement(){
+        return list;
+    }
     
     public void addImage(String path){
         image.add(path);
+    }
+    public ArrayList getImageList(){
+        return image;
+    }
+    public void addImageFileName(String name){
+        imageFileNameList.add(name);
+    }
+    public ArrayList getImgFileNameList(){
+        return imageFileNameList;
+    }
+    public void addVideoFileName(String name){
+        videoFileNameList.add(name);
+    }
+    public ArrayList getVidFileNameList(){
+        return videoFileNameList;
+    }
+    
+    public void addVideo(String path){
+        video.add(path);
+    }
+    public ArrayList getVideoPath(){
+        return video;
     }
     
     public void setImage(String initPath, String initFileName) {
@@ -103,6 +137,10 @@ public class Page {
 
     public String getImageFileName() {
         return imageFileName;
+    }
+    
+    public void addFooter(String x){
+        footer = x;
     }
     
     public String getFooter(){

@@ -7,6 +7,7 @@ package epg.controller;
 
 import epg.dialog.addImageComponentDialog;
 import epg.dialog.addTextComponentDialog;
+import epg.dialog.addTextHyperLinkDialog;
 import epg.dialog.addVideoComponentDialog;
 import epg.dialog.editHeaderDialog;
 import epg.dialog.editListDialog;
@@ -91,6 +92,11 @@ public class pageEditorController {
              editListDialog dialog = new editListDialog(ui);
              dialog.showAndWait();
          }
+    }
+
+    public void processAddHyperLink() {
+        addTextHyperLinkDialog dialog = new addTextHyperLinkDialog(ui);
+        dialog.showAndWait();
     }
     
     

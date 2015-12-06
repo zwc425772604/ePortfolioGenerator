@@ -33,9 +33,13 @@ import static eportfoliogenerator.StartupConstants.STYLE_SHEET_UI;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextArea;
@@ -44,6 +48,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
 
 /**
@@ -104,7 +112,10 @@ public class pageEditView extends VBox {
     String selectedFontStyle;
     ListView selectedListView;
     ObservableList<String> selectedListElement;
+    String selectedTextFromTextArea;
     
+    TextArea footerTA;
+    TextArea studentNameTA;
     ObservableList<VBox> headerComp;
     ObservableList<VBox> paragraphComp;
     ObservableList<VBox> imageComp;
@@ -207,14 +218,14 @@ public class pageEditView extends VBox {
             //for edit the component
              selectedTypeComponent = "header";
              selectedComponentContents = ta.getText();
-             
-             selectedTextArea = ta;
-     });
+        });
         
         h1.getChildren().add(ta);
         h1.setPrefHeight(30);
         headerComp.add(h1);
+        getChildren().remove(footerVBox);
         getChildren().add(h1);
+        getChildren().add(footerVBox);
         //h1.toFront();
     }
     //update the contents after the user edited the component
@@ -238,11 +249,13 @@ public class pageEditView extends VBox {
            selectedTypeComponent = "list";
            selectedListView = listView;
            selectedListElement = listView.getItems();
-           
+           selectedTextFromTextArea = listView.getSelectionModel().getSelectedItem();
+            System.out.println(selectedTextFromTextArea);
           
            });
-        
+        getChildren().remove(footerVBox);
         getChildren().add(l1);
+        getChildren().add(footerVBox);
     }
     public void updateListComponent(ObservableList<String> listElement){
         ListView<String> lv = getSelectedListView();
@@ -316,9 +329,11 @@ public class pageEditView extends VBox {
             else{
                 captionTF.setAlignment(Pos.CENTER);
             }
+             getChildren().remove(footerVBox);
              i1.getChildren().add(imageSelectionView);
              i1.getChildren().add(captionTF);
              getChildren().add(i1);
+             getChildren().remove(footerVBox);
 	} catch (Exception e) {
 	    ErrorHandler eH = new ErrorHandler(null);
             eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
@@ -339,8 +354,10 @@ public class pageEditView extends VBox {
             mv.setFitHeight(height);
             mv.setFitWidth(width);
             //v1.setAlignment(Pos.CENTER); CSS 
+            getChildren().remove(footerVBox);
             v1.getChildren().add(mv);
             getChildren().add(v1);
+            getChildren().add(footerVBox);
          }
          catch (Exception e) {
 	    ErrorHandler eH = new ErrorHandler(null);
@@ -356,25 +373,52 @@ public class pageEditView extends VBox {
         Label name = new Label("Student Name");
         name.getStyleClass().add(CSS_CLASS_PAGE_LABEL);
         TextArea ta = new TextArea(page.getStudentName());
+        studentNameTA = ta;
+
         ta.setEditable(false);
         studentNameVBox.getChildren().addAll(name,ta);
         getChildren().add(studentNameVBox);
         
 
     }
+    public TextArea getStudentNameTextArea(){
+        return studentNameTA;
+    }
+    public void setStudentNameTextArea(TextArea s){
+        studentNameTA = s;
+    }
+    public void updateStudentNameVBox(String name){
+        getStudentNameTextArea().setText(name);
+    }
     
-    public void addFooterToVBox(){
+    private void addFooterToVBox(){
         footerVBox = new VBox();
         footerVBox.setPrefSize(100, 100);
         Label footer = new Label("Footer");
         footer.getStyleClass().add(CSS_CLASS_PAGE_LABEL);
         TextArea ta = new TextArea(page.getFooter());
+        footerTA = ta;
         ta.setEditable(false);
+        ta.setOnMouseClicked(e ->{
+            selectedTextFromTextArea = ta.getSelectedText();
+            System.out.println(ta.getSelectedText());
+        });
+        
         footerVBox.getChildren().addAll(footer,ta);
         getChildren().add(footerVBox);
         
 //        setBottom(footerVBox); //might be a good choice
         
+    }
+    
+    public TextArea getFooterTextArea(){
+        return footerTA;
+    }
+    public void setFooterTextArea(TextArea t){
+        footerTA = t;
+    }
+    public void updateFooterVBox(String x){
+        getFooterTextArea().setText(x);
     }
     
     
@@ -411,16 +455,39 @@ public class pageEditView extends VBox {
             selectedTypeComponent = "paragraph";
             selectedComponentContents = ta.getText();
             selectedTextArea = ta;
-            selectedFontSize =  12;
+            selectedComponent = this;
+            selectedFontSize =  fontSize;
             selectedFontStyle = family;
             ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
             System.out.println("paragraph component has been clicked");
+            selectedTextFromTextArea = ta.getSelectedText();
+            System.out.println(selectedTextFromTextArea);
         });
-        
+       
+        getChildren().remove(footerVBox);
+        Hyperlink l = new Hyperlink("google");
+        l.setOnAction(e ->{
+            final Stage stage = new Stage();
+            final WebView webView = new WebView();
+            final WebEngine engine = webView.getEngine();
+            final String url = "https://www.google.com";
+            engine.load(url);
+            stage.setScene(new Scene(webView));
+            stage.show();
+        });
+        h1.getChildren().add(l);
         h1.getChildren().add(ta);
         h1.setVisible(true);
         paragraphComp.add(h1);
         getChildren().add(h1);
+         getChildren().add(footerVBox);
+    }
+    
+    public String getSelectedTextFromTA(){
+        return selectedTextFromTextArea;
+    }
+    public void setSelectedTextFromTA(String x) {
+        selectedTextFromTextArea = x;
     }
     
     public void updateParagraphComponent(String content,String family,int fontSize){
@@ -443,12 +510,48 @@ public class pageEditView extends VBox {
         if (family.equals("Dancing Script")){
             ta.setStyle("-fx-font-family: 'Dancing Script'");
         }
+        ta.setOnMouseClicked(e ->{
+            selectedTextFromTextArea = ta.getSelectedText();
+            System.out.println(ta.getSelectedText());
+        });
         setSelectedComponentContent(null);
         setSelectedTypeComponent(null);
         setSelectedFontSize(0);
         setSelectedTextArea(null);
         setFontStyle(null);
          reloadPageEditView(page);
+    }
+    public void addHyperlink(String url){
+        HTMLEditor htmlEditor = new HTMLEditor();
+        Hyperlink link = new Hyperlink();
+        link.setText(getSelectedTextFromTA());
+        String x= getSelectedTextFromTA();
+        
+//        getSelectedComponent().getChildren().add(link);
+        //getSelectedTextArea().setText(link.getText());
+        link.setOnAction(e ->{
+            final Stage stage = new Stage();
+            final WebView webView = new WebView();
+            final WebEngine engine = webView.getEngine();
+            final String URL = "https://" + url;
+            engine.load(URL);
+            stage.setScene(new Scene(webView));
+            stage.show();
+        });
+       
+        
+//        getSelectedTextArea().setText();
+        reloadPageEditView(page);
+    }
+    
+//    public String updateTextInTextArea(String x, String y){
+//        String para= getSelectedTextFromTA();
+//        String output = para.replace(x, y);
+//        return output;      
+//    }
+    
+    public VBox getSelectedComponent(){
+        return selectedComponent;
     }
     
     //GETTING THE INFO IN THE SELECTED COMPONENT
@@ -487,7 +590,10 @@ public class pageEditView extends VBox {
      //reload the page
      public void reloadPageEditView(Page testPage){
 //         getChildren().clear();
+//         getChildren().remove(footerVBox);
          page = testPage;
+         
+         //footerVBox.toBack();
          
          
          

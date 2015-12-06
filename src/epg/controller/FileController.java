@@ -7,6 +7,7 @@ package epg.controller;
 
 
 import epg.dialog.FileNameDialog;
+import epg.dialog.FileSaverDialog;
 import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
 import epg.model.PortfolioModel;
@@ -44,7 +45,7 @@ public class FileController {
     
     // THIS GUY KNOWS HOW TO READ AND WRITE SLIDE SHOW DATA
     private ePortfolioFileManager portfolioIO;
-    
+    private PortfolioModel model;
     /**
      * This default constructor starts the program without a slide show file being
      * edited.
@@ -61,15 +62,17 @@ public class FileController {
     
     public void markAsEdited() {
         saved = false;
-//        ui.updateToolbarControls(saved);
+       ui.updateToolbarControls(saved);
     }
     
     public void handleNewPortfolioRequest(){
         boolean continueToMakeNew = true;
+       
         if (continueToMakeNew) {
             // RESET THE DATA, WHICH SHOULD TRIGGER A RESET OF THE UI
             PortfolioModel portfolio = ui.getPortfolio();
             portfolio.reset();
+            ui.reset();
             saved = false;
             
             // REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
@@ -99,6 +102,7 @@ public class FileController {
             ErrorHandler eH = ui.getErrorHandler();
             eH.processError(LanguagePropertyType.ERROR_DATA_FILE_LOADING);
         }
+         ui.setSaveAsButtonAble();
         
     }
     
@@ -117,7 +121,9 @@ public class FileController {
 
             // AND REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
             // THE APPROPRIATE CONTROLS
+            
             ui.updateToolbarControls(saved);
+            ui.setSaveAsButtonAble();
             ui.reloadPortfolioPane();
 	    return true;
         } catch (IOException ioe) {
@@ -128,6 +134,8 @@ public class FileController {
     }
     
     public void handleSaveAsPortfolioRequest(){
+        PortfolioModel portfolioToSave = ui.getPortfolio();
+        FileSaverDialog dialog = new FileSaverDialog(ui);
         
     }
     
@@ -208,7 +216,7 @@ public class FileController {
             }
         }
     }
-    
+
      /**
      * This helper method verifies that the user really wants to save their
      * unsaved work, which they might not want to do. Note that it could be used
