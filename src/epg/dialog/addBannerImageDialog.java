@@ -70,7 +70,7 @@ public class addBannerImageDialog extends Stage {
     public addBannerImageDialog(ePortfolioMakerView initUI){
         ui = initUI;
         selectedPage = ui.getPortfolio().getSelectedPage();
-        imgLabel = new Label("Select An Image:");
+        imgLabel = new Label("Select A Banner Image:");
         imageSelectionView = new ImageView();
         String imagePath = "./images/slide_show_images/DefaultStartSlide.png";
 	File file = new File(imagePath);
@@ -116,16 +116,6 @@ public class addBannerImageDialog extends Stage {
         imgHeightTextField.setPrefWidth(50);
         imgHeightTextField.setMaxWidth(250);
         
-        // INIT THE TEXT COMPONENT CHOICE
-        imgFloatLabel = new Label("Image Float Layout");
-        imgFloatLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-	ObservableList<String> imgFloatChoices = FXCollections.observableArrayList();
-	imgFloatChoices.add("LEFT");
-	imgFloatChoices.add("RIGHT");
-        imgFloatChoices.add("NEITHER");
-	imgFloatComboBox = new ComboBox(imgFloatChoices);
-	imgFloatComboBox.getSelectionModel().select("LEFT");
-        imgFloatComboBox.getStyleClass().add(CSS_CLASS_TEXT_COMPONENT_COMBOBOX);
         
         okButton = new Button("OK");
         okButton.getStyleClass().add(CSS_CLASS_OK_BUTTON);
@@ -137,14 +127,14 @@ public class addBannerImageDialog extends Stage {
         vBox.getStyleClass().add(CSS_CLASS_IMAGE_COMPONENT_OPTION_VBOX);
         vBox.getChildren().add(imgLabel);
         vBox.getChildren().add(imageSelectionView);
-        vBox.getChildren().add(captionLabel);
-        vBox.getChildren().add(captionTextField);
+//        vBox.getChildren().add(captionLabel);
+//        vBox.getChildren().add(captionTextField);
         vBox.getChildren().add(imgWidthLabel);
         vBox.getChildren().add(imgWidthTextField);
         vBox.getChildren().add(imgHeightLabel);
         vBox.getChildren().add(imgHeightTextField);
-        vBox.getChildren().add(imgFloatLabel);
-        vBox.getChildren().add(imgFloatComboBox);
+//        vBox.getChildren().add(imgFloatLabel);
+//        vBox.getChildren().add(imgFloatComboBox);
         vBox.getChildren().add(okButton);
         vBox.getChildren().add(cancelButton);
         imageController = new ImageSelectionController();
@@ -157,8 +147,8 @@ public class addBannerImageDialog extends Stage {
 //	   
          int wid = Integer.parseInt(imgWidthTextField.getText());
          int hei = Integer.parseInt(imgHeightTextField.getText());
-         String selectLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
-         String caption = captionTextField.getText();
+         //String selectLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
+         //String caption = captionTextField.getText();
             
          PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
          Page p = model.getSelectedPage();  //return the selected page
@@ -167,10 +157,13 @@ public class addBannerImageDialog extends Stage {
          pev.reloadPageEditView(p);
          
          String path = imageController.getImagePath() + imageController.getImageFileName();
-         p.addImage(path);
-         
+         //p.addBannerImage(imageController.getImagePath(),imageController.getImageFileName());
+         p.addBannerImage(imageController.getImagePath(),imageController.getImageFileName(),
+                 wid,hei);
          System.out.println(path);
-         pev.addImageToVBox(path,hei, wid,selectLayout,caption);
+//         pev.addBannerImageToVBox(path,hei wid);
+        pev.addBannerImageToVBox(path, wid, hei);
+         
          
          //pev.addImage();
          this.hide();

@@ -315,8 +315,8 @@ public class FileController {
             Page p = portfolio.getPages().get(i);
                
                // String imgPath = p.getImagePath() + "/" + p.getImageFileName();
-            for(int j = 0; j<p.getImageList().size(); j++){
-            String imgPath = p.getImageList().get(j);
+            for(int j = 0; j<p.getImagePath().size(); j++){
+            String imgPath = p.getImagePath().get(j);
             System.out.println(imgPath);
             FileInputStream from = new FileInputStream(imgPath);
             FileOutputStream to = new FileOutputStream("data/"+ p.getImageFileName());

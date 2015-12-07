@@ -24,6 +24,8 @@ public class PortfolioModel {
     Page selectedPage;
     String title;
     String fileNameToSave;
+    String bannerImagePath;
+    String bannerFileName;
     
    public PortfolioModel(ePortfolioMakerView initUI){
        ui = initUI;
@@ -95,6 +97,8 @@ public class PortfolioModel {
     public void setFileName(String name){
         fileNameToSave = name;
     }
+    
+   
     
     
     

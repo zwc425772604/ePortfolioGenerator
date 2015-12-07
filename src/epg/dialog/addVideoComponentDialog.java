@@ -69,13 +69,13 @@ public class addVideoComponentDialog extends Stage{
           videoController.processSelectVideo(vBox);
         });
         
-        captionLabel = new Label("Caption:");
-        captionLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
-        captionTextField = new TextField();
-        captionTextField.setMinWidth(50);
-        captionTextField.setPrefWidth(50);
-        captionTextField.setMaxWidth(250);
-        captionTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+//        captionLabel = new Label("Caption:");
+//        captionLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
+//        captionTextField = new TextField();
+//        captionTextField.setMinWidth(50);
+//        captionTextField.setPrefWidth(50);
+//        captionTextField.setMaxWidth(250);
+//        captionTextField.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
         
         videoWidthLabel = new Label("Image Width:");
         videoWidthLabel.getStyleClass().add(CSS_CLASS_TEXTFIELD_STYLE);
@@ -98,8 +98,8 @@ public class addVideoComponentDialog extends Stage{
         cancelButton = new Button("CANCEL");
         cancelButton.getStyleClass().add(CSS_CLASS_OK_BUTTON);
         okButton.setOnAction(e ->{
-            int wid = Integer.parseInt(videoWidthTextField.getText());
-            int hei = Integer.parseInt(videoHeightTextField.getText());
+            int width = Integer.parseInt(videoWidthTextField.getText());
+            int height = Integer.parseInt(videoHeightTextField.getText());
             
             PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
          Page p = model.getSelectedPage();  //return the selected page
@@ -108,18 +108,20 @@ public class addVideoComponentDialog extends Stage{
          pev.reloadPageEditView(p);
          String videoPath = videoController.getVideoPath();
          String videoFileName = videoController.getVideoFileName();
-         p.addVideo(videoPath);
-         p.addVideoFileName(videoFileName);
+         p.addVideo(videoPath,videoFileName,width,height);
+        // p.addVideoFileName(videoFileName);
+//         p.addVideoWidth(width);
+//         p.addVideoHeight(height);
          System.out.println(videoPath);
-         pev.addVideoToVBox(videoPath+videoFileName,hei, wid);
+         pev.addVideoToVBox(videoPath+videoFileName,height, width);
             this.hide();
         });
         
         vBox = new VBox();
         vBox.getChildren().add(videoLabel);
         vBox.getChildren().add(openButton);
-        vBox.getChildren().add(captionLabel);
-        vBox.getChildren().add(captionTextField);
+//        vBox.getChildren().add(captionLabel);
+//        vBox.getChildren().add(captionTextField);
         vBox.getChildren().add(videoWidthLabel);
         vBox.getChildren().add(videoWidthTextField);
         vBox.getChildren().add(videoHeightLabel);

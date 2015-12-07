@@ -160,7 +160,7 @@ public class addImageComponentDialog extends Stage {
 //            String captionT = captionTextField.getText();
          int wid = Integer.parseInt(imgWidthTextField.getText());
          int hei = Integer.parseInt(imgHeightTextField.getText());
-         String selectLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
+         String selectedLayout = (String) imgFloatComboBox.getSelectionModel().getSelectedItem();
          String caption = captionTextField.getText();
 //            Image img = imageSelectionView.getImage();
 //            pageEditView pev = new pageEditView(selectedPage,ui);
@@ -173,10 +173,11 @@ public class addImageComponentDialog extends Stage {
          pev.reloadPageEditView(p);
          
          String path = imageController.getImagePath() + imageController.getImageFileName();
-         p.addImage(path);
+         p.addImage(imageController.getImagePath(),imageController.getImageFileName(),wid,hei,
+                 selectedLayout,caption);
          
          System.out.println(path);
-         pev.addImageToVBox(path,hei, wid,selectLayout,caption);
+         pev.addImageToVBox(path,hei, wid,selectedLayout,caption);
          
          //pev.addImage();
          this.hide();

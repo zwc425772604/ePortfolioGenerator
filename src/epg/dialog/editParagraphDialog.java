@@ -116,7 +116,7 @@ public class editParagraphDialog extends Stage{
          int fontSize = Integer.parseInt(fontSizeComboBox.getSelectionModel().getSelectedItem().toString());
          PortfolioModel model = ui.getPortfolio(); //get all the page associate with the portfolio
          Page p = model.getSelectedPage();  //return the selected page
-        ArrayList<String> paragraph = p.getParagraph();
+        ArrayList<String> paragraph = p.getParagraphContent();
         System.out.println(paragraph.get(0));
         //replace the old content with the new content
          int index = paragraph.indexOf(text);

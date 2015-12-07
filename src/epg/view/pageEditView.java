@@ -78,6 +78,10 @@ public class pageEditView extends VBox {
      VBox vBox;
     ImageView imageSelectionView;
     
+    Media m;
+    MediaPlayer mp;
+    MediaView mv;
+    
     Label imgLabel;
     
     // CONTROLS FOR EDITING THE CAPTION
@@ -108,6 +112,7 @@ public class pageEditView extends VBox {
     String selectedTypeComponent;
     String selectedComponentContents;
     TextArea selectedTextArea;
+    MediaView selectedMediaView;
     int selectedFontSize;
     String selectedFontStyle;
     ListView selectedListView;
@@ -137,6 +142,7 @@ public class pageEditView extends VBox {
         this.setPrefHeight(1200);
         selectedTypeComponent = null;
         selectedComponent = null;
+        selectedMediaView = null;
 	headerComp = FXCollections.observableArrayList();
         paragraphComp = FXCollections.observableArrayList();
         imageComp = FXCollections.observableArrayList();
@@ -144,20 +150,41 @@ public class pageEditView extends VBox {
         addFooterToVBox();
         //footerVBox.toBack();
         updateHeader();
+        updateParagraph();
+        if(!page.getBannerPath().equals("")){
+            addBannerImageToVBox(page.getBannerPath()+page.getBannerName(),
+                    page.getBannerWidth(),page.getBannerHeight());
+        }
+        if(!page.getVideoPath().isEmpty()){
+           for( int i = 0; i<page.getVideoPath().size();i++){
+               addVideoToVBox(page.getVideoPath().get(i)+page.getVidFileNameList().get(i),
+               page.getVideoWidth().get(i),page.getVideoHeight().get(i));
+           }
+        }
+//        if(!page.getImagePath().isEmpty()){
+//        for( int j = 0; j<page.getImagePath().size();j++){
+//               addImageToVBox(page.getImagePath().get(j)+page.getImageFileName().get(j),
+//               page.getImageHeight().get(j),page.getImageWidth().get(j),
+//               page.getImageLayout().get(j),page.getImageCaption().get(j));
+//    }
+//        }
+//        if(!page.getImageList().isEmpty()){
+//            addImageToVBox(page.get)
+//        }
        
        
         
         
     }
-//    public void updateHeader(){
-//        ArrayList<String> header = page.getHeader();
-//        for (String text : header){
-//          addHeaderToVBox(text);
-//        }
-//        reloadPageEditView(page);
-//        
-////        ui.reloadPortfolioPane();
-//    }
+    public void updateParagraph(){
+        ArrayList<String> paragraph = page.getParagraphContent();
+        for (String text : paragraph){
+          addHeaderToVBox(text);
+        }
+        reloadPageEditView(page);
+        
+//        ui.reloadPortfolioPane();
+    }
 
      
 	// SETUP THE CAPTION CONTROLS
@@ -196,10 +223,7 @@ public class pageEditView extends VBox {
     }
     
     //can remove a single vbox from the pane
-    public void removeSelectingComponent(){
-        this.getChildren().remove(getSelectedComponent());
-       //System.out.println("removed");
-        }
+   
     
 
     public void addHeader(){
@@ -361,8 +385,7 @@ public class pageEditView extends VBox {
          imageSelectionView.setOnMouseClicked(e ->{
                  System.out.println("xx");
              });
-//        i1.getChildren().add(imgView);
-//        getChildren().add(i1);
+
         
     }
     
@@ -372,14 +395,16 @@ public class pageEditView extends VBox {
          
          File f = new File(path);
          try{
-            Media m = new Media(f.toURI().toString());
-            MediaPlayer mp = new MediaPlayer(m);
-            MediaView mv = new MediaView(mp);
+            m = new Media(f.toURI().toString());
+             mp = new MediaPlayer(m);
+             mp.setAutoPlay(true);
+            mv = new MediaView(mp);
+            
             mv.setFitHeight(height);
             mv.setFitWidth(width);
             //v1.setAlignment(Pos.CENTER); CSS 
             getChildren().remove(footerVBox);
-            v1.getChildren().add(mv);
+           v1.getChildren().add(mv);
             getChildren().add(v1);
             getChildren().add(footerVBox);
          }
@@ -387,8 +412,20 @@ public class pageEditView extends VBox {
 	    ErrorHandler eH = new ErrorHandler(null);
             eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
 	}
+          mv.setOnMousePressed(e ->{
+              System.out.println("MV");
+              selectedComponent = v1;
+              selectedMediaView = mv;
+          });
+         
         
          
+    }
+    public MediaView getSelectedMediaView(){
+        return selectedMediaView;
+    }
+    public void setSelectedMediaView(MediaView MV){
+        selectedMediaView = mv;
     }
     
     public void addStudentNameToVBox(){
@@ -492,17 +529,17 @@ public class pageEditView extends VBox {
         });
        
         getChildren().remove(footerVBox);
-        Hyperlink l = new Hyperlink("google");
-        l.setOnAction(e ->{
-            final Stage stage = new Stage();
-            final WebView webView = new WebView();
-            final WebEngine engine = webView.getEngine();
-            final String url = "https://www.google.com";
-            engine.load(url);
-            stage.setScene(new Scene(webView));
-            stage.show();
-        });
-        h1.getChildren().add(l);
+//        Hyperlink l = new Hyperlink("google");
+//        l.setOnAction(e ->{
+//            final Stage stage = new Stage();
+//            final WebView webView = new WebView();
+//            final WebEngine engine = webView.getEngine();
+//            final String url = "https://www.google.com";
+//            engine.load(url);
+//            stage.setScene(new Scene(webView));
+//            stage.show();
+//        });
+//        h1.getChildren().add(l);
         h1.getChildren().add(ta);
         h1.setVisible(true);
         paragraphComp.add(h1);
@@ -764,7 +801,45 @@ public class pageEditView extends VBox {
             eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
 	}
     }    
+
+    public void addBannerImageToVBox(String path, int width,int height) {
+           VBox i1 = new VBox();
+        //String imagePath = page.getImagePath() + SLASH + page.getImageFileName();
+       
+	 File file = new File(path);
+	  try {
+	    // GET AND SET THE IMAGE
+	    URL fileURL = file.toURI().toURL();
+	    Image slideImage = new Image(fileURL.toExternalForm());
+           
+            imageSelectionView = new ImageView();
+	    imageSelectionView.setImage(slideImage);
+            imageSelectionView.setFitHeight(height);
+            imageSelectionView.setFitWidth(width);
+            
+             //getChildren().remove(footerVBox);
+             i1.setOnMouseClicked(e ->{
+                 System.out.println("XXx");
+             });
+             i1.getChildren().add(imageSelectionView);
+            
+            // getChildren().add(i1); good
+             getChildren().add(1, i1);
+             
+            // getChildren().remove(footerVBox);
+          }
+          catch (Exception e) {
+	    ErrorHandler eH = new ErrorHandler(null);
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	}
+          reloadPageEditView(page);
+    }
    
+     public void removeSelectingComponent(){
+        this.getChildren().remove(getSelectedComponent());
+        this.getChildren().remove(getSelectedMediaView());
+       //System.out.println("removed");
+        }
    
    
    

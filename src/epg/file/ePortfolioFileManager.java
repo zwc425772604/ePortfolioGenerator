@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +41,10 @@ public class ePortfolioFileManager {
     public static String JSON_SLIDES = "slides";
     public static String JSON_IMAGE_FILE_NAME = "image_file_name";
     public static String JSON_IMAGE_PATH = "image_path";
+    public static String JSON_IMAGE_WIDTH = "image_width";
+    public static String JSON_IMAGE_HEIGHT = "image_height";
+    public static String JSON_IMAGE_LAYOUT = "image_layout";
+    public static String JSON_IMAGE_CAPTION = "image_caption";
     public static String JSON_CAPTION = "caption";
     public static String JSON_EXT = ".json";
     public static String SLASH = "/";
@@ -55,7 +58,13 @@ public class ePortfolioFileManager {
     public static String JSON_PAGE_PARAGRAPH = "page_paragraph";
     public static String JSON_PAGE_VIDEO_PATH = "page_video";
     public static String JSON_VIDEO_FILE_NAME = "video_file_name";
-     
+    public static String JSON_VIDEO_WIDTH = "video_width";
+    public static String JSON_VIDEO_HEIGHT = "video_height";
+    public static String JSON_BANNER_PATH = "banner_image_path";
+    public static String JSON_BANNER_FILE_NAME = "banner_file_name";
+    public static String JSON_BANNER_WIDTH = "banner_image_width";
+    public static String JSON_BANNER_HEIGHT = "banner_image-height";
+      
     public void savePortfolio(PortfolioModel portfolioToSave) throws IOException {
        
         
@@ -126,10 +135,30 @@ public class ePortfolioFileManager {
                 portfolioToLoad.getPages().get(i).addFooter(slideJso.getString(JSON_PAGE_FOOTER)
                 .replace("[", "").replace("]",""));
             }
+            if(!slideJso.getString(JSON_BANNER_PATH).equals("[]")){
+                portfolioToLoad.getPages().get(i).addBannerImage(slideJso.getString(JSON_BANNER_PATH),
+                        slideJso.getString(JSON_BANNER_FILE_NAME),slideJso.getInt(JSON_BANNER_WIDTH),
+                        slideJso.getInt(JSON_BANNER_HEIGHT));
+                
+                portfolioToLoad.getPages().get(i).getPageEditView().addBannerImageToVBox(
+                        slideJso.getString(JSON_BANNER_PATH) + slideJso.getString(JSON_BANNER_FILE_NAME),
+                        slideJso.getInt(JSON_BANNER_WIDTH), slideJso.getInt(JSON_BANNER_HEIGHT));
+                
+                
+                
+                
+            }
             
             JsonArray paragraphArray = slideJso.getJsonArray(JSON_PAGE_PARAGRAPH);
             for (int p1 = 0; p1<paragraphArray.size();p1++){
                 portfolioToLoad.getPages().get(i).addParagraph(paragraphArray.getString(p1));
+            }
+            JsonArray videoArray = slideJso.getJsonArray(JSON_PAGE_VIDEO_PATH);
+            for (int v1 = 0; v1<videoArray.size();v1++){
+                portfolioToLoad.getPages().get(v1).addVideo(videoArray.getString(v1),
+                        slideJso.getJsonArray(JSON_VIDEO_FILE_NAME).getString(v1),
+                        slideJso.getJsonArray(JSON_VIDEO_WIDTH).getInt(v1),
+                        slideJso.getJsonArray(JSON_VIDEO_HEIGHT).getInt(v1));
             }
             
 //            if (!slideJso.getString(JSON_PAGE_PARAGRAPH).equals("[]")){
@@ -137,7 +166,7 @@ public class ePortfolioFileManager {
 //                .replace("]", ""));
 //            }
 //            
-	
+	  
     }}
 
     // AND HERE ARE THE PRIVATE HELPER METHODS TO HELP THE PUBLIC ONES
@@ -179,12 +208,22 @@ public class ePortfolioFileManager {
 		.add(JSON_PAGE_TITLE, page.getTitle())
                 .add(JSON_PAGE_HEADER, makeArray(page.getHeader()))
                 .add(JSON_PAGE_FOOTER, page.getFooter())
-                .add(JSON_PAGE_PARAGRAPH, makeArray(page.getParagraph()))
+                .add(JSON_PAGE_PARAGRAPH, makeArray(page.getParagraphContent()))
                 .add(JSON_PAGE_LIST, makeArray(page.getListElement()))
-                .add(JSON_IMAGE_PATH, makeArray(page.getImageList()))
-                .add(JSON_IMAGE_FILE_NAME, makeArray(page.getImgFileNameList()))
+                .add(JSON_IMAGE_PATH, makeArray(page.getImagePath()))
+                .add(JSON_IMAGE_FILE_NAME, makeArray(page.getImageFileName()))
+                .add(JSON_IMAGE_WIDTH, makeIntArray(page.getImageWidth()))
+                .add(JSON_IMAGE_HEIGHT, makeIntArray(page.getImageHeight()))
+                .add(JSON_IMAGE_LAYOUT,makeArray(page.getImageLayout()))
+                .add(JSON_IMAGE_CAPTION, makeArray(page.getImageCaption()))
+                .add(JSON_BANNER_PATH, page.getBannerPath())
+                .add(JSON_BANNER_FILE_NAME, page.getBannerName())
+                .add(JSON_BANNER_WIDTH,page.getBannerWidth())
+                .add(JSON_BANNER_HEIGHT,page.getBannerHeight())
                 .add(JSON_PAGE_VIDEO_PATH, makeArray(page.getVideoPath()))
                 .add(JSON_VIDEO_FILE_NAME, makeArray(page.getVidFileNameList()))
+                .add(JSON_VIDEO_WIDTH,makeIntArray(page.getVideoWidth()))
+                .add(JSON_VIDEO_HEIGHT,makeIntArray(page.getVideoHeight()))
                 .build();
         
 	return jso;
@@ -192,6 +231,16 @@ public class ePortfolioFileManager {
     private JsonArray makeArray(ArrayList<String> elements){
         JsonArrayBuilder jsb = Json.createArrayBuilder();
 	for (String x : elements) {
+
+            jsb.add(x);
+	   
+	}
+	JsonArray jA = jsb.build();
+	return jA;
+    }
+    private JsonArray makeIntArray(ArrayList<Integer> ints){
+        JsonArrayBuilder jsb = Json.createArrayBuilder();
+	for (Integer x : ints) {
 
             jsb.add(x);
 	   

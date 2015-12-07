@@ -1,26 +1,80 @@
 
 {
-    "student_name":"st",
+    "student_name":"wei",
     "pages":[
         {
-            "student_name":"st",
-            "page_title":"weichao",
+            "student_name":"wei",
+            "page_title":"first",
             "page_header":[
             ],
             "page_footer":"",
             "page_paragraph":[
-                "sdsad"
+                "hleldsadasd"
             ],
             "page_list":[
-                "cse 219"
             ],
             "image_path":[
             ],
             "image_file_name":[
             ],
+            "image_width":[
+            ],
+            "image_height":[
+            ],
+            "image_layout":[
+            ],
+            "image_caption":[
+            ],
+            "banner_image_path":"",
+            "banner_file_name":"",
+            "banner_image_width":0,
+            "banner_image-height":0,
             "page_video":[
             ],
             "video_file_name":[
+            ],
+            "video_width":[
+            ],
+            "video_height":[
+            ]
+        },
+        {
+            "student_name":"wei",
+            "page_title":"second",
+            "page_header":[
+            ],
+            "page_footer":"",
+            "page_paragraph":[
+            ],
+            "page_list":[
+            ],
+            "image_path":[
+                "/Users/weichaozhao/NetBeansProjects/ePortfolioGenerator/images/slide_show_images/"
+            ],
+            "image_file_name":[
+                "GreatPlainsNebraska.jpg"
+            ],
+            "image_width":[
+                300
+            ],
+            "image_height":[
+                300
+            ],
+            "image_layout":[
+            ],
+            "image_caption":[
+            ],
+            "banner_image_path":"",
+            "banner_file_name":"",
+            "banner_image_width":0,
+            "banner_image-height":0,
+            "page_video":[
+            ],
+            "video_file_name":[
+            ],
+            "video_width":[
+            ],
+            "video_height":[
             ]
         }
     ]
