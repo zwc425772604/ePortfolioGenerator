@@ -508,6 +508,9 @@ public class ePortfolioMakerView {
 	exitButton.setOnAction(e -> {
 	    fileController.handleExitRequest();
 	});
+        selectSiteViewerWorkspaceButton.setOnAction(e -> {
+            fileController.handleSwitchWorkspaceRequest();
+        });
         
         //THEN THE PORTFOLIO EDIT CONTROLS
         editController = new ePortfolioEditController(this);
@@ -530,9 +533,9 @@ public class ePortfolioMakerView {
         addVideoComponentButton.setOnAction(e ->{
             pageController.processAddVideoComponent();
         });
-        selectSiteViewerWorkspaceButton.setOnAction(e -> {
-            pageController.processSiteViewer();
-        });
+//        selectSiteViewerWorkspaceButton.setOnAction(e -> {
+//            pageController.processSiteViewer();
+//        });
         selectPageEditorWorkspaceButton.setOnAction(e ->{
             pageController.processPageEditor();
         });
@@ -724,12 +727,7 @@ public class ePortfolioMakerView {
 		pageEditor.getStyleClass().add(CSS_CLASS_SELECTED_PAGE_EDIT_VIEW);
 	    sitesEditorPane.getChildren().add(pageEditor);
             
-//            Node first = sitesEditorPane.getChildren().get(0);
-//            sitesEditorPane.getChildren().remove(first);
-//            sitesEditorPane.getChildren().add(first);
-            //sitesEditorPane.getChildren().add(0, selectedPEV);
-           // portfolio.getSelectedPage().getPageEditView().toBack();
-           // portfolio.getSelectedPage().getPageEditView().toFront();
+          
 	    pageEditor.setOnMousePressed(e -> {
 		portfolio.setSelectedPage(page);
 		this.reloadPortfolioPane();

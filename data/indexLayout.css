@@ -1,0 +1,66 @@
+#BannerImage{
+	width : 480px;
+	height: 125px;
+	margin:auto;
+	/*background-color: gray;
+    */
+	
+}
+
+#banner{
+   
+    
+}
+#header_container{
+    width: 1350px;
+}
+
+#Images{
+    position: relative;
+    text-align: center;
+}
+
+#name{
+
+    vertical-align: bottom;
+    position: relative;
+    
+    margin-top: 60px;
+    
+
+    left: 25%;
+}
+
+#navbar{
+      position: relative;
+/*	margin-left: 30px;*/
+      left: 4%;
+	
+	height: 30px;
+}
+
+#navbar a{
+	margin-left: 20px;
+	
+
+}
+#banner h1{
+    position: relative;
+    margin-left: 230px;
+/*   left: 37%;*/
+}
+
+#Paragraphs{
+    position: relative;
+    text-align: center;
+}
+#Header h1{
+    position: relative;
+    text-align: center;
+}
+
+
+
+
+
+

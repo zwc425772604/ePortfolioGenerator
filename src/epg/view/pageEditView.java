@@ -136,6 +136,7 @@ public class pageEditView extends VBox {
 	page = initPage;
         this.setPrefHeight(1200);
         selectedTypeComponent = null;
+        selectedComponent = null;
 	headerComp = FXCollections.observableArrayList();
         paragraphComp = FXCollections.observableArrayList();
         imageComp = FXCollections.observableArrayList();
@@ -143,9 +144,22 @@ public class pageEditView extends VBox {
         addFooterToVBox();
         //footerVBox.toBack();
         updateHeader();
+       
+       
         
-	
+        
+    }
+//    public void updateHeader(){
+//        ArrayList<String> header = page.getHeader();
+//        for (String text : header){
+//          addHeaderToVBox(text);
+//        }
+//        reloadPageEditView(page);
+//        
+////        ui.reloadPortfolioPane();
+//    }
 
+     
 	// SETUP THE CAPTION CONTROLS
 //	captionVBox = new VBox();
 //        captionVBox.setPrefSize(300, 500);
@@ -175,7 +189,7 @@ public class pageEditView extends VBox {
 //        addImageToVBox(x,200,200);
 	
 	
-    }
+    
     
     public VBox getWorkspace(){
         return this;
@@ -183,9 +197,9 @@ public class pageEditView extends VBox {
     
     //can remove a single vbox from the pane
     public void removeSelectingComponent(){
-        this.getChildren().remove(selectedComponent);
-        
-    }
+        this.getChildren().remove(getSelectedComponent());
+       //System.out.println("removed");
+        }
     
 
     public void addHeader(){
@@ -245,8 +259,11 @@ public class pageEditView extends VBox {
         listView.getStyleClass().add(CSS_CLASS_LIST_COMPONENT_VBOX);
         l1.setPrefHeight(listElement.size() * 25);
         l1.getChildren().add(listView);
+        
         listView.setOnMouseClicked(e ->{
            selectedTypeComponent = "list";
+           setSelectedComponent(null);
+           selectedComponent = l1;
            selectedListView = listView;
            selectedListElement = listView.getItems();
            selectedTextFromTextArea = listView.getSelectionModel().getSelectedItem();
@@ -330,6 +347,9 @@ public class pageEditView extends VBox {
                 captionTF.setAlignment(Pos.CENTER);
             }
              getChildren().remove(footerVBox);
+             i1.setOnMouseClicked(e ->{
+                 System.out.println("XXx");
+             });
              i1.getChildren().add(imageSelectionView);
              i1.getChildren().add(captionTF);
              getChildren().add(i1);
@@ -337,11 +357,15 @@ public class pageEditView extends VBox {
 	} catch (Exception e) {
 	    ErrorHandler eH = new ErrorHandler(null);
             eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
-	}
+	} 
+         imageSelectionView.setOnMouseClicked(e ->{
+                 System.out.println("xx");
+             });
 //        i1.getChildren().add(imgView);
 //        getChildren().add(i1);
         
     }
+    
     
     public void addVideoToVBox(String path, int height, int width){
          VBox v1 = new VBox();
@@ -420,7 +444,9 @@ public class pageEditView extends VBox {
     public void updateFooterVBox(String x){
         getFooterTextArea().setText(x);
     }
-    
+    public void setSelectedComponent(VBox x){
+        selectedComponent = x;
+    }
     
    
     //Add the paragraph vbox to the pageEditView
@@ -455,7 +481,8 @@ public class pageEditView extends VBox {
             selectedTypeComponent = "paragraph";
             selectedComponentContents = ta.getText();
             selectedTextArea = ta;
-            selectedComponent = this;
+             setSelectedComponent(null);
+            selectedComponent = h1;
             selectedFontSize =  fontSize;
             selectedFontStyle = family;
             ta.getStyleClass().add(CSS_CLASS_SELECTED_COMPONENT);
@@ -538,17 +565,15 @@ public class pageEditView extends VBox {
             stage.setScene(new Scene(webView));
             stage.show();
         });
-       
-        
-//        getSelectedTextArea().setText();
+        //getSelectedTextArea().appendText(link.getText());
         reloadPageEditView(page);
     }
     
-//    public String updateTextInTextArea(String x, String y){
-//        String para= getSelectedTextFromTA();
-//        String output = para.replace(x, y);
-//        return output;      
-//    }
+    public String updateTextInTextArea(String x, String y){
+        String para= getSelectedTextFromTA();
+        String output = para.replace(x, y);
+        return output;      
+    }
     
     public VBox getSelectedComponent(){
         return selectedComponent;
@@ -739,10 +764,6 @@ public class pageEditView extends VBox {
             eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
 	}
     }    
-
-    public void moveFront() {
-        
-    }
    
    
    

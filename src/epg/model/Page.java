@@ -9,6 +9,8 @@ import epg.view.pageEditView;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -60,7 +62,10 @@ public class Page {
     public void setTitle(String initTitle){
         title = initTitle;
     }   
-    
+    public void addImage(String path,int x, int y,String layout,String caption){
+        Image img = new Image(path);
+       
+    }
     public void setStudentName(String initName){
         studentName = initName;
     }
@@ -103,13 +108,13 @@ public class Page {
     public void addImage(String path){
         image.add(path);
     }
-    public ArrayList getImageList(){
+    public ArrayList<String> getImageList(){
         return image;
     }
     public void addImageFileName(String name){
         imageFileNameList.add(name);
     }
-    public ArrayList getImgFileNameList(){
+    public ArrayList<String> getImgFileNameList(){
         return imageFileNameList;
     }
     public void addVideoFileName(String name){

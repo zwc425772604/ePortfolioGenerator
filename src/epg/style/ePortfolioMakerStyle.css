@@ -73,7 +73,7 @@
 }
 
 .selected_component{
-    -fx-background-color: gray;
+    -fx-background-color: red;
 }
 //deal with the size of the button
 .vertical_toolbar_button {

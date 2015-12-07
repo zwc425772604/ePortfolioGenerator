@@ -23,6 +23,8 @@ public class siteViewerWorkspace extends Stage {
     ePortfolioMakerView ui;
     public static Stage primaryStage;
     public siteViewerWorkspace(ePortfolioMakerView initUI){
+        
+        
         ui = initUI;
         primaryStage = new Stage();
         primaryStage.setWidth(1000);
@@ -40,7 +42,7 @@ public class siteViewerWorkspace extends Stage {
      flowpane.setAlignment(Pos.CENTER);
 
      //load a local file
-        String path = ("public_html/" + "1stPage.html");
+        String path = ("data/" + "index.html");
         File file = new File(path);
 	try{
 	  URL fileURL = file.toURI().toURL();

@@ -69,8 +69,8 @@ public class pageEditorController {
 
     public void processRemoveComponent() {
         ui.getPortfolio().getSelectedPage().getPageEditView().removeSelectingComponent();
-        ui.reloadPortfolioPane();
-        ui.getPortfolio().getSelectedPage().getPageEditView().reloadPageEditView(ui.getPortfolio().getSelectedPage());
+       // ui.reloadPortfolioPane();
+       // ui.getPortfolio().getSelectedPage().getPageEditView().reloadPageEditView(ui.getPortfolio().getSelectedPage());
     }
 
     public void processAddSlideshowComponent() throws Exception {

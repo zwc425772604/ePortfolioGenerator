@@ -10,6 +10,7 @@ import epg.dialog.FileNameDialog;
 import epg.dialog.FileSaverDialog;
 import epg.error.ErrorHandler;
 import epg.file.ePortfolioFileManager;
+import epg.model.Page;
 import epg.model.PortfolioModel;
 import epg.view.ePortfolioMakerView;
 import eportfoliogenerator.LanguagePropertyType;
@@ -28,6 +29,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ssm.model.Slide;
 import ssm.model.SlideShowModel;
 
 /**
@@ -248,7 +250,103 @@ public class FileController {
 //    }
     
     public void handleSwitchWorkspaceRequest(){
+//         try {
+//            // WE MAY HAVE TO SAVE CURRENT WORK
+//            boolean continueToSwitch = true;
+//            if (!saved) {
+//                // THE USER CAN OPT OUT HERE WITH A CANCEL
+//                continueToSwitch = promptToSave();
+//            }
+//
+//            // IF THE USER REALLY WANTS TO OPEN A POSE
+//            if (continueToSwitch) {
+//                // GO AHEAD AND PROCEED MAKING A NEW POSE
+//               
+//            }
+//        } catch (IOException ioe) {
+//            ErrorHandler eH = ui.getErrorHandler();
+//            eH.processError(LanguagePropertyType.ERROR_DATA_FILE_LOADING);
+//        }
+//         ui.setSaveAsButtonAble();
+//        
+           PortfolioModel model = ui.getPortfolio();
+	   Page p = model.getSelectedPage();
+           model.reset();
+           model.addPage(p.getTitle(),p.getStudentName());
+            //Save the slide show every times the view button has been clicked
+        try{
+            portfolioIO.savePortfolio(model);
+        }
+        catch (IOException ioe) {
+           
+    }   
+        initDirectory();
+        Stage primaryStage = new Stage();
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(1000);
+        Scene scene = new Scene(new Group(),950,950);
+        final WebView browser = new WebView();
+    final WebEngine webEngine = browser.getEngine();
+     FlowPane flowpane = new FlowPane();
+     
+     flowpane.getChildren().add(browser);
+     flowpane.setAlignment(Pos.CENTER);
+     String path = ("data/index.html");
+        File file = new File(path);
+	try{
+	  URL fileURL = file.toURI().toURL();
+          //System.out.println(fileURL.toExternalForm());
+	    webEngine.load(fileURL.toExternalForm());
+        }
+        catch (Exception e){
         
+        }
+        
+       scene.setRoot(flowpane);
+        primaryStage.setScene(scene);
+    primaryStage.show();
+    }
+    public void initDirectory(){
+        PortfolioModel portfolio = ui.getPortfolio();
+        String title = ui.getPortfolio().getFileName();
+        try{
+            
+            for(int i = 0; i<portfolio.getPages().size();i++){
+            Page p = portfolio.getPages().get(i);
+               
+               // String imgPath = p.getImagePath() + "/" + p.getImageFileName();
+            for(int j = 0; j<p.getImageList().size(); j++){
+            String imgPath = p.getImageList().get(j);
+            System.out.println(imgPath);
+            FileInputStream from = new FileInputStream(imgPath);
+            FileOutputStream to = new FileOutputStream("data/"+ p.getImageFileName());
+            byte[] buffer = new byte[4096];
+            int byteRead;
+            while( (byteRead = from.read(buffer))!=-1){
+                to.write(buffer, 0, byteRead);
+            }
+            from.close();
+            to.close();
+            System.out.println("IMG file copied successfully");
+        }}}
+        catch(Exception ee){
+            System.err.println("Fail to copy the image");
+        }
+        try{
+            FileInputStream from = new FileInputStream("data/portfolio/" + title +".json");
+            FileOutputStream to = new FileOutputStream("data/" + "index.json");
+            byte[] buffer = new byte[4096];
+            int byteRead;
+            while( (byteRead = from.read(buffer))!=-1){
+                to.write(buffer, 0, byteRead);
+            }
+            from.close();
+            to.close();
+            System.out.println("JSON file copied successfully");
+        }
+        catch(Exception ee){
+            System.err.println("Fail to copy the json");
+        }
     }
     /**
      * This helper method asks the user for a file to open. The user-selected
@@ -266,8 +364,10 @@ public class FileController {
         if (selectedFile != null) {
             try {
 		PortfolioModel portfolioToLoad = ui.getPortfolio();
+                
                 portfolioIO.loadPortfolio(portfolioToLoad, selectedFile.getAbsolutePath());
 //                ui.reloadPortfolioPane();
+              //  portfolioToLoad.setSelectedPage(null);
                 saved = true;
                 ui.updateToolbarControls(saved);
                 ui.reloadPortfolioPane();
